@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>郭石磊的博客世界</title>
+  <title>Category: css | 郭石磊的博客世界</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="郭石磊的博客世界">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/categories/css/index.html">
 <meta property="og:site_name" content="郭石磊的博客世界">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="郭石磊的博客世界">
@@ -169,54 +169,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-CSS中浮动的影响" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2014" class="archive-year">2014</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2014/10/11/CSS中浮动的影响/" class="archive-article-date">
+  	<time datetime="2014-10-11T09:27:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-10-11</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/11/CSS中浮动的影响/">css中浮动的影响</a>
+      <a class="archive-article-title" href="/2014/10/11/CSS中浮动的影响/">css中浮动的影响</a>
     </h1>
   
 
-        
-        <a href="/2014/10/11/CSS中浮动的影响/" class="archive-article-date">
-  	<time datetime="2014-10-11T09:27:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-10-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、浮动存在的问题<br>浮动的元素不能撑高父级。元素脱离标准流之后， 不能再撑高它的父级盒子<br>浮动会影响后面的浮动的元素。如果后面的浮动方向相同， 会去贴上一个浮动最后一个元素的边。</p>
-<p>2、清楚浮动影响的方法<br>给父盒子加高度<br>给父级元素增加高度， 它内部的浮动元素， 被限制了范围， 不会再影响后面的元素浮动。<br>效果： 解决父级高度的问题， 解决浮动影响后面的浮动的问题。<br>      问题： 高度还是不能够自适应。<br>清除浮动属性 clear<br>元素都可以设置一个叫做 clear 的属性， 清除浮动的作用。<br>属性值： left、 right、 both。<br>作用： clear 整体表示清除自身受到的其他元素带来的浮动的影响。<br>left： 清除受到的左浮动影响。<br>right： 清除受到的右浮动影响。<br>both： 清除受到的左右两个方向的浮动影响。<br>      box1{</p>
-<pre><code>    clear: both;
-
-} 
-
-解决： 浮动的互相影响。
-</code></pre><p>问题： 父盒子还是不能被子盒子撑高。 margin 如果小于中间浮动的子元素的高度， 显示效果失效。<br>隔墙法<br>外墙法：<br>在右浮动元素的父盒子之间隔一堵墙。 添加两个类， 一个是用来清除浮动， 一个用来模拟外边距。<br>cl{<br>         clear: both; 清除浮动</p>
-<pre><code>}
-
-.h20{
-
-    height: 20px; 模拟间距
-
-}
-
-
-解决： 浮动互相影响。
-</code></pre><p>问题： 高度自适应， margin 失效。<br>      内墙法：<br>将清除浮动的墙放在有浮动元素的父盒子内部的最后。 只要有浮动， 就在盒子内部加一堵墙。<br>      解决： 浮动互相影响， 高度自适应， margin 失效。<br>缺点： ①html 结构布局， 很多需要进行浮动， 每个浮动的盒子内都需要隔一堵墙。 页面结构复杂会出现很多<br>冗余的没有意义的标签。<br>②一个盒子内的标签要浮动就都浮动， 浮动后面的墙是一个标准流里的元素<br>overflow： hidden<br>盒子内部的元素可以设置溢出模式， 隐藏， 自动显示。<br>overflow： 溢出。<br>属性值： hidden 溢出隐藏， auto 溢出滚动（ 多出的内容出现滚动条）<br>overflow： hidden;<br>overflow： auto;<br>       overflow 的其他小功能： 能够清除盒子内部元素的浮动影响<br>      解决： 浮动互相影响， 高度自适应， margin 失效。<br>优势： 能够解决所有的问题， 不会增加无用的标签。</p>
-<p>3、overflow： hidden； 的加载机制：<br>高度自适应： 如果元素有溢出隐藏的属性， 网页加载时， 会强制的去元素内部搜索， 识别所有内部元素的高度， 会用最高的元素高度配给我们父盒子的自适应高度。<br>浮动影响： 加载时， 如果有溢出隐藏， 强制检索， 看盒子内部是否有浮动的元素， 如果有， 会被整体管理起来， 在自身的高度内， 不会影响其他的浮动元素。<br>实际工作中： 就用 overflow 来清浮动</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -228,7 +208,7 @@
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -241,27 +221,17 @@
 	</div>
 
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2014/10/11/CSS中浮动的影响/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-
-
-
-
-
   
   
+    </div></section>
+  
+
+    
 
 
           </div>
@@ -283,11 +253,11 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
 		isTag: false,
-		isCategory: false,
+		isCategory: true,
 		open_in_new: false,
 		root: "/",
 		innerArchive: true,
