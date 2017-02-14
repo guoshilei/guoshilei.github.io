@@ -56,7 +56,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/简介/">相册</a></li>
+				<li><a href="/tags/简介/">简介</a></li>
 	        
 				<li><a href="/tags/作品/">作品</a></li>
 	        
@@ -154,7 +154,7 @@
 				
 					<li style="width: 25%"><a href="/">主页</a></li>
 		        
-					<li style="width: 25%"><a href="/tags/简介/">相册</a></li>
+					<li style="width: 25%"><a href="/tags/简介/">简介</a></li>
 		        
 					<li style="width: 25%"><a href="/tags/作品/">作品</a></li>
 		        
@@ -182,7 +182,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/11/title/">css中浮动的影响</a>
+      <a class="article-title" href="/2014/10/11/title/">**css中浮动的影响**</a>
     </h1>
   
 
@@ -195,27 +195,117 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1、浮动存在的问题<br>浮动的元素不能撑高父级。元素脱离标准流之后， 不能再撑高它的父级盒子<br>浮动会影响后面的浮动的元素。如果后面的浮动方向相同， 会去贴上一个浮动最后一个元素的边。</p>
-<p>2、清楚浮动影响的方法<br>给父盒子加高度<br>给父级元素增加高度， 它内部的浮动元素， 被限制了范围， 不会再影响后面的元素浮动。<br>效果： 解决父级高度的问题， 解决浮动影响后面的浮动的问题。<br>      问题： 高度还是不能够自适应。<br>清除浮动属性 clear<br>元素都可以设置一个叫做 clear 的属性， 清除浮动的作用。<br>属性值： left、 right、 both。<br>作用： clear 整体表示清除自身受到的其他元素带来的浮动的影响。<br>left： 清除受到的左浮动影响。<br>right： 清除受到的右浮动影响。<br>both： 清除受到的左右两个方向的浮动影响。<br>      box1{</p>
-<pre><code>    clear: both;
+        <h1 id="1、浮动存在的问题"><a href="#1、浮动存在的问题" class="headerlink" title="## 1、浮动存在的问题 ##"></a>## 1、浮动存在的问题 ##</h1><p>浮动的元素不能撑高父级。元素脱离标准流之后， 不能再撑高它的父级盒子<br>浮动会影响后面的浮动的元素。如果后面的浮动方向相同， 会去贴上一个浮动最后一个元素的边。</p>
+<h2 id="2、清楚浮动影响的方法"><a href="#2、清楚浮动影响的方法" class="headerlink" title="2、清楚浮动影响的方法"></a>2、清楚浮动影响的方法</h2><ul>
+<li>给父盒子加高度<br>给父级元素增加高度， 它内部的浮动元素， 被限制了范围， 不会再影响后面的元素浮动。</li>
+</ul>
+<blockquote>
+<p>效果： 解决父级高度的问题， 解决浮动影响后面的浮动的问题。<br>      问题： 高度还是不能够自适应。</p>
+</blockquote>
+<ul>
+<li>清除浮动属性 clear</li>
+</ul>
+<p>元素都可以设置一个叫做 clear 的属性， 清除浮动的作用。</p>
+<blockquote>
+<p>属性值： left、 right、 both。<br>作用： clear 整体表示清除自身受到的其他元素带来的浮动的影响。<br>left： 清除受到的左浮动影响。<br>right： 清除受到的右浮动影响。<br>both： 清除受到的左右两个方向的浮动影响。</p>
+</blockquote>
+<pre><code>box1{
 
-} 
+clear: both;}
+`
+</code></pre><blockquote>
+<p>  解决： 浮动的互相影响。`</p>
+<p>问题： 父盒子还是不能被子盒子撑高。 margin 如果小于中间浮动的子元素的高度， 显示效果失效。<br>隔墙法<br>外墙法：<br>在右浮动元素的父盒子之间隔一堵墙。 添加两个类， 一个是用来清除浮动， 一个用来模拟外边距。</p>
+</blockquote>
+<pre><code>cl{
+     clear: both; 清除浮动
 
-解决： 浮动的互相影响。
-</code></pre><p>问题： 父盒子还是不能被子盒子撑高。 margin 如果小于中间浮动的子元素的高度， 显示效果失效。<br>隔墙法<br>外墙法：<br>在右浮动元素的父盒子之间隔一堵墙。 添加两个类， 一个是用来清除浮动， 一个用来模拟外边距。<br>cl{<br>         clear: both; 清除浮动</p>
-<pre><code>}
+  }
 
-.h20{
+  .h20{
 
-    height: 20px; 模拟间距
+      height: 20px; 模拟间距
 
+  }
+</code></pre><p>解决： 浮动互相影响。<br>问题： 高度自适应， MARGIN 失效。</p>
+<ul>
+<li>内墙法：<br>将清除浮动的墙放在有浮动元素的父盒子内部的最后。 只要有浮动， 就在盒子内部加一堵墙。</li>
+</ul>
+<blockquote>
+<p>解决： 浮动互相影响， 高度自适应， margin 失效。</p>
+<p>缺点： ①html 结构布局， 很多需要进行浮动， 每个浮动的盒子内都需要隔一堵墙。 页面结构复杂会出现很多<br>冗余的没有意义的标签。</p>
+<p>②一个盒子内的标签要浮动就都浮动， 浮动后面的墙是一个标准流里的元素<br>overflow： hidden<br>盒子内部的元素可以设置溢出模式， 隐藏， 自动显示。<br>overflow： 溢出。</p>
+</blockquote>
+<p>属性值： hidden 溢出隐藏， auto 溢出滚动（ 多出的内容出现滚动条）<br>`</p>
+<pre><code>{
+      `overflow： hidden;
+      overflow： auto;`
 }
-
-
-解决： 浮动互相影响。
-</code></pre><p>问题： 高度自适应， margin 失效。<br>      内墙法：<br>将清除浮动的墙放在有浮动元素的父盒子内部的最后。 只要有浮动， 就在盒子内部加一堵墙。<br>      解决： 浮动互相影响， 高度自适应， margin 失效。<br>缺点： ①html 结构布局， 很多需要进行浮动， 每个浮动的盒子内都需要隔一堵墙。 页面结构复杂会出现很多<br>冗余的没有意义的标签。<br>②一个盒子内的标签要浮动就都浮动， 浮动后面的墙是一个标准流里的元素<br>overflow： hidden<br>盒子内部的元素可以设置溢出模式， 隐藏， 自动显示。<br>overflow： 溢出。<br>属性值： hidden 溢出隐藏， auto 溢出滚动（ 多出的内容出现滚动条）<br>{<br>  overflow： hidden;<br>  overflow： auto;<br>}<br>       overflow 的其他小功能： 能够清除盒子内部元素的浮动影响<br>      解决： 浮动互相影响， 高度自适应， margin 失效。<br>优势： 能够解决所有的问题， 不会增加无用的标签。</p>
-<p>3、overflow： hidden； 的加载机制：<br>高度自适应： 如果元素有溢出隐藏的属性， 网页加载时， 会强制的去元素内部搜索， 识别所有内部元素的高度， 会用最高的元素高度配给我们父盒子的自适应高度。<br>浮动影响： 加载时， 如果有溢出隐藏， 强制检索， 看盒子内部是否有浮动的元素， 如果有， 会被整体管理起来， 在自身的高度内， 不会影响其他的浮动元素。<br>实际工作中： 就用 overflow 来清浮动</p>
-
+</code></pre><p>overflow 的其他小功能： 能够清除盒子内部元素的浮动影响 </p>
+<p>解决： 浮动互相影响， 高度自适应， margin 失效。</p>
+<p>优势： 能够解决所有的问题， 不会增加无用的标签。</p>
+<h2 id="3、overflow：-hidden；-的加载机制："><a href="#3、overflow：-hidden；-的加载机制：" class="headerlink" title="3、overflow： hidden； 的加载机制："></a>3、overflow： hidden； 的加载机制：</h2><p><strong>高度自适应： </strong></p>
+<p>如果元素有溢出隐藏的属性， 网页加载时， 会强制的去元素内部搜索， 识别所有内部元素的高度， 会用最高的元素高度配给我们父盒子的自适应高度。</p>
+<p><strong>浮动影响：</strong></p>
+<p> 加载时， 如果有溢出隐藏， 强制检索， 看盒子内部是否有浮动的元素， 如果有， 会被整体管理起来， 在自身的高度内， 不会影响其他的浮动元素。<br>实际工作中： 就用 overflow 来清浮动</p>
+<hr>
+<p>title: “# CSS-background背景 #”<br>date: 2014-10-16 17:27:56<br>categories: css</p>
+<h2 id="tags-css"><a href="#tags-css" class="headerlink" title="tags: css"></a>tags: css</h2><h1 id="一、background背景"><a href="#一、background背景" class="headerlink" title="一、background背景"></a>一、background背景</h1><p>background是一个复合属性。</p>
+<h2 id="1、background-color背景色"><a href="#1、background-color背景色" class="headerlink" title="1、background-color背景色"></a>1、background-color背景色</h2><p>渲染位置：border及以内。<br>属性值：十六进制、rgb、rgba、颜色名。</p>
+<pre><code>background-color: blue;
+</code></pre><h2 id="2、background-image背景图"><a href="#2、background-image背景图" class="headerlink" title="2、background-image背景图"></a>2、background-image背景图</h2><p>实际渲染位置：跟背景色一样，能看到的其实就是border以内。<br>属性值：url(图片路径)。</p>
+<pre><code>background-image: url(images/hai.jpg);
+</code></pre><p>添加的背景图片会铺满整个盒子的背景区域。</p>
+<p>url：uniform resource locator。统一资源定位符。实际就是背景图片的来源。<br>url内部的值：图片的路径，可以是相对路径，也可以是绝对路径。</p>
+<p>背景图和背景色的压盖顺序：image压盖color。</p>
+<h2 id="3、background-repeat背景重复"><a href="#3、background-repeat背景重复" class="headerlink" title="3、background-repeat背景重复"></a>3、background-repeat背景重复</h2><p>设置背景图片以什么方式进行重复。<br>属性值：<br>repeat 默认值，整个背景区域重复<br>no-repeat 不重复<br>repeat-x 水平方向重复<br>repeat-y 垂直方向重复</p>
+<pre><code>background-repeat: repeat;
+background-repeat: no-repeat;
+background-repeat: repeat-x;
+background-repeat: repeat-y;`
+</code></pre><p>body背景加载效果：</p>
+<p>repeat-x的一个妙用：制作一个渐变背景的导航栏。<br>给盒子添加一个背景图：水平方向1像素宽，垂直方向就是正常高度，让背景图，水平重复铺开。</p>
+<pre><code>background-image: url(images/nav_bg.png);
+background-repeat: repeat-x;
+background-position背景图位置
+</code></pre><p>作用：规定我们插入的背景图的在盒子里的位置。<br>属性值：像素表示法、单词表示法、百分比表示法。</p>
+<p>①像素表示法<br>属性值有两个，都用像素表示：</p>
+<pre><code>background-position: 150px 100px;
+</code></pre><p>第一个属性值：背景图片左上角距离盒子背景区域左上角（border以内）的水平偏移量。</p>
+<p>第二个属性值：背景图片左上角距离盒子背景区域左上角（border以内）的垂直偏移量。</p>
+<p>位置的属性值分正负。正方向：向右向下移动；负方向：向左向上移动。指的是图片针对（0,0）点移动的方向。</p>
+<p>css精灵图技术：很多元素都有背景图，需要有实际存在图片，就需要发送多个http请求下载图片。将很多小的背景图合成在一张图片上，谁用背景图加载的都是一张图片。<br>用法：给一个合适盒子大小，通过背景图定位找到图片的位置。</p>
+<p>②单词表示法</p>
+<p>图片位置水平和垂直方向用代表方向的单词来表示</p>
+<p>水平方向，第一个属性值：left ，center，right。背景在盒子内部居左、居中、居右。</p>
+<p>垂直方向，第二个属性值：top，center，bottom。背景图在盒子内部居上、居中、居下。</p>
+<pre><code>background-position: center center;
+</code></pre><p>body大背景效果：水平居中、垂直居上。</p>
+<pre><code>background-position: center top;
+</code></pre><p>制作通栏ｂａｎｎｅｒ。</p>
+<p>③百分比表示法</p>
+<p>关注：百分比参考依据。</p>
+<pre><code>background-position: 100% 50%;
+background-attachment背景附着
+</code></pre><p>指的是背景是否随着页面滚动而滚动。</p>
+<p>属性值：<br>scroll 滚动，背景图会随着页面滚动走。</p>
+<p>fixed 固定，背景图不会随着页面滚动而滚走。<br>    background-attachment: fixed;</p>
+<h2 id="background复合属性"><a href="#background复合属性" class="headerlink" title="background复合属性"></a>background复合属性</h2><pre><code>background: #f00 fixed url(images/bg4.jpg) no-repeat center top;
+</code></pre><p>五个属性之间位置可以更换，position的两个属性值位置不能电脑。</p>
+<p>#二、背景实际应用#</p>
+<h2 id="1、padding挤出背景图效果"><a href="#1、padding挤出背景图效果" class="headerlink" title="1、padding挤出背景图效果"></a>1、padding挤出背景图效果</h2><p>方法：给盒子用padding-left留出一个空白区域，添加一个合适的背景图，不重复。</p>
+<pre><code>padding-top: 96px;
+background: url(images/in_12.png) no-repeat center top;
+</code></pre><h2 id="2、文字换图片"><a href="#2、文字换图片" class="headerlink" title="2、文字换图片"></a>2、文字换图片</h2><p>提高搜索引擎优化：搜索时都是搜索文字。</p>
+<p>h1标签内部放的是logo的图片。用一个技巧，logo图不用插入图，换成背景图，内部放置的是简单的关键字。</p>
+<pre><code>h1 a{
+    display: block;
+    height: 96px;
+    background: url(images/in_15.png); 添加背景图，用户看到
+    text-indent: -9999px; 隐藏文字
+    overflow: hidden;
+}
+</code></pre>
       
 
       
