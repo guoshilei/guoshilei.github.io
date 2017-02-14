@@ -882,27 +882,9 @@ clear: both;}
 
   }
 </code></pre><p>解决： 浮动互相影响。<br>问题： 高度自适应， MARGIN 失效。</p>
-<ul>
-<li>内墙法：<br>将清除浮动的墙放在有浮动元素的父盒子内部的最后。 只要有浮动， 就在盒子内部加一堵墙。</li>
-</ul>
-<blockquote>
-<p>解决： 浮动互相影响， 高度自适应， margin 失效。</p>
-<p>缺点： ①html 结构布局， 很多需要进行浮动， 每个浮动的盒子内都需要隔一堵墙。 页面结构复杂会出现很多<br>冗余的没有意义的标签。</p>
-<p>②一个盒子内的标签要浮动就都浮动， 浮动后面的墙是一个标准流里的元素<br>overflow： hidden<br>盒子内部的元素可以设置溢出模式， 隐藏， 自动显示。<br>overflow： 溢出。</p>
-</blockquote>
-<p>属性值： hidden 溢出隐藏， auto 溢出滚动（ 多出的内容出现滚动条）<br>`</p>
-<pre><code>{
-      `overflow： hidden;
-      overflow： auto;`
-}
-</code></pre><p>overflow 的其他小功能： 能够清除盒子内部元素的浮动影响 </p>
-<p>解决： 浮动互相影响， 高度自适应， margin 失效。</p>
-<p>优势： 能够解决所有的问题， 不会增加无用的标签。</p>
-<h2 id="3、overflow：-hidden；-的加载机制："><a href="#3、overflow：-hidden；-的加载机制：" class="headerlink" title="3、overflow： hidden； 的加载机制："></a>3、overflow： hidden； 的加载机制：</h2><p><strong>高度自适应： </strong></p>
-<p>如果元素有溢出隐藏的属性， 网页加载时， 会强制的去元素内部搜索， 识别所有内部元素的高度， 会用最高的元素高度配给我们父盒子的自适应高度。</p>
-<p><strong>浮动影响：</strong></p>
-<p> 加载时， 如果有溢出隐藏， 强制检索， 看盒子内部是否有浮动的元素， 如果有， 会被整体管理起来， 在自身的高度内， 不会影响其他的浮动元素。<br>实际工作中： 就用 overflow 来清浮动</p>
-
+        
+          <a class="article-more-a" href="/2014/10/11/title/#more">more >></a>
+        
       
 
       
