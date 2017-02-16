@@ -59,11 +59,9 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/简介/">简介</a></li>
+				<li><a href="/archives">所有文章</a></li>
 	        
-				<li><a href="/tags/作品/">作品</a></li>
-	        
-				<li><a href="/tags/联系我/">联系我</a></li>
+				<li><a href="/tags/简介">简介</a></li>
 	        
 			</ul>
 		</nav>
@@ -85,7 +83,7 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/guoshilei" title="github"><i class="icon-github"></i></a>
 		        
 					<a class="weibo" target="_blank" href="http://weibo.com/58gsl" title="weibo"><i class="icon-weibo"></i></a>
 		        
@@ -129,14 +127,12 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/guoshilei" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="weibo" target="_blank" href="http://weibo.com/58gsl" title="weibo"><i class="icon-weibo"></i></a>
 			        
@@ -155,13 +151,11 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 25%"><a href="/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
 		        
-					<li style="width: 25%"><a href="/tags/简介/">简介</a></li>
+					<li style="width: 33.333333333333336%"><a href="/archives">所有文章</a></li>
 		        
-					<li style="width: 25%"><a href="/tags/作品/">作品</a></li>
-		        
-					<li style="width: 25%"><a href="/tags/联系我/">联系我</a></li>
+					<li style="width: 33.333333333333336%"><a href="/tags/简介">简介</a></li>
 		        
 				</ul>
 			</nav>
@@ -177,6 +171,113 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-jianjie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/31/jianjie/">IE6兼容及hack使用</a>
+    </h1>
+  
+
+        
+        <a href="/2014/10/31/jianjie/" class="archive-article-date">
+  	<time datetime="2014-10-31T09:27:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-10-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、HACK"><a href="#一、HACK" class="headerlink" title="一、HACK"></a>一、HACK</h2><p>我们真正的网页是由一份html和css来完成，在不同用户电脑上可能不一样的渲染效果。<br>但是我们需要所有浏览器渲染效果都是一致的，由于存在兼容问题，对于一些特殊的html和css，要根据浏览器的不同，写不同的代码，显示效果是一样的，这个技术就叫做HACK（Hacker黑客）。</p>
+<p>hack：针对不同的浏览器写不同的html和css，达到显示一致的效果。<br>分类：html hack，css hack。</p>
+<p>1、html的hack<br>根据不同的浏览器写不同的html代码。需要用到一个辅助的代码，叫做hack符号。IE浏览器存在很多兼容问题，IE给我们留了一个接口，规定的IE版本的浏览器认识里面是html结构，其他的浏览器认为里面的是注释。</p>
+<pre><code>&lt;!--[if lte IE 9]&gt;
+   这是一段文字
+&lt;![endif]--&gt;
+</code></pre><p>这段代码里面的文字，只能在IE9及以下的版本浏览器内看得到。其他的不显示，认为是注释。</p>
+<blockquote>
+<p>if：如果 lte：小于等于 IE 浏览器 9版本。</p>
+<p>lte：less than or equal ，小于等于</p>
+<p>lt：less than ，小于</p>
+<p>gt：greater than ，大于</p>
+<p>gte： greater than or equal ，大于等于</p>
+</blockquote>
+<p>如果低于IE8就显示，其他的认为是注释。</p>
+<pre><code>&lt;!--[if lt IE 8]&gt;
+       &lt;h1&gt;这是一个标题&lt;/h1&gt;
+    &lt;![endif]--&gt;
+</code></pre><p>如果高于IE8就显示，其他的认为是注释。</p>
+<pre><code>&lt;!--[if gt IE 8]&gt;
+    &lt;h2&gt;大于IE8能看见&lt;/h2&gt;
+&lt;![endif]--&gt;
+</code></pre><p>如果只有IE8认识，其他都是注释。</p>
+<pre><code>&lt;!--[if IE 8]&gt;
+    &lt;p&gt;只有IE8认识&lt;/p&gt;
+&lt;![endif]--&gt;
+</code></pre><p>作为浏览器版本提醒：<br>      <!--[if lte IE 8]>
+           <h2>你的浏览器版本过低，请更新。</h2>
+      <![endif]--><br>      <div class="box"></div></p>
+<p>有一些代码在IE中加载，其他浏览器不加载。<br>      <!--[if IE 6]>
+          <script src="js/ie6.js"></script>
+      <![endif]--></p>
+<p>位置不能乱写：不能卸载css样式里面</p>
+        
+          <a class="article-more-a" href="/2014/10/31/jianjie/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">简介</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/css/" class="article-tag-list-link color4">css</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2014/10/31/jianjie/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
   
     <article id="post-title3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -686,6 +787,10 @@ left: 150px;
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
@@ -767,7 +872,7 @@ left: 150px;
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;br&gt;web的世界很精彩！&lt;br&gt;分享、交流、学习</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;br&gt;郭石磊，&lt;br&gt;毕业于北京化工大学&lt;br&gt;&lt;br&gt;web的世界很精彩！&lt;br&gt;而我只是微博世界的一粒尘沙！&lt;br&gt;&lt;br&gt;分享、交流、学习</div>
   	  	
     	</section>
     
