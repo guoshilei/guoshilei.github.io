@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -118,7 +118,7 @@ background-image: url(images/ha">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
@@ -517,6 +517,27 @@ background: url(images/in_12.png) no-repeat center top;
     <div>
       
         
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="郭石磊 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="郭石磊 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
     </div>
@@ -539,8 +560,8 @@ background: url(images/in_12.png) no-repeat center top;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/10/11/title/" rel="next" title="css中浮动的影响">
-                <i class="fa fa-chevron-left"></i> css中浮动的影响
+              <a href="/2014/10/16/title2/" rel="next" title="CSS中定位的使用">
+                <i class="fa fa-chevron-left"></i> CSS中定位的使用
               </a>
             
           </div>
@@ -549,8 +570,8 @@ background: url(images/in_12.png) no-repeat center top;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/10/16/title2/" rel="prev" title="CSS中定位的使用">
-                CSS中定位的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2014/10/31/title3/" rel="prev" title="IE6兼容及hack使用">
+                IE6兼容及hack使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -742,7 +763,7 @@ background: url(images/in_12.png) no-repeat center top;
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Pisces
   </a>
 </div>
 
@@ -814,6 +835,13 @@ background: url(images/in_12.png) no-repeat center top;
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
