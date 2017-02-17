@@ -332,7 +332,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/31/title3/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/20/title14/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Layne">
@@ -357,8 +357,8 @@
             
               
                 
-                <a class="post-title-link" href="/2014/10/31/title3/" itemprop="url">
-                  IE6兼容及hack使用
+                <a class="post-title-link" href="/2014/11/20/title14/" itemprop="url">
+                  DOM操作方法
                 </a>
               
             
@@ -374,8 +374,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-31T17:27:56+08:00">
-                2014-10-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-11-20T17:27:56+08:00">
+                2014-11-20
               </time>
             
 
@@ -397,8 +397,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/categories/Dom/" itemprop="url" rel="index">
+                    <span itemprop="name">Dom</span>
                   </a>
                 </span>
 
@@ -415,8 +415,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2014/10/31/title3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/31/title3/" itemprop="commentCount"></span>
+                <a href="/2014/11/20/title14/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/20/title14/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -424,7 +424,7 @@
 
           
           
-             <span id="/2014/10/31/title3/" class="leancloud_visitors" data-flag-title="IE6兼容及hack使用">
+             <span id="/2014/11/20/title14/" class="leancloud_visitors" data-flag-title="DOM操作方法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -454,42 +454,13 @@
 
       
         
-          <h2 id="一、HACK"><a href="#一、HACK" class="headerlink" title="一、HACK"></a>一、HACK</h2><p>我们真正的网页是由一份html和css来完成，在不同用户电脑上可能不一样的渲染效果。<br>但是我们需要所有浏览器渲染效果都是一致的，由于存在兼容问题，对于一些特殊的html和css，要根据浏览器的不同，写不同的代码，显示效果是一样的，这个技术就叫做HACK（Hacker黑客）。</p>
-<p>hack：针对不同的浏览器写不同的html和css，达到显示一致的效果。<br>分类：html hack，css hack。</p>
-<p>1、html的hack<br>根据不同的浏览器写不同的html代码。需要用到一个辅助的代码，叫做hack符号。IE浏览器存在很多兼容问题，IE给我们留了一个接口，规定的IE版本的浏览器认识里面是html结构，其他的浏览器认为里面的是注释。</p>
-<pre><code>&lt;!--[if lte IE 9]&gt;
-   这是一段文字
-&lt;![endif]--&gt;
-</code></pre><p>这段代码里面的文字，只能在IE9及以下的版本浏览器内看得到。其他的不显示，认为是注释。</p>
-<blockquote>
-<p>if：如果 lte：小于等于 IE 浏览器 9版本。</p>
-<p>lte：less than or equal ，小于等于</p>
-<p>lt：less than ，小于</p>
-<p>gt：greater than ，大于</p>
-<p>gte： greater than or equal ，大于等于</p>
-</blockquote>
-<p>如果低于IE8就显示，其他的认为是注释。</p>
-<pre><code>&lt;!--[if lt IE 8]&gt;
-       &lt;h1&gt;这是一个标题&lt;/h1&gt;
-    &lt;![endif]--&gt;
-</code></pre><p>如果高于IE8就显示，其他的认为是注释。</p>
-<pre><code>&lt;!--[if gt IE 8]&gt;
-    &lt;h2&gt;大于IE8能看见&lt;/h2&gt;
-&lt;![endif]--&gt;
-</code></pre><p>如果只有IE8认识，其他都是注释。</p>
-<pre><code>&lt;!--[if IE 8]&gt;
-    &lt;p&gt;只有IE8认识&lt;/p&gt;
-&lt;![endif]--&gt;
-</code></pre><p>作为浏览器版本提醒：<br>      <!--[if lte IE 8]>
-           <h2>你的浏览器版本过低，请更新。</h2>
-      <![endif]--><br>      <div class="box"></div></p>
-<p>有一些代码在IE中加载，其他浏览器不加载。<br>      <!--[if IE 6]>
-          <script src="js/ie6.js"></script>
-      <![endif]--></p>
-<p>位置不能乱写：不能卸载css样式里面</p>
+          
+          1、DOM体验DOM（Document Object Model，文档对象模型）描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。这使得JavaScript操作HTML，不是在操作字符串，而是在操作节点，极大地降低了编程难度。编写例子整体感知一下这个事儿。
+1    //获得元素
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/10/31/title3/#more" rel="contents">
+            <a class="btn" href="/2014/11/20/title14/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -532,7 +503,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/31/title34/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/20/title23/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Layne">
@@ -557,8 +528,8 @@
             
               
                 
-                <a class="post-title-link" href="/2014/10/31/title34/" itemprop="url">
-                  IE6兼容及hack使用
+                <a class="post-title-link" href="/2014/11/20/title23/" itemprop="url">
+                  延时器setTimeout讲解
                 </a>
               
             
@@ -574,8 +545,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-31T17:27:56+08:00">
-                2014-10-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-11-20T17:27:56+08:00">
+                2014-11-20
               </time>
             
 
@@ -597,8 +568,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/categories/setTimeout/" itemprop="url" rel="index">
+                    <span itemprop="name">setTimeout</span>
                   </a>
                 </span>
 
@@ -615,8 +586,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2014/10/31/title34/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/31/title34/" itemprop="commentCount"></span>
+                <a href="/2014/11/20/title23/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/20/title23/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -624,7 +595,7 @@
 
           
           
-             <span id="/2014/10/31/title34/" class="leancloud_visitors" data-flag-title="IE6兼容及hack使用">
+             <span id="/2014/11/20/title23/" class="leancloud_visitors" data-flag-title="延时器setTimeout讲解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -654,42 +625,18 @@
 
       
         
-          <h2 id="一、HACK"><a href="#一、HACK" class="headerlink" title="一、HACK"></a>一、HACK</h2><p>我们真正的网页是由一份html和css来完成，在不同用户电脑上可能不一样的渲染效果。<br>但是我们需要所有浏览器渲染效果都是一致的，由于存在兼容问题，对于一些特殊的html和css，要根据浏览器的不同，写不同的代码，显示效果是一样的，这个技术就叫做HACK（Hacker黑客）。</p>
-<p>hack：针对不同的浏览器写不同的html和css，达到显示一致的效果。<br>分类：html hack，css hack。</p>
-<p>1、html的hack<br>根据不同的浏览器写不同的html代码。需要用到一个辅助的代码，叫做hack符号。IE浏览器存在很多兼容问题，IE给我们留了一个接口，规定的IE版本的浏览器认识里面是html结构，其他的浏览器认为里面的是注释。</p>
-<pre><code>&lt;!--[if lte IE 9]&gt;
-   这是一段文字
-&lt;![endif]--&gt;
-</code></pre><p>这段代码里面的文字，只能在IE9及以下的版本浏览器内看得到。其他的不显示，认为是注释。</p>
-<blockquote>
-<p>if：如果 lte：小于等于 IE 浏览器 9版本。</p>
-<p>lte：less than or equal ，小于等于</p>
-<p>lt：less than ，小于</p>
-<p>gt：greater than ，大于</p>
-<p>gte： greater than or equal ，大于等于</p>
-</blockquote>
-<p>如果低于IE8就显示，其他的认为是注释。</p>
-<pre><code>&lt;!--[if lt IE 8]&gt;
-       &lt;h1&gt;这是一个标题&lt;/h1&gt;
-    &lt;![endif]--&gt;
-</code></pre><p>如果高于IE8就显示，其他的认为是注释。</p>
-<pre><code>&lt;!--[if gt IE 8]&gt;
-    &lt;h2&gt;大于IE8能看见&lt;/h2&gt;
-&lt;![endif]--&gt;
-</code></pre><p>如果只有IE8认识，其他都是注释。</p>
-<pre><code>&lt;!--[if IE 8]&gt;
-    &lt;p&gt;只有IE8认识&lt;/p&gt;
-&lt;![endif]--&gt;
-</code></pre><p>作为浏览器版本提醒：<br>      <!--[if lte IE 8]>
-           <h2>你的浏览器版本过低，请更新。</h2>
-      <![endif]--><br>      <div class="box"></div></p>
-<p>有一些代码在IE中加载，其他浏览器不加载。<br>      <!--[if IE 6]>
-          <script src="js/ie6.js"></script>
-      <![endif]--></p>
-<p>位置不能乱写：不能卸载css样式里面</p>
+          
+          1、延时器延时器：setTimeout()。在指定时间之后，执行1次函数。
+window方法，可以省略书写。
+比喻定时炸弹：在多少时间之后，炸弹爆炸。
+1    语法：setTimeout(函数，等待时间);
+1    console.log(1);
+2    console.log(2);
+3  
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/10/31/title34/#more" rel="contents">
+            <a class="btn" href="/2014/11/20/title23/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -732,7 +679,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/16/title1/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/20/title22/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Layne">
@@ -757,8 +704,8 @@
             
               
                 
-                <a class="post-title-link" href="/2014/10/16/title1/" itemprop="url">
-                  CSS-background背景
+                <a class="post-title-link" href="/2014/11/20/title22/" itemprop="url">
+                  call和apply
                 </a>
               
             
@@ -774,8 +721,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-16T17:27:56+08:00">
-                2014-10-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-11-20T17:27:56+08:00">
+                2014-11-20
               </time>
             
 
@@ -797,8 +744,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/categories/callpply/" itemprop="url" rel="index">
+                    <span itemprop="name">callpply</span>
                   </a>
                 </span>
 
@@ -815,8 +762,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2014/10/16/title1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/16/title1/" itemprop="commentCount"></span>
+                <a href="/2014/11/20/title22/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/20/title22/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -824,7 +771,7 @@
 
           
           
-             <span id="/2014/10/16/title1/" class="leancloud_visitors" data-flag-title="CSS-background背景">
+             <span id="/2014/11/20/title22/" class="leancloud_visitors" data-flag-title="call和apply">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -854,36 +801,14 @@
 
       
         
-          <p>background是一个复合属性。</p>
-<h2 id="1、background-color背景色"><a href="#1、background-color背景色" class="headerlink" title="1、background-color背景色"></a>1、background-color背景色</h2><p>渲染位置：border及以内。<br>属性值：十六进制、rgb、rgba、颜色名。</p>
-<pre><code>background-color: blue;
-</code></pre><h2 id="2、background-image背景图"><a href="#2、background-image背景图" class="headerlink" title="2、background-image背景图"></a>2、background-image背景图</h2><p>实际渲染位置：跟背景色一样，能看到的其实就是border以内。<br>属性值：url(图片路径)。</p>
-<pre><code>background-image: url(images/hai.jpg);
-</code></pre><p>添加的背景图片会铺满整个盒子的背景区域。</p>
-<p>url：uniform resource locator。统一资源定位符。实际就是背景图片的来源。<br>url内部的值：图片的路径，可以是相对路径，也可以是绝对路径。</p>
-<p>背景图和背景色的压盖顺序：image压盖color。</p>
-<h2 id="3、background-repeat背景重复"><a href="#3、background-repeat背景重复" class="headerlink" title="3、background-repeat背景重复"></a>3、background-repeat背景重复</h2><p>设置背景图片以什么方式进行重复。<br>属性值：<br>repeat 默认值，整个背景区域重复<br>no-repeat 不重复<br>repeat-x 水平方向重复<br>repeat-y 垂直方向重复</p>
-<pre><code>background-repeat: repeat;
-background-repeat: no-repeat;
-background-repeat: repeat-x;
-background-repeat: repeat-y;`
-</code></pre><p>body背景加载效果：</p>
-<p>repeat-x的一个妙用：制作一个渐变背景的导航栏。<br>给盒子添加一个背景图：水平方向1像素宽，垂直方向就是正常高度，让背景图，水平重复铺开。</p>
-<pre><code>background-image: url(images/nav_bg.png);
-background-repeat: repeat-x;
-background-position背景图位置
-</code></pre><p>作用：规定我们插入的背景图的在盒子里的位置。<br>属性值：像素表示法、单词表示法、百分比表示法。</p>
-<p>①像素表示法<br>属性值有两个，都用像素表示：</p>
-<pre><code>background-position: 150px 100px;
-</code></pre><p>第一个属性值：背景图片左上角距离盒子背景区域左上角（border以内）的水平偏移量。</p>
-<p>第二个属性值：背景图片左上角距离盒子背景区域左上角（border以内）的垂直偏移量。</p>
-<p>位置的属性值分正负。正方向：向右向下移动；负方向：向左向上移动。指的是图片针对（0,0）点移动的方向。</p>
-<p>css精灵图技术：很多元素都有背景图，需要有实际存在图片，就需要发送多个http请求下载图片。将很多小的背景图合成在一张图片上，谁用背景图加载的都是一张图片。<br>用法：给一个合适盒子大小，通过背景图定位找到图片的位置。</p>
-<p>②单词表示法</p>
-<p>图片位置水平和垂直方向用代表方向的单词来表示</p>
+          
+          call和apply了解普通函数内部有没有this关键，指向是谁。
+1    var box = document.getElementById(&quot;box1&quot;);
+2            animate(box,{&quot;left&quot;:300},1000,funct
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/10/16/title1/#more" rel="contents">
+            <a class="btn" href="/2014/11/20/title22/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -926,7 +851,7 @@ background-position背景图位置
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/16/title2/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/20/title20/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Layne">
@@ -951,8 +876,8 @@ background-position背景图位置
             
               
                 
-                <a class="post-title-link" href="/2014/10/16/title2/" itemprop="url">
-                  CSS中定位的使用
+                <a class="post-title-link" href="/2014/11/20/title20/" itemprop="url">
+                  用JS封装简单运动框架方法
                 </a>
               
             
@@ -968,8 +893,8 @@ background-position背景图位置
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-16T17:27:56+08:00">
-                2014-10-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-11-20T17:27:56+08:00">
+                2014-11-20
               </time>
             
 
@@ -991,8 +916,8 @@ background-position背景图位置
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
                   </a>
                 </span>
 
@@ -1009,8 +934,8 @@ background-position背景图位置
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2014/10/16/title2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/16/title2/" itemprop="commentCount"></span>
+                <a href="/2014/11/20/title20/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/20/title20/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1018,7 +943,7 @@ background-position背景图位置
 
           
           
-             <span id="/2014/10/16/title2/" class="leancloud_visitors" data-flag-title="CSS中定位的使用">
+             <span id="/2014/11/20/title20/" class="leancloud_visitors" data-flag-title="用JS封装简单运动框架方法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1048,51 +973,14 @@ background-position背景图位置
 
       
         
-          <h2 id="1、相对定位"><a href="#1、相对定位" class="headerlink" title="1、相对定位"></a>1、相对定位</h2><p>定位：元素位置相对于某一个参考物进行的位置的偏移。</p>
-<p>相对定位：元素相对于自身进行的位置偏移。position：定位属性。属性值：relative。相对的。</p>
-<p>偏移的数据量。有其他属性来控制，方向属性，left、right、top、bottom。</p>
-<pre><code>position: relative;
-left: 100px;  
-top: 110px;
-</code></pre><p>便宜方向判断：如果属性值为正，偏移方向与属性方向相反。</p>
-<pre><code>left: 100px;          向右100
-top: 110px;           向下110
-right: 20px;          向左20
-bottom: 20px;         向上20
-</code></pre><p>等价于：属性值为负值，便宜方向与属性方向相同。</p>
-<pre><code>right: -100px;       向右100
-bottom: -110px;      向下110
-</code></pre><p>综合：水平方向和垂直方向可以任选一个属性，进行搭配。</p>
-<pre><code>.box{        
-      left: 100px;      //以元素自身左上角顶点为参考点，向右向下移动
-      top: 110px;
-}
-
-left: 100px;
-bottom: 110px;    //以元素自身的左下顶点为参考点，向右上移动。
-
-right: 50px;
-bottom: 110px;   //以元素自身的右下顶点为参考点，向左上移动。
-
-right: 50px;
-top: 110px;          //以元素自身的右上顶点为参考点，向左下移动。
-</code></pre><p>特点：显示的位置是偏移后的位置，原位置还保留，没有被其他元素给占有，形影分离。<br>相对定位不会让元素脱离标准流，标准流的位置还是他自己的。用途不是很多，也有自己的特殊用途。</p>
-<blockquote>
-<p>①结构比较稳固，经常拿来做绝对定位的参考元素，子绝父相。<br>②微调。</p>
-</blockquote>
-<pre><code>  div span{
-      font-size: 12px;
-      position: relative;
-      bottom: 6px;
-}
-</code></pre><h2 id="2、绝对定位"><a href="#2、绝对定位" class="headerlink" title="2、绝对定位"></a>2、绝对定位</h2><p>绝对定位的定位参考元素不固定的，但是不是本身。属性值：absolute。绝对的。<br>也有四个方向的偏移量：left、right、top、bottom。</p>
-<pre><code>position: absolute;
-top: 100px;
-left: 150px;
-</code></pre><p>特点：与相对定位比较，元素绝对定位之后，脱离标准流，标准流的位置让给了后面的元素。<br>绝对定位的元素根据选取偏移方向不同，参考点也不同。</p>
+          
+          封装简单运动框架之前的案例都是单属性变化的运动，如果是多属性的运动，定义多个全局信号量，要有一个合理的时间，同时开始同时结束，需要知道每个属性变动的步长。
+两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。
+可以随意定义left的步长，可以计算次数，同样可以计算
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/10/16/title2/#more" rel="contents">
+            <a class="btn" href="/2014/11/20/title20/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1135,7 +1023,7 @@ left: 150px;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/11/title/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/20/title21/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Layne">
@@ -1160,8 +1048,8 @@ left: 150px;
             
               
                 
-                <a class="post-title-link" href="/2014/10/11/title/" itemprop="url">
-                  css中浮动的影响
+                <a class="post-title-link" href="/2014/11/20/title21/" itemprop="url">
+                  异步和回调函数
                 </a>
               
             
@@ -1177,8 +1065,8 @@ left: 150px;
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-11T17:27:56+08:00">
-                2014-10-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-11-20T17:27:56+08:00">
+                2014-11-20
               </time>
             
 
@@ -1200,8 +1088,8 @@ left: 150px;
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
                   </a>
                 </span>
 
@@ -1218,8 +1106,8 @@ left: 150px;
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2014/10/11/title/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/11/title/" itemprop="commentCount"></span>
+                <a href="/2014/11/20/title21/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/20/title21/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1227,7 +1115,7 @@ left: 150px;
 
           
           
-             <span id="/2014/10/11/title/" class="leancloud_visitors" data-flag-title="css中浮动的影响">
+             <span id="/2014/11/20/title21/" class="leancloud_visitors" data-flag-title="异步和回调函数">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1257,42 +1145,542 @@ left: 150px;
 
       
         
-          <h2 id="1、浮动存在的问题"><a href="#1、浮动存在的问题" class="headerlink" title="1、浮动存在的问题"></a>1、浮动存在的问题</h2><p>浮动的元素不能撑高父级。元素脱离标准流之后， 不能再撑高它的父级盒子<br>浮动会影响后面的浮动的元素。如果后面的浮动方向相同， 会去贴上一个浮动最后一个元素的边。</p>
-<h2 id="2、清楚浮动影响的方法"><a href="#2、清楚浮动影响的方法" class="headerlink" title="2、清楚浮动影响的方法"></a>2、清楚浮动影响的方法</h2><ul>
-<li>给父盒子加高度<br>给父级元素增加高度， 它内部的浮动元素， 被限制了范围， 不会再影响后面的元素浮动。</li>
-</ul>
-<blockquote>
-<p>效果： 解决父级高度的问题， 解决浮动影响后面的浮动的问题。<br>      问题： 高度还是不能够自适应。</p>
-</blockquote>
-<ul>
-<li>清除浮动属性 clear</li>
-</ul>
-<p>元素都可以设置一个叫做 clear 的属性， 清除浮动的作用。</p>
-<blockquote>
-<p>属性值： left、 right、 both。<br>作用： clear 整体表示清除自身受到的其他元素带来的浮动的影响。<br>left： 清除受到的左浮动影响。<br>right： 清除受到的右浮动影响。<br>both： 清除受到的左右两个方向的浮动影响。</p>
-</blockquote>
-<pre><code>box1{
-
-clear: both;}
-`
-</code></pre><blockquote>
-<p>  解决： 浮动的互相影响。`</p>
-<p>问题： 父盒子还是不能被子盒子撑高。 margin 如果小于中间浮动的子元素的高度， 显示效果失效。<br>隔墙法<br>外墙法：<br>在右浮动元素的父盒子之间隔一堵墙。 添加两个类， 一个是用来清除浮动， 一个用来模拟外边距。</p>
-</blockquote>
-<pre><code>cl{
-     clear: both; 清除浮动
-
-  }
-
-  .h20{
-
-      height: 20px; 模拟间距
-
-  }
-</code></pre><p>解决： 浮动互相影响。<br>问题： 高度自适应， MARGIN 失效。</p>
+          
+          1、异步异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。
+js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。
+同步：
+1    consol
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/10/11/title/#more" rel="contents">
+            <a class="btn" href="/2014/11/20/title21/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/20/title19/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Layne">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Layne'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Layne'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/11/20/title19/" itemprop="url">
+                  JSON对象使用方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-11-20T17:27:56+08:00">
+                2014-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JSON/" itemprop="url" rel="index">
+                    <span itemprop="name">JSON</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/11/20/title19/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/20/title19/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2014/11/20/title19/" class="leancloud_visitors" data-flag-title="JSON对象使用方法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          概述
+数组：存储的是一组数据，可以操作每一项内容，有自己的局限性，通过具体下标才能获得某一项。
+数据多的时候，数组的使用效率变低。
+JSON对象可以解决这个问题。也可以存多个数据，每个数据都有自己的名字。可以通过数据的名字得到数据的值。
+JSON叫做JavaScript Object Notatio
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/11/20/title19/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/20/title18/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Layne">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Layne'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Layne'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/11/20/title18/" itemprop="url">
+                  setInterval定时器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-11-20T17:27:56+08:00">
+                2014-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/setInterva/" itemprop="url" rel="index">
+                    <span itemprop="name">setInterva</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/11/20/title18/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/20/title18/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2014/11/20/title18/" class="leancloud_visitors" data-flag-title="setInterval定时器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1、概念window给我们提供的一个方法，setInterval定时器。
+1    window.setInterval(函数,间隔时间);
+
+1    //获得div标签
+2            var box = document.getElementsByTagName(&quot;div&
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/11/20/title18/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/20/title17/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Layne">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Layne'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Layne'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/11/20/title17/" itemprop="url">
+                  获取尺寸和位置的方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-11-20T17:27:56+08:00">
+                2014-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/offsetLeft/" itemprop="url" rel="index">
+                    <span itemprop="name">offsetLeft</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/11/20/title17/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/20/title17/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2014/11/20/title17/" class="leancloud_visitors" data-flag-title="获取尺寸和位置的方法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前面封装的函数得到的值都是字符串，使用的时候，一部分需要转成数字取计算。JS提供了几个常用的快捷尺寸，得到的就是数字类型的数据。
+
+offsetLeft
+offsetTop
+offsetWidth
+offsetHeight
+clientWidth
+clientHeight
+
+1、offsetLeft
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/11/20/title17/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1329,6 +1717,10 @@ clear: both;}
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
           
           </div>
@@ -1371,7 +1763,7 @@ clear: both;}
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1380,7 +1772,7 @@ clear: both;}
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1389,7 +1781,7 @@ clear: both;}
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
