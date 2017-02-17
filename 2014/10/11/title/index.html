@@ -105,7 +105,7 @@
 
 
 效果： 解决父级高度的问题， 解决浮动影响后面的浮动的问题。      问题： 高度还是不能够自">
-<meta property="og:updated_time" content="2017-02-14T15:49:32.137Z">
+<meta property="og:updated_time" content="2017-02-17T08:49:10.519Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="css中浮动的影响">
 <meta name="twitter:description" content="1、浮动存在的问题浮动的元素不能撑高父级。元素脱离标准流之后， 不能再撑高它的父级盒子浮动会影响后面的浮动的元素。如果后面的浮动方向相同， 会去贴上一个浮动最后一个元素的边。
@@ -131,10 +131,10 @@
     },
     algolia: {
       applicationID: '',
-      apiKey: '66e3fe8c428198eaf3a524e0f6bfb3d1',
+      apiKey: 'dc96c02b91e9cd9712cdf5381782a4ed',
       indexName: 'index',
       hits: {"per_page":6},
-      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与[${query}]相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与「${query}」相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
     }
   };
 </script>
@@ -478,7 +478,6 @@
 <blockquote>
 <p>属性值： left、 right、 both。<br>作用： clear 整体表示清除自身受到的其他元素带来的浮动的影响。<br>left： 清除受到的左浮动影响。<br>right： 清除受到的右浮动影响。<br>both： 清除受到的左右两个方向的浮动影响。</p>
 </blockquote>
-<a id="more"></a>
 <pre><code>box1{
 
 clear: both;}
@@ -498,7 +497,7 @@ clear: both;}
 
   }
 </code></pre><p>解决： 浮动互相影响。<br>问题： 高度自适应， MARGIN 失效。</p>
-<!--more-->
+<a id="more"></a>
 <ul>
 <li>内墙法：<br>将清除浮动的墙放在有浮动元素的父盒子内部的最后。 只要有浮动， 就在盒子内部加一堵墙。</li>
 </ul>
@@ -604,24 +603,43 @@ clear: both;}
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2014/10/11/title/"
-     data-title="css中浮动的影响"
-     data-content=""
-     data-url="http://yoursite.com/2014/10/11/title/">
-  <div class="ds-share-inline">
-    <ul  class="ds-share-icons-16">
-
-      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-
-    </ul>
-    <div class="ds-share-icons-more">
-    </div>
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
   </div>
-</div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
       
     </div>
   </div>

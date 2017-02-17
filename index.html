@@ -115,10 +115,10 @@
     },
     algolia: {
       applicationID: '',
-      apiKey: '66e3fe8c428198eaf3a524e0f6bfb3d1',
+      apiKey: 'dc96c02b91e9cd9712cdf5381782a4ed',
       indexName: 'index',
       hits: {"per_page":6},
-      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与[${query}]相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与「${query}」相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
     }
   };
 </script>
@@ -332,206 +332,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/31/jianjie/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Layne">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Layne'blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Layne'blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/10/31/jianjie/" itemprop="url">
-                  IE6兼容及hack使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-31T17:27:56+08:00">
-                2014-10-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/10/31/jianjie/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/31/jianjie/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2014/10/31/jianjie/" class="leancloud_visitors" data-flag-title="IE6兼容及hack使用">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="一、HACK"><a href="#一、HACK" class="headerlink" title="一、HACK"></a>一、HACK</h2><p>我们真正的网页是由一份html和css来完成，在不同用户电脑上可能不一样的渲染效果。<br>但是我们需要所有浏览器渲染效果都是一致的，由于存在兼容问题，对于一些特殊的html和css，要根据浏览器的不同，写不同的代码，显示效果是一样的，这个技术就叫做HACK（Hacker黑客）。</p>
-<p>hack：针对不同的浏览器写不同的html和css，达到显示一致的效果。<br>分类：html hack，css hack。</p>
-<p>1、html的hack<br>根据不同的浏览器写不同的html代码。需要用到一个辅助的代码，叫做hack符号。IE浏览器存在很多兼容问题，IE给我们留了一个接口，规定的IE版本的浏览器认识里面是html结构，其他的浏览器认为里面的是注释。</p>
-<pre><code>&lt;!--[if lte IE 9]&gt;
-   这是一段文字
-&lt;![endif]--&gt;
-</code></pre><p>这段代码里面的文字，只能在IE9及以下的版本浏览器内看得到。其他的不显示，认为是注释。</p>
-<blockquote>
-<p>if：如果 lte：小于等于 IE 浏览器 9版本。</p>
-<p>lte：less than or equal ，小于等于</p>
-<p>lt：less than ，小于</p>
-<p>gt：greater than ，大于</p>
-<p>gte： greater than or equal ，大于等于</p>
-</blockquote>
-<p>如果低于IE8就显示，其他的认为是注释。</p>
-<pre><code>&lt;!--[if lt IE 8]&gt;
-       &lt;h1&gt;这是一个标题&lt;/h1&gt;
-    &lt;![endif]--&gt;
-</code></pre><p>如果高于IE8就显示，其他的认为是注释。</p>
-<pre><code>&lt;!--[if gt IE 8]&gt;
-    &lt;h2&gt;大于IE8能看见&lt;/h2&gt;
-&lt;![endif]--&gt;
-</code></pre><p>如果只有IE8认识，其他都是注释。</p>
-<pre><code>&lt;!--[if IE 8]&gt;
-    &lt;p&gt;只有IE8认识&lt;/p&gt;
-&lt;![endif]--&gt;
-</code></pre><p>作为浏览器版本提醒：<br>      <!--[if lte IE 8]>
-           <h2>你的浏览器版本过低，请更新。</h2>
-      <![endif]--><br>      <div class="box"></div></p>
-<p>有一些代码在IE中加载，其他浏览器不加载。<br>      <!--[if IE 6]>
-          <script src="js/ie6.js"></script>
-      <![endif]--></p>
-<p>位置不能乱写：不能卸载css样式里面</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2014/10/31/jianjie/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/31/title3/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -690,6 +490,206 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2014/10/31/title3/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/31/title34/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Layne">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Layne'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Layne'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/10/31/title34/" itemprop="url">
+                  IE6兼容及hack使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-31T17:27:56+08:00">
+                2014-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/10/31/title34/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/31/title34/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2014/10/31/title34/" class="leancloud_visitors" data-flag-title="IE6兼容及hack使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一、HACK"><a href="#一、HACK" class="headerlink" title="一、HACK"></a>一、HACK</h2><p>我们真正的网页是由一份html和css来完成，在不同用户电脑上可能不一样的渲染效果。<br>但是我们需要所有浏览器渲染效果都是一致的，由于存在兼容问题，对于一些特殊的html和css，要根据浏览器的不同，写不同的代码，显示效果是一样的，这个技术就叫做HACK（Hacker黑客）。</p>
+<p>hack：针对不同的浏览器写不同的html和css，达到显示一致的效果。<br>分类：html hack，css hack。</p>
+<p>1、html的hack<br>根据不同的浏览器写不同的html代码。需要用到一个辅助的代码，叫做hack符号。IE浏览器存在很多兼容问题，IE给我们留了一个接口，规定的IE版本的浏览器认识里面是html结构，其他的浏览器认为里面的是注释。</p>
+<pre><code>&lt;!--[if lte IE 9]&gt;
+   这是一段文字
+&lt;![endif]--&gt;
+</code></pre><p>这段代码里面的文字，只能在IE9及以下的版本浏览器内看得到。其他的不显示，认为是注释。</p>
+<blockquote>
+<p>if：如果 lte：小于等于 IE 浏览器 9版本。</p>
+<p>lte：less than or equal ，小于等于</p>
+<p>lt：less than ，小于</p>
+<p>gt：greater than ，大于</p>
+<p>gte： greater than or equal ，大于等于</p>
+</blockquote>
+<p>如果低于IE8就显示，其他的认为是注释。</p>
+<pre><code>&lt;!--[if lt IE 8]&gt;
+       &lt;h1&gt;这是一个标题&lt;/h1&gt;
+    &lt;![endif]--&gt;
+</code></pre><p>如果高于IE8就显示，其他的认为是注释。</p>
+<pre><code>&lt;!--[if gt IE 8]&gt;
+    &lt;h2&gt;大于IE8能看见&lt;/h2&gt;
+&lt;![endif]--&gt;
+</code></pre><p>如果只有IE8认识，其他都是注释。</p>
+<pre><code>&lt;!--[if IE 8]&gt;
+    &lt;p&gt;只有IE8认识&lt;/p&gt;
+&lt;![endif]--&gt;
+</code></pre><p>作为浏览器版本提醒：<br>      <!--[if lte IE 8]>
+           <h2>你的浏览器版本过低，请更新。</h2>
+      <![endif]--><br>      <div class="box"></div></p>
+<p>有一些代码在IE中加载，其他浏览器不加载。<br>      <!--[if IE 6]>
+          <script src="js/ie6.js"></script>
+      <![endif]--></p>
+<p>位置不能乱写：不能卸载css样式里面</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/10/31/title34/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1271,6 +1271,25 @@ left: 150px;
 <blockquote>
 <p>属性值： left、 right、 both。<br>作用： clear 整体表示清除自身受到的其他元素带来的浮动的影响。<br>left： 清除受到的左浮动影响。<br>right： 清除受到的右浮动影响。<br>both： 清除受到的左右两个方向的浮动影响。</p>
 </blockquote>
+<pre><code>box1{
+
+clear: both;}
+`
+</code></pre><blockquote>
+<p>  解决： 浮动的互相影响。`</p>
+<p>问题： 父盒子还是不能被子盒子撑高。 margin 如果小于中间浮动的子元素的高度， 显示效果失效。<br>隔墙法<br>外墙法：<br>在右浮动元素的父盒子之间隔一堵墙。 添加两个类， 一个是用来清除浮动， 一个用来模拟外边距。</p>
+</blockquote>
+<pre><code>cl{
+     clear: both; 清除浮动
+
+  }
+
+  .h20{
+
+      height: 20px; 模拟间距
+
+  }
+</code></pre><p>解决： 浮动互相影响。<br>问题： 高度自适应， MARGIN 失效。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2014/10/11/title/#more" rel="contents">
