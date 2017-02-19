@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="js," />
+  <meta name="keywords" content="JS," />
 
 
 
@@ -89,28 +89,43 @@
 
 
 
-<meta name="description" content="封装简单运动框架之前的案例都是单属性变化的运动，如果是多属性的运动，定义多个全局信号量，要有一个合理的时间，同时开始同时结束，需要知道每个属性变动的步长。
+<meta name="description" content="##1 封装简单运动框架 ##
 两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。
 可以随意定义left的步长，可以计算次数，同样可以计算宽度的步长
-1    △left = 20；
-2    次数 = （400 - 0） / 20 =">
+1 △left = 20；
+
+2 次数 = （400 - 0） / 20 = 20
+
+3 △width = (300 - 100) / 20 = 10
+傻瓜版程序：给固定的值进行运动，耦合性太强。
+1 //两个属">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用JS封装简单运动框架方法">
+<meta property="og:title" content="JS封装简单运动框架">
 <meta property="og:url" content="http://yoursite.com/2014/11/20/title20/index.html">
 <meta property="og:site_name" content="Layne'blog">
-<meta property="og:description" content="封装简单运动框架之前的案例都是单属性变化的运动，如果是多属性的运动，定义多个全局信号量，要有一个合理的时间，同时开始同时结束，需要知道每个属性变动的步长。
+<meta property="og:description" content="##1 封装简单运动框架 ##
 两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。
 可以随意定义left的步长，可以计算次数，同样可以计算宽度的步长
-1    △left = 20；
-2    次数 = （400 - 0） / 20 =">
-<meta property="og:updated_time" content="2017-02-17T11:53:31.097Z">
+1 △left = 20；
+
+2 次数 = （400 - 0） / 20 = 20
+
+3 △width = (300 - 100) / 20 = 10
+傻瓜版程序：给固定的值进行运动，耦合性太强。
+1 //两个属">
+<meta property="og:updated_time" content="2017-02-18T09:12:45.722Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用JS封装简单运动框架方法">
-<meta name="twitter:description" content="封装简单运动框架之前的案例都是单属性变化的运动，如果是多属性的运动，定义多个全局信号量，要有一个合理的时间，同时开始同时结束，需要知道每个属性变动的步长。
+<meta name="twitter:title" content="JS封装简单运动框架">
+<meta name="twitter:description" content="##1 封装简单运动框架 ##
 两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。
 可以随意定义left的步长，可以计算次数，同样可以计算宽度的步长
-1    △left = 20；
-2    次数 = （400 - 0） / 20 =">
+1 △left = 20；
+
+2 次数 = （400 - 0） / 20 = 20
+
+3 △width = (300 - 100) / 20 = 10
+傻瓜版程序：给固定的值进行运动，耦合性太强。
+1 //两个属">
 
 
 
@@ -144,7 +159,7 @@
 
 
 
-  <title> 用JS封装简单运动框架方法 | Layne'blog </title>
+  <title> JS封装简单运动框架 | Layne'blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -367,7 +382,7 @@
             
             
               
-                用JS封装简单运动框架方法
+                JS封装简单运动框架
               
             
           </h1>
@@ -405,8 +420,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
                   </a>
                 </span>
 
@@ -432,7 +447,7 @@
 
           
           
-             <span id="/2014/11/20/title20/" class="leancloud_visitors" data-flag-title="用JS封装简单运动框架方法">
+             <span id="/2014/11/20/title20/" class="leancloud_visitors" data-flag-title="JS封装简单运动框架">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -461,124 +476,194 @@
       
 
       
-        <h2 id="封装简单运动框架"><a href="#封装简单运动框架" class="headerlink" title="封装简单运动框架"></a>封装简单运动框架</h2><p>之前的案例都是单属性变化的运动，如果是多属性的运动，定义多个全局信号量，要有一个合理的时间，同时开始同时结束，需要知道每个属性变动的步长。</p>
+        <p>##1 封装简单运动框架 ##</p>
 <p>两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。</p>
 <p>可以随意定义left的步长，可以计算次数，同样可以计算宽度的步长</p>
-<pre><code>1    △left = 20；
-2    次数 = （400 - 0） / 20 = 20
-3    △width = (300 - 100) / 20 = 10
-</code></pre><p>傻瓜版程序：给固定的值进行运动，耦合性太强。</p>
-<pre><code>1    //两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。
-2            //    全局信号量
-3            var nowleft = box.offsetLeft;
-4            var nowwidth = box.offsetWidth;
-5            var interval = 50;
-6            var timer; 
-7            start.onclick = function(){
-8                timer = setInterval(function(){
-9                    //全局信号量变动
-10                    nowleft += 20;
-11                    nowwidth += (300 - 100) / ((400 - 0) / 20 );
-12                    //判断
-13                    if(nowleft &gt;= 400){
-14                        //同时拉到终点
-15                        nowleft = 400;
-16                        nowwidth = 300;
-17                        clearInterval(timer);
-18                    }
-19                    //赋值
-20                    box.style.left = nowleft + &quot;px&quot;;
-21                    box.style.width = nowwidth + &quot;px&quot;;
-22                },interval);
-23            };
-</code></pre><p>封装一个运动框架：</p>
-<p>准备：传入什么数据，实现功能。</p>
-<p>运动：运动元素，运动的结束位置以及运动的属性，运动总时间，间隔时间可以在内部定义一个具体值。</p>
-<p>多个属性变动结束位置，可以一个JSON对象。</p>
-<pre><code>1    var jieshujson = {
-2    “width” : 300,
-3    “left” : 4004    }
-</code></pre><p>封装一个函数：animate(obj,jieshuJson,time);</p>
-<pre><code>1    // 封装运动函数
-2            function animate(obj,jieshuJson,time){
-3                //准备三个数据，开始的JSON，结束的JSON，还有步长JSON
-4                //开始JSON有多少个属性，由jieshuJson决定
-5                //给开始JSON添加新属性，来源于jieshuJson。
-6                var kaishiJson = {};
-7                for(var k in jieshuJson){
-8                    //通过赋初始值，用到计算后样式，将字符串转数字
-9                    //结束后的样式名k
-10                    kaishiJson[k] = parseFloat(getStyle(obj,k));
-11                }
-12                //console.log(kaishiJson);
-13                //步长JSON = （jieshuJson - kaishiJson） / 总次数
-14                //总次数 = 总时间 / 间隔时间
-15                var interval = 50;
-16                var zongcishu = time / interval;
-17                //获得步长JSON
-18                var buchangJson = {};
-19                for(var k in jieshuJson){
-20                    //避免输入的是字符串，先转数字
-21                    jieshuJson[k] = parseFloat(jieshuJson[k]);
-22                    buchangJson[k] = (jieshuJson[k] - kaishiJson[k]) / zongcishu;
-23                }
-24                // console.log(buchangJson);
-25                //============三个JSON都准备完了===============
-26                //程序部分
-27                //全局信号量接收初始值，每次的步长
-28                //定义信号量JSON
-29                var xinhaoliangJson = {};
-30                for(var k in kaishiJson){
-31                    xinhaoliangJson[k] = kaishiJson[k];
-32                }
-33                //执行次数等于总次数，停止运动
-34                //累加器
-35                var cishu = 0;
-36                var timer ;
-37                timer = setInterval(function(){
-38                    //每执行一次，次数增加
-39                    cishu++;
-40                    //信号量JSON每次加一个步长
-41                    for(var k in xinhaoliangJson){
-42                        xinhaoliangJson[k] += buchangJson[k];
-43                    }
-44                    //验收，停止定时器
-45                    if(cishu &gt;= zongcishu){
-46                        //拉终停表
-47                        for(var k in xinhaoliangJson){
-48                            xinhaoliangJson[k] = jieshuJson[k];
-49                        }
-50                        clearInterval(timer);
-51                    }
-52                    //赋值,如果是透明度属性，需要单独设置
-53                    for(var k in xinhaoliangJson){
-54                        if(k == &quot;opacity&quot;){
-55                            obj.style.opacity = xinhaoliangJson[k];
-56                            obj.style.filter = &quot;alpha(opacity=&quot; + xinhaoliangJson[k] * 100 +&quot;)&quot;;
-57                        }else{
-58                            obj.style[k] = xinhaoliangJson[k] + &quot;px&quot;;
-59                        }
-60                    }
-61                },interval);
-62            }
-</code></pre><h2 id="1、js书写的位置"><a href="#1、js书写的位置" class="headerlink" title="1、js书写的位置"></a>1、js书写的位置</h2><p>将自己封装的函数全部拿到一个单独的js文件内，如果需要这个js，就直接调用。</p>
-<p>在html页面内用一对script来调用。</p>
-<p>src属性：查找js文件的路径，绝对路径、相对路径。</p>
-<blockquote>
-<p>注意：引入一个外部js的过程，可以叫做引包。这一对标签内部不能再写js代码。</p>
-<p>如果想使用这个js的内容，另起一个script标签。</p>
-</blockquote>
-<p>引包过程必须是写在使用代码之前。</p>
-<pre><code>1    &lt;!-- 调用外部js --&gt;
-2        &lt;script src=&quot;iqianduan.js&quot;&gt;&lt;/script&gt;
-3        &lt;!-- 使用js库内的方法需要另写一个script --&gt;
-4        &lt;script&gt;
-5            var box = document.getElementById(&quot;box&quot;);
-6            var start = document.getElementsByTagName(&quot;input&quot;)[0];
-7            animate(box,{&quot;width&quot;:400,&quot;left&quot;:500,&quot;height&quot;:400,&quot;opacity&quot;:1},2000);        
-8        &lt;/script&gt;
-</code></pre><p>好处：多个文件可以共用。</p>
+<pre><code>1 △left = 20；
 
+2 次数 = （400 - 0） / 20 = 20
+
+3 △width = (300 - 100) / 20 = 10
+</code></pre><p>傻瓜版程序：给固定的值进行运动，耦合性太强。</p>
+<pre><code>1 //两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。
+
+2//  全局信号量
+
+3var nowleft = box.offsetLeft;
+
+4var nowwidth = box.offsetWidth;
+
+5var interval = 50;
+
+6var timer;
+
+7start.onclick = function(){
+
+           8 timer = setInterval(function(){
+
+            9  //全局信号量变动
+
+        10 nowleft += 20;
+
+        11 nowwidth += (300 - 100) / ((400 - 0) / 20 );
+
+        12 //判断
+
+        13  if(nowleft &gt;= 400){
+
+        14 //同时拉到终点
+
+        15 nowleft = 400;
+
+        16 nowwidth = 300;
+
+        17 clearInterval(timer);
+
+        18 }
+
+        19 //赋值
+
+        20 box.style.left = nowleft + &quot;px&quot;;
+
+        21 box.style.width = nowwidth + &quot;px&quot;;
+
+        22  },interval);
+
+23  };
+</code></pre><h2 id="封装一个运动框架："><a href="#封装一个运动框架：" class="headerlink" title="封装一个运动框架："></a>封装一个运动框架：</h2><p>运动：运动元素，运动的结束位置以及运动的属性，运动总时间，间隔时间可以在内部定义一个具体值。</p>
+<p>多个属性变动结束位置，可以一个JSON对象。</p>
+<pre><code>1 var jieshujson = {
+
+2 “width” : 300,
+
+3 “left” : 400
+
+4 }
+</code></pre><p>封装一个函数：animate(obj,jieshuJson,time);</p>
+<pre><code>1   // 封装运动函数
+
+2   function animate(obj,jieshuJson,time){
+
+3   //准备三个数据，开始的JSON，结束的JSON，还有步长JSON
+
+4   //开始JSON有多少个属性，由jieshuJson决定
+
+5   //给开始JSON添加新属性，来源于jieshuJson。
+
+6   var kaishiJson = {};
+
+7   for(var k in jieshuJson){
+
+8   //通过赋初始值，用到计算后样式，将字符串转数字
+
+9   //结束后的样式名k
+
+10   kaishiJson[k] = parseFloat(getStyle(obj,k));
+
+11  }
+
+12  //console.log(kaishiJson);
+
+13  //步长JSON = （jieshuJson - kaishiJson） / 总次数
+
+14  //总次数 = 总时间 / 间隔时间
+
+15  var interval = 50;
+
+16  var zongcishu = time / interval;
+
+17  //获得步长JSON
+
+18  var buchangJson = {};
+
+19  for(var k in jieshuJson){
+
+20   //避免输入的是字符串，先转数字
+
+21   jieshuJson[k] = parseFloat(jieshuJson[k]);
+
+22   buchangJson[k] = (jieshuJson[k] - kaishiJson[k]) / zongcishu;
+
+23   }
+
+24  // console.log(buchangJson);
+
+25  //============三个JSON都准备完了===============
+
+26  //程序部分
+
+27  //全局信号量接收初始值，每次的步长
+
+28  //定义信号量JSON
+
+29  var xinhaoliangJson = {};
+
+30  for(var k in kaishiJson){
+
+31  xinhaoliangJson[k] = kaishiJson[k];
+
+32  }
+
+33  //执行次数等于总次数，停止运动
+
+34  //累加器
+
+35  var cishu = 0;
+
+36  var timer ;
+
+37  timer = setInterval(function(){
+
+38  //每执行一次，次数增加
+
+39  cishu++;
+
+40  //信号量JSON每次加一个步长
+
+41  for(var k in xinhaoliangJson){
+
+42  xinhaoliangJson[k] += buchangJson[k];
+
+43  }
+
+44  //验收，停止定时器
+
+45  if(cishu &gt;= zongcishu){
+
+46  //拉终停表
+
+47  for(var k in xinhaoliangJson){
+
+48  xinhaoliangJson[k] = jieshuJson[k];
+
+49  }
+
+50   clearInterval(timer);
+
+51  }
+
+52  //赋值,如果是透明度属性，需要单独设置
+
+53  for(var k in xinhaoliangJson){
+
+54  if(k == &quot;opacity&quot;){
+
+55  obj.style.opacity = xinhaoliangJson[k];
+
+56  obj.style.filter = &quot;alpha(opacity=&quot; + xinhaoliangJson[k] * 100 +&quot;)&quot;;
+
+57  }else{
+
+58  obj.style[k] = xinhaoliangJson[k] + &quot;px&quot;;
+
+59  }
+
+60  }
+
+61  },interval);
+
+62  }
+</code></pre>
       
     </div>
 
@@ -627,7 +712,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"># js</a>
+            <a href="/tags/JS/" rel="tag"># JS</a>
           
         </div>
       
@@ -640,8 +725,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/11/20/title21/" rel="next" title="异步和回调函数">
-                <i class="fa fa-chevron-left"></i> 异步和回调函数
+              <a href="/2014/11/20/title17/" rel="next" title="获取尺寸和位置的方法">
+                <i class="fa fa-chevron-left"></i> 获取尺寸和位置的方法
               </a>
             
           </div>
@@ -717,7 +802,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2014/11/20/title20/"
-           data-title="用JS封装简单运动框架方法" data-url="http://yoursite.com/2014/11/20/title20/">
+           data-title="JS封装简单运动框架" data-url="http://yoursite.com/2014/11/20/title20/">
       </div>
     
   </div>
@@ -766,7 +851,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -775,7 +860,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -784,7 +869,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -852,7 +937,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#封装简单运动框架"><span class="nav-number">1.</span> <span class="nav-text">封装简单运动框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、js书写的位置"><span class="nav-number">2.</span> <span class="nav-text">1、js书写的位置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#封装一个运动框架："><span class="nav-number">1.</span> <span class="nav-text">封装一个运动框架：</span></a></li></ol></div>
             
 
           </div>
