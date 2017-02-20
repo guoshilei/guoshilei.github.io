@@ -1,0 +1,1431 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js," />
+
+
+
+
+
+  <link rel="alternate" href="http://www.163.com/rss/" title="Layne'blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="函数就是功能。函数可以封装一段代码，整体会具备一个功能，可以人为的定义自己的功能。函数执行时候，所有的这一段封装的代码都会立即执行，实现这个功能。
+1    //定义函数
+2            function fun(){
+3                console.log(1);
+4                console.log(2);
+5                co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数的使用">
+<meta property="og:url" content="http://yoursite.com/2014/10/17/title8/index.html">
+<meta property="og:site_name" content="Layne'blog">
+<meta property="og:description" content="函数就是功能。函数可以封装一段代码，整体会具备一个功能，可以人为的定义自己的功能。函数执行时候，所有的这一段封装的代码都会立即执行，实现这个功能。
+1    //定义函数
+2            function fun(){
+3                console.log(1);
+4                console.log(2);
+5                co">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/a579329cly1fctlptz0r2j20dc07i0tm.jpg">
+<meta property="og:updated_time" content="2017-02-20T10:30:55.017Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数的使用">
+<meta name="twitter:description" content="函数就是功能。函数可以封装一段代码，整体会具备一个功能，可以人为的定义自己的功能。函数执行时候，所有的这一段封装的代码都会立即执行，实现这个功能。
+1    //定义函数
+2            function fun(){
+3                console.log(1);
+4                console.log(2);
+5                co">
+<meta name="twitter:image" content="http://wx2.sinaimg.cn/mw690/a579329cly1fctlptz0r2j20dc07i0tm.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: 'dc96c02b91e9cd9712cdf5381782a4ed',
+      indexName: 'index',
+      hits: {"per_page":6},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与「${query}」相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/10/17/title8/"/>
+
+
+
+
+
+  <title> 函数的使用 | Layne'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?956c4d46af5ba0a47310f1a59f86d78d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Layne'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Web world is wonderful!</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+<nav class="site-nav">
+
+  
+
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> 
+
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> 
+
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> 
+
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> 
+
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> 
+
+            
+            Tags
+          </a>
+        </li>
+      
+
+
+  
+    <li class="menu-item menu-item-search">
+      
+        <a href="javascript:;" class="popup-trigger">
+
+
+
+      
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+        
+        Search
+      </a>
+    </li>
+  
+</ul>
+
+  
+
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/17/title8/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Layne">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Layne'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Layne'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                函数的使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-17T17:27:56+08:00">
+                2014-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/函数/" itemprop="url" rel="index">
+                    <span itemprop="name">函数</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/10/17/title8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/17/title8/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2014/10/17/title8/" class="leancloud_visitors" data-flag-title="函数的使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://wx2.sinaimg.cn/mw690/a579329cly1fctlptz0r2j20dc07i0tm.jpg" alt=""><br>函数就是功能。函数可以封装一段代码，整体会具备一个功能，可以人为的定义自己的功能。函数执行时候，所有的这一段封装的代码都会立即执行，实现这个功能。</p>
+<pre><code>1    //定义函数
+2            function fun(){
+3                console.log(1);
+4                console.log(2);
+5                console.log(3);
+6                console.log(4);
+7                console.log(5);
+8            }
+9            //使用函数
+10            fun();
+11            fun();
+</code></pre><blockquote>
+<p>函数的特点①：函数能够封装一些重复性的代码，使用时直接调用，简化代码。</p>
+</blockquote>
+<h2 id="1、函数的声明和调用"><a href="#1、函数的声明和调用" class="headerlink" title="1、函数的声明和调用"></a>1、函数的声明和调用</h2><p>1.1 函数的声明</p>
+<p>函数必须先定义才能使用。</p>
+<p>函数定义：也叫作函数声明。关键字：function。本身就是功能意思。<br>定义语法：function关键字后面必须跟一个空格，后面是我们自定义的函数名字，紧跟着是一个小括号（参数），后面紧跟着是一个大括号，里面放的就是我们封装的结构体。函数后面不用加分号。</p>
+<pre><code>1    function 函数名(参数){
+2        封装的结构体；
+3    }
+</code></pre><p>函数名是一种标识符，必须遵循标识符命名规范：</p>
+<blockquote>
+<p>首字符必须是字母、下划线、美元符号。</p>
+<p>其他字符可以是字母、下划线、美元符号、数字。</p>
+<p>区分大小写，且不能是关键字和保留字。</p>
+</blockquote>
+<pre><code>1    function fun(){
+2     alert(&quot;hello world&quot;);
+3    }
+</code></pre><p>意义：只是定义了一下函数执行时要做的工作，并不会去自动执行这些代码。函数只有调用的时候，才会执行内部的结构体。</p>
+<p>1.2函数的调用</p>
+<p>函数调用方法：函数名（）；直接在函数名后面加小括号。</p>
+<pre><code>1    //函数声明
+2            function fun(){
+3                alert(&quot;hello world&quot;);
+4            }
+5            //函数的调用
+6            fun();
+</code></pre><p>函数内部的结构体执行的位置，与定义的位置无关，与函数调用的位置有关。</p>
+<pre><code>1    //定义函数
+2            function fun(){
+3                console.log(1);
+4                console.log(2);
+5                console.log(3);
+6            }
+7            console.log(10);
+8            console.log(20);
+9            console.log(30);
+10            fun();
+</code></pre><p>函数一次声明，可以多次调用。<br>函数每次调用时，内部的结构体都会全部一起执行。</p>
+<pre><code>1    fun();
+2    fun();
+</code></pre><h2 id="2、函数的参数"><a href="#2、函数的参数" class="headerlink" title="2、函数的参数"></a>2、函数的参数</h2><p>函数使用的目的，方便我们重复使用某一个功能，有时候需要功能发生一些变化，函数留了一个接口给我们，让我们的程序可以根据输入值的不同发生相应变化。</p>
+<p>参数就是函数预留的接口：通过参数的变化，让函数执行结果发生改变。参数书写位置：函数名后面的小括号里。</p>
+<pre><code>1    function 函数名(参数){
+2        封装的结构体；
+3    }
+</code></pre><p>参数：就是一些变量。可以有一个变量或者多个变量。</p>
+<pre><code>1    //定义函数
+2            function fun(a){
+3                console.log(a);
+4            }
+5            //调用时
+6            fun(1);
+</code></pre><p>函数的参数：定义时，小括号内的参数叫做形式参数（形参），调用时小括号内的参数叫做实际参数（实参），真正调用时参与到结构体里面的数据是实际参数的数据。</p>
+<p>整个函数调用的过程，就是实际参数传递给形式参数（过程叫做传参），执行语句的过程。</p>
+<p>函数的执行结果跟传递的参数息息相关。</p>
+<p>参数本身是变量：变量的数据类型是动态变化，跟我们变量的赋值的数据类型有关。根据传参的不同，我们的函数会出现不同的结果。</p>
+<p>案例：定义一个求和的函数。</p>
+<pre><code>1    //定义求和函数
+2            function sum(a,b){
+3                console.log(a + b);
+4            }
+5            //调用
+6            sum(2,3);
+7            sum(2,&quot;3&quot;);
+</code></pre><p>arguments：实际参数组成的一个类数组对象。函数的形参和实参的个数可以不同。<br>函数的形式参数可以少于实际参数，匹配对应形参的个数，多余的实参，不参与程序的执行。</p>
+<pre><code>1    //定义求和函数
+2            function sum(a,b){
+3                console.log(a + b);
+4            }
+5            //调用
+6            sum(1,2,3,4);
+</code></pre><p>函数的形式参数多于实际参数，对应的实参先匹配传递，多出来的形式参数相当于只定义没有赋值，有一个默认的undefined值，会参与程序执行。</p>
+<pre><code>1    //定义求和函数
+2            function sum(a,b){
+3                console.log(a + b);
+4            }
+5            //调用
+6            sum(3);
+</code></pre><p>函数参数提供了一个便利：</p>
+<blockquote>
+<p>其实根本不需要去看函数内部的结构体怎么定义的，只需要知道执行函数传递几个参数，能实现什么功能就行了。后期，只需要对相应的函数传参，执行实现某种功能即可。</p>
+<p>定义函数后：给一个说明，告诉用户输入几个参数，参数的数据类型要求是什么，执行之后会有什么后果。也叫API使用说明。</p>
+<p>函数的特点</p>
+<p>②：函数很便利，只需要知道怎么使用某一个函数，不需要了解内部的构造。可以使用自己的函数，也可以使用别人的定义的函数，只需要知道怎么用，不需要知道为什么。简化我们自己的编程。</p>
+</blockquote>
+<h2 id="3、函数的返回值"><a href="#3、函数的返回值" class="headerlink" title="3、函数的返回值"></a>3、函数的返回值</h2><p>函数可以通过参数接收数据，也可以通过一个return返回一个值。</p>
+<p>return：返回的意思。将函数执行结果返回一个固定的值。</p>
+<pre><code>1    //定义函数
+2            function sum(a,b){
+3                return a + b;
+4            }
+5            //函数返回的是一个计算后的值，需要一个输出语句看值是多少
+6            console.log(sum(2,3));
+</code></pre><p>如果函数有return返回值，就相当于将函数矮化成了一个表达式，表达式都会计算出一个结果参与到程序里。</p>
+<p>可以将有return的函数执行后赋值给一个变量。</p>
+<p>函数的参数也是变量，函数执行时，传递实参可以是另外一个有return函数的执行结果。</p>
+<pre><code>2    console.log(sum(4,sum(2,3)));
+</code></pre><blockquote>
+<p>函数的特点③：</p>
+<p>函数可以有返回值，可以将他的返回值当做另一个函数的参数，参与编程。模块化编程。</p>
+<p>return的另外一个功能：函数内部如果遇到return，不会往下继续执行，跳出函数。</p>
+</blockquote>
+<pre><code>2    function fun(){
+3                console.log(1);
+4                console.log(2);
+5                console.log(3);
+6                return;
+7                console.log(4);
+8                console.log(5);
+9                console.log(6);
+10            }
+11            fun();
+</code></pre><h2 id="4、模块化编程"><a href="#4、模块化编程" class="headerlink" title="4、模块化编程"></a>4、模块化编程</h2><p>逆向思维：输出0~10000之间的完美数  → 什么是完美数 → 一个数的约数和</p>
+<p>写的过程：约数和函数 → 判断完美数函数 → 输出所有完美数</p>
+<pre><code>13    // 逆向思维：输出0~10000之间的完美数  → 什么是完美数 → 一个数的约数和
+14            // 写的过程：约数和函数 → 判断完美数函数 → 输出所有完美数
+15    
+16            //封装一个约数和函数，传入一个数，返回它的约数和
+17            function sum(a){
+18                var sum = 0;
+19                for(var i = 1 ; i &lt; a ; i++){
+20                    if(a % i == 0){
+21                        sum += i;
+22                    }
+23                }
+24                return sum;
+25            }
+26            //console.log(sum(10));
+27            //可以封装判断完美数函数，传入一个数，返回它是否是完美数
+28            function isWanmei(a){
+29                if(a == sum(a)){
+30                    return true;
+31                }else{
+32                    return false;
+33                }
+34            }
+35            //console.log(isWanmei(16));
+36            //输出0-10000之间的所有完美数
+37            for(var i = 1 ; i &lt;= 10000; i++){
+38                if(isWanmei(i)){
+39                    console.log(i);
+40                }
+41            }
+</code></pre><h2 id="gt-5、函数递归"><a href="#gt-5、函数递归" class="headerlink" title="&gt; 5、函数递归"></a>&gt; 5、函数递归</h2><p>递归：函数内部通过函数名调用这个函数本身。</p>
+<pre><code>19    //定义函数，内部调用了这个函数
+20            function sum(a,b){
+21                b = sum(a,b);
+22                return a + b;
+23            }
+24            console.log(sum(1,2));
+</code></pre><p>递归如果写的不够严谨，容易出错。使用时一定要考虑好。</p>
+<p>斐波那契数列：</p>
+<pre><code>1、1、2、3、5、8、13、21、34、55、89、144、233……用求和函数内部，参数就是自己的上一次函数执行。
+2    //定义函数，从第三项开始，等于前两项的和
+3            //输出第几项斐波那契数列的值
+4            function fib(a){
+5                if(a == 1 || a == 2){
+6                    return 1;
+7                }else{
+8                    return fib(a-1) + fib(a-2);
+9                }
+10            }
+11            console.log(fib(1));
+12            console.log(fib(2));
+13            console.log(fib(3));
+14            console.log(fib(4));
+15            console.log(fib(5));
+16            console.log(fib(6));
+17            console.log(fib(7));
+18            console.log(fib(8));
+</code></pre><h2 id="6、函数表达式"><a href="#6、函数表达式" class="headerlink" title="6、函数表达式"></a>6、函数表达式</h2><p>通过将一个匿名函数（或者有函数名的函数）矮化成一个表达式，赋值给一个变量的形式定义函数。</p>
+<p>调用方法：使用变量名加小括号调用。不能用函数自身的名字调用，会报错。能够在函数内部用自己函数名字。</p>
+<p>匿名函数：函数没有名字。也叫拉姆达函数。</p>
+<pre><code>9    //定义：将一个函数赋值给变量
+10            //这种定义方式最后要加分号，相当于一个普通的语句给变量赋值。
+11            var fun = function(){
+12                console.log(1);
+13            };
+14            // 调用使用变量加小括号
+15            //因为变量内部的值是一个函数，数据类型是函数的类型，函数能加小括号执行。
+16            fun();
+
+
+9    var fun = function fun1(){
+10                console.log(1);
+11            };
+12            //函数赋值给一个变量，函数名在外面就相当于未定义
+13            fun();
+14            fun1();
+</code></pre><p>但是，函数名在函数内部是可以使用的。</p>
+<pre><code>8    var fun = function fun1(a){
+9                if(a == 1 || a == 2){
+10                    return 1;
+11                }else{
+12                    return fun1(a - 1) + fun1(a - 2);
+13                }
+14            };
+15            //函数赋值给一个变量，函数名在外面就相当于未定义
+16            console.log(fun(3));
+17            console.log(fun1(3));
+</code></pre><h2 id="7、函数的数据类型"><a href="#7、函数的数据类型" class="headerlink" title="7、函数的数据类型"></a>7、函数的数据类型</h2><p>函数数据类型：function。函数类型</p>
+<pre><code>10    // //定义：将一个函数赋值给变量
+11            var fun = function fun1(a){
+12                if(a == 1 || a == 2){
+13                    return 1;
+14                }else{
+15                    return fun1(a - 1) + fun1(a - 2);
+16                }
+17            };
+18            function fun2(){
+19                console.log(1);
+20            }
+21            console.log(typeof fun);
+22            console.log(typeof fun2);
+</code></pre><blockquote>
+<p>function数据类型是一种复杂数据类型，也叫作引用类型。</p>
+<p>简单数据类型：number、string、undefined、boolean、null。</p>
+<p>变量内部数据类型是动态数据类型，存储数据是什么类型就是什么。</p>
+<p>变量内部存的数据如果是简单数据类型的，存的就是一个实际的确切的能自身更改的值。</p>
+<p>变量内部存的数据如果是引用类型，存的不是一个确切的object，而是这个对象的地址、指针。</p>
+</blockquote>
+<p>如果存的是简单数据类型，将一个变量赋值给另一个变量的时候，相当于将变量内部的值复制了一份给新变量，而其中一个变量发生变化，对另一个不会产生任何影响。</p>
+<pre><code>7        var a = 1;
+8        var b = a;
+9        b = 2;
+10        console.log(a);
+11        console.log(b);
+</code></pre><p>如果变量存的是引用类型，赋值给别的变量时，是将对象的地址复制一份给b，a和b指向的是一个对象原型，通过a或者b对对象做出变化，另外一个也会相应发生变化。</p>
+<pre><code>17    //复杂的数据类型，存储地址
+18            var a = function(){            
+19                console.log(1);
+20            };
+21            var b = a;
+22            b.haha = 2;
+23            console.log(a.haha);
+24            console.log(b.haha);
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/blog.jpg" alt="Layne wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="Layne WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="Layne Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/10/13/title7/" rel="next" title="JS循环语句">
+                <i class="fa fa-chevron-left"></i> JS循环语句
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/30/title4/" rel="prev" title="运算符介绍">
+                运算符介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/10/17/title8/"
+           data-title="函数的使用" data-url="http://yoursite.com/2014/10/17/title8/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg"
+               alt="Layne" />
+          <p class="site-author-name" itemprop="name">Layne</p>
+           
+              <p class="site-description motion-element" itemprop="description">Diligence makes an ordinary man realize an extraordinary ideal!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="http://www.163.com/rss/" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/" title="github" target="_blank">github</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.runoob.com/" title="菜鸟" target="_blank">菜鸟</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://nodejs.org/en/" title="nodejs" target="_blank">nodejs</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://angularjs.org/" title="Angular" target="_blank">Angular</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、函数的声明和调用"><span class="nav-number">1.</span> <span class="nav-text">1、函数的声明和调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、函数的参数"><span class="nav-number">2.</span> <span class="nav-text">2、函数的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、函数的返回值"><span class="nav-number">3.</span> <span class="nav-text">3、函数的返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、模块化编程"><span class="nav-number">4.</span> <span class="nav-text">4、模块化编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gt-5、函数递归"><span class="nav-number">5.</span> <span class="nav-text">> 5、函数递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、函数表达式"><span class="nav-number">6.</span> <span class="nav-text">6、函数表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、函数的数据类型"><span class="nav-number">7.</span> <span class="nav-text">7、函数的数据类型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Layne</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"guoshilei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z0mhX7tlVYbMcrqBe61MDbg5-gzGzoHsz", "vXyfAFa8nGDxlLnQ1MoKm80b");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+</body>
+</html>
