@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Layne&#39;blog</title>
+  <title>郭石磊个人博客 | Layne&#39;blog</title>
   <subtitle>Web world is wonderful!</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -3075,6 +3075,59 @@ arr2是[3,4,5,6,7]
   </entry>
   
   <entry>
+    <title>延时器setTimeout讲解</title>
+    <link href="http://yoursite.com/2016/11/18/title23/"/>
+    <id>http://yoursite.com/2016/11/18/title23/</id>
+    <published>2016-11-18T09:27:56.000Z</published>
+    <updated>2017-02-20T10:34:21.044Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、延时器"><a href="#1、延时器" class="headerlink" title="1、延时器"></a>1、延时器</h2><p>延时器：setTimeout()。在指定时间之后，执行1次函数。</p>
+<p>window方法，可以省略书写。</p>
+<p>比喻定时炸弹：在多少时间之后，炸弹爆炸。</p>
+<p>1    语法：setTimeout(函数，等待时间);</p>
+<pre><code>1    console.log(1);
+2    console.log(2);
+3    console.log(3);
+4    setTimeout(function(){
+5     console.log(&quot;booom shakalaka&quot;);
+6    },1000);
+7    console.log(4)
+</code></pre><p>使用情况：setTimeout，如果需要在一段时间之后才执行某一个函数。只执行一次。<br>setInterval，如果需要每隔一段时间执行函数一次，反复执行。</p>
+<h2 id="2、函数节流"><a href="#2、函数节流" class="headerlink" title="2、函数节流"></a>2、函数节流</h2><p>函数被调用的时候，最好有一个时间间隔，现在函数不具备这个功能。</p>
+<p>事件被频繁触发，事件函数就会频繁调用。</p>
+<p>解决方法：函数节流。用一个变量限制函数后面的语句到底能不能走到。定义一个延时器，将变量的限制解开。</p>
+<pre><code>1    //给函数上一把锁，锁开的时候，执行函数的语句，锁关上之后，不能执行函数
+2            var lock = true ;  //表示锁是开的能够执行事件函数
+3            btn.onclick = function(){
+4                //如果锁开着可以执行后面的语句，如果关闭，直接return返回，不执行后面的代码
+5                if(lock == false){
+6                    return;
+7                }
+8                //给函数上一把锁
+9                lock = false;
+10                //隔一段时间打开锁
+11                setTimeout(function(){
+12                    lock = true;
+13                },2000);
+14                console.log(Math.random());
+15            }
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、延时器&quot;&gt;&lt;a href=&quot;#1、延时器&quot; class=&quot;headerlink&quot; title=&quot;1、延时器&quot;&gt;&lt;/a&gt;1、延时器&lt;/h2&gt;&lt;p&gt;延时器：setTimeout()。在指定时间之后，执行1次函数。&lt;/p&gt;
+&lt;p&gt;window方法，可以省略书写。&lt;/
+    
+    </summary>
+    
+      <category term="setTimeout" scheme="http://yoursite.com/categories/setTimeout/"/>
+    
+    
+      <category term="js" scheme="http://yoursite.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
     <title>call和apply</title>
     <link href="http://yoursite.com/2016/11/18/title22/"/>
     <id>http://yoursite.com/2016/11/18/title22/</id>
@@ -3136,59 +3189,6 @@ arr2是[3,4,5,6,7]
     </summary>
     
       <category term="callpply" scheme="http://yoursite.com/categories/callpply/"/>
-    
-    
-      <category term="js" scheme="http://yoursite.com/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>延时器setTimeout讲解</title>
-    <link href="http://yoursite.com/2016/11/18/title23/"/>
-    <id>http://yoursite.com/2016/11/18/title23/</id>
-    <published>2016-11-18T09:27:56.000Z</published>
-    <updated>2017-02-20T10:34:21.044Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1、延时器"><a href="#1、延时器" class="headerlink" title="1、延时器"></a>1、延时器</h2><p>延时器：setTimeout()。在指定时间之后，执行1次函数。</p>
-<p>window方法，可以省略书写。</p>
-<p>比喻定时炸弹：在多少时间之后，炸弹爆炸。</p>
-<p>1    语法：setTimeout(函数，等待时间);</p>
-<pre><code>1    console.log(1);
-2    console.log(2);
-3    console.log(3);
-4    setTimeout(function(){
-5     console.log(&quot;booom shakalaka&quot;);
-6    },1000);
-7    console.log(4)
-</code></pre><p>使用情况：setTimeout，如果需要在一段时间之后才执行某一个函数。只执行一次。<br>setInterval，如果需要每隔一段时间执行函数一次，反复执行。</p>
-<h2 id="2、函数节流"><a href="#2、函数节流" class="headerlink" title="2、函数节流"></a>2、函数节流</h2><p>函数被调用的时候，最好有一个时间间隔，现在函数不具备这个功能。</p>
-<p>事件被频繁触发，事件函数就会频繁调用。</p>
-<p>解决方法：函数节流。用一个变量限制函数后面的语句到底能不能走到。定义一个延时器，将变量的限制解开。</p>
-<pre><code>1    //给函数上一把锁，锁开的时候，执行函数的语句，锁关上之后，不能执行函数
-2            var lock = true ;  //表示锁是开的能够执行事件函数
-3            btn.onclick = function(){
-4                //如果锁开着可以执行后面的语句，如果关闭，直接return返回，不执行后面的代码
-5                if(lock == false){
-6                    return;
-7                }
-8                //给函数上一把锁
-9                lock = false;
-10                //隔一段时间打开锁
-11                setTimeout(function(){
-12                    lock = true;
-13                },2000);
-14                console.log(Math.random());
-15            }
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1、延时器&quot;&gt;&lt;a href=&quot;#1、延时器&quot; class=&quot;headerlink&quot; title=&quot;1、延时器&quot;&gt;&lt;/a&gt;1、延时器&lt;/h2&gt;&lt;p&gt;延时器：setTimeout()。在指定时间之后，执行1次函数。&lt;/p&gt;
-&lt;p&gt;window方法，可以省略书写。&lt;/
-    
-    </summary>
-    
-      <category term="setTimeout" scheme="http://yoursite.com/categories/setTimeout/"/>
     
     
       <category term="js" scheme="http://yoursite.com/tags/js/"/>
@@ -5508,6 +5508,127 @@ word
   </entry>
   
   <entry>
+    <title>if语句</title>
+    <link href="http://yoursite.com/2016/10/10/title5/"/>
+    <id>http://yoursite.com/2016/10/10/title5/</id>
+    <published>2016-10-10T09:27:56.000Z</published>
+    <updated>2017-02-20T10:30:08.471Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、if语句"><a href="#1、if语句" class="headerlink" title="1、if语句"></a>1、if语句</h2><p>if是如果的意思。else，否则。</p>
+<pre><code>1    语法：
+2    if(condition){
+3            statement1   //结构体，多行代码，写在一对大括号内部
+4        }else{
+5            statement2
+6     }
+</code></pre><p>结构体要执行就都执行，要不执行，就都不执行。</p>
+<p>condition：条件表达式，强制给我们转成布尔值。</p>
+<p>含义：如果条件condition为真，执行第一个结构体。如果为假，执行第二个结构体。</p>
+<pre><code>1    if(条件){
+2    条件为真，执行的结构体；
+3    }else{
+4    条件为假，执行的结构体；
+    }
+</code></pre><p>if语句可以没有else，条件成立执行结构体，不成立直接退出程序</p>
+<pre><code>1    if(a &lt; 60){
+2        alert(&quot;抱歉没及格，努力吧&quot;);3    }
+</code></pre><p>如果执行的结构体只有单行语句，可以省略大括号</p>
+<pre><code>1    if(a &gt;= 60)
+2        alert(&quot;恭喜，及格了&quot;);
+3    else
+4    alert(&quot;很遗憾，没及格，继续努力&quot;);
+</code></pre><p>也能写在if语句的同一行，仅限单行结构体。</p>
+<pre><code>1    if(a &gt;= 60) alert(&quot;恭喜，及格了&quot;);
+2    else alert(&quot;很遗憾，没及格，继续努力&quot;);
+</code></pre><p>这两种写法不会报错，但是为了避免出一些不必要的问题，尽量写大括号。<br>大括号后面不需要写分号，不会出错。</p>
+<p>if语句殊途同归，不管执行哪个程序，退出后都继续执行后面的语句</p>
+<pre><code>1    if(a &gt;= 60){
+2                alert(&quot;恭喜，及格了&quot;);
+3            }else{
+4                alert(&quot;很遗憾，没及格，继续努力&quot;);
+5            }
+6            alert(&quot;好好准备下一次考试&quot;);
+</code></pre><h2 id="2、多条件分支语句"><a href="#2、多条件分支语句" class="headerlink" title="2、多条件分支语句"></a>2、多条件分支语句</h2><p>条件并不是只有一个，每一个条件对应一个结构体。</p>
+<p>if……else if …… else if…… else if…… else …… 如果……否则如果……否则如果……否则……</p>
+<pre><code>1    if(条件1){
+2        满足条件1执行的结构体
+3    }else if(条件2){
+4        条件1不满足，满足条件2时执行的结构体
+5    }else if(条件3){
+6        条件1/2都不满足，满足条件3时执行的结构体
+7    }else if(条件4){
+8        条件1/2/3都不满足，满足条件4时执行的结构体
+9    }else{
+10        以上条件都不满足，执行的结构体11    }
+</code></pre><p>跳楼现象：程序会选择一个分支执行（跳楼），如果执行了这个分支，表示前面分支的条件都没有满足。</p>
+<p>案例：详细划分成绩评价，优秀，良好，及格，不及格。</p>
+<pre><code>1    if(a &gt;= 90){
+2        alert(&quot;优秀&quot;);
+3    }else if(a &gt;= 70){  //如果走到这一步，隐含了a&lt;90
+4        alert(&quot;良好&quot;);        //执行完之后，直接跳楼，不会执行后面的条件分之
+5    }else if(a &gt;= 60){
+6        alert(&quot;及格&quot;);  //如果走到这一步，隐含了a&lt;70
+7    }else{
+8        alert(&quot;不及格&quot;);9    }
+</code></pre><blockquote>
+<p>大坑</p>
+</blockquote>
+<pre><code>1    var b = 1;
+2            if(b &lt;= 3){  //只会选择这个条件内部的结构体，执行后直接跳楼
+3                b += 4;
+4            }else if(b == 5){
+5                b += 3
+6            }else if(b == 8 ){
+7                b += 4
+8            }else{
+9                b += 10;
+10            }
+11            console.log(b);
+</code></pre><h2 id="3、if语句嵌套"><a href="#3、if语句嵌套" class="headerlink" title="3、if语句嵌套"></a>3、if语句嵌套</h2><p>制作一个结构的时候，有两个限制条件，可以使用if语句的嵌套。</p>
+<p>if语句可以嵌套if语句使用，最终执行符合条件成立的结构体</p>
+<pre><code>1    if(sex == &quot;男&quot; &amp;&amp; age &gt;= 22){
+2                alert(&quot;可以领证了&quot;);
+3            }else if(sex == &quot;女&quot; &amp;&amp; age &gt;= 20){
+4                alert(&quot;可以领证了&quot;);
+5            }else{
+6                alert(&quot;你还小，等等吧&quot;);
+7            }
+</code></pre><p> 以上程序也可以达到效果：结构划分不清晰，条件比较复杂。</p>
+<pre><code>1    //if语句嵌套方法，每一层if语句只判断一个条件，内部再去进行另一个条件的判断。
+2            //第一层，只判断性别
+3            if(sex == &quot;男&quot;){
+4                //第二次，判断年龄
+5                if(age &gt;= 22){
+6                    alert(&quot;可以领证了&quot;);
+7                }else{
+8                    alert(&quot;你还小，等等吧&quot;);
+9                }
+10            }else{
+11                //第二次，判断年龄
+12                if(age &gt;= 20){
+13                    alert(&quot;可以领证了&quot;);
+14                }else{
+15                    alert(&quot;你还小，等等吧&quot;);
+16                }
+17            }
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、if语句&quot;&gt;&lt;a href=&quot;#1、if语句&quot; class=&quot;headerlink&quot; title=&quot;1、if语句&quot;&gt;&lt;/a&gt;1、if语句&lt;/h2&gt;&lt;p&gt;if是如果的意思。else，否则。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1    语法：
+2    if(cond
+    
+    </summary>
+    
+      <category term="条件分支语句" scheme="http://yoursite.com/categories/%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5/"/>
+    
+    
+      <category term="if" scheme="http://yoursite.com/tags/if/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JS条件分支语句</title>
     <link href="http://yoursite.com/2016/10/10/title6/"/>
     <id>http://yoursite.com/2016/10/10/title6/</id>
@@ -5665,127 +5786,6 @@ word
     
     
       <category term="switch" scheme="http://yoursite.com/tags/switch/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>if语句</title>
-    <link href="http://yoursite.com/2016/10/10/title5/"/>
-    <id>http://yoursite.com/2016/10/10/title5/</id>
-    <published>2016-10-10T09:27:56.000Z</published>
-    <updated>2017-02-20T10:30:08.471Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1、if语句"><a href="#1、if语句" class="headerlink" title="1、if语句"></a>1、if语句</h2><p>if是如果的意思。else，否则。</p>
-<pre><code>1    语法：
-2    if(condition){
-3            statement1   //结构体，多行代码，写在一对大括号内部
-4        }else{
-5            statement2
-6     }
-</code></pre><p>结构体要执行就都执行，要不执行，就都不执行。</p>
-<p>condition：条件表达式，强制给我们转成布尔值。</p>
-<p>含义：如果条件condition为真，执行第一个结构体。如果为假，执行第二个结构体。</p>
-<pre><code>1    if(条件){
-2    条件为真，执行的结构体；
-3    }else{
-4    条件为假，执行的结构体；
-    }
-</code></pre><p>if语句可以没有else，条件成立执行结构体，不成立直接退出程序</p>
-<pre><code>1    if(a &lt; 60){
-2        alert(&quot;抱歉没及格，努力吧&quot;);3    }
-</code></pre><p>如果执行的结构体只有单行语句，可以省略大括号</p>
-<pre><code>1    if(a &gt;= 60)
-2        alert(&quot;恭喜，及格了&quot;);
-3    else
-4    alert(&quot;很遗憾，没及格，继续努力&quot;);
-</code></pre><p>也能写在if语句的同一行，仅限单行结构体。</p>
-<pre><code>1    if(a &gt;= 60) alert(&quot;恭喜，及格了&quot;);
-2    else alert(&quot;很遗憾，没及格，继续努力&quot;);
-</code></pre><p>这两种写法不会报错，但是为了避免出一些不必要的问题，尽量写大括号。<br>大括号后面不需要写分号，不会出错。</p>
-<p>if语句殊途同归，不管执行哪个程序，退出后都继续执行后面的语句</p>
-<pre><code>1    if(a &gt;= 60){
-2                alert(&quot;恭喜，及格了&quot;);
-3            }else{
-4                alert(&quot;很遗憾，没及格，继续努力&quot;);
-5            }
-6            alert(&quot;好好准备下一次考试&quot;);
-</code></pre><h2 id="2、多条件分支语句"><a href="#2、多条件分支语句" class="headerlink" title="2、多条件分支语句"></a>2、多条件分支语句</h2><p>条件并不是只有一个，每一个条件对应一个结构体。</p>
-<p>if……else if …… else if…… else if…… else …… 如果……否则如果……否则如果……否则……</p>
-<pre><code>1    if(条件1){
-2        满足条件1执行的结构体
-3    }else if(条件2){
-4        条件1不满足，满足条件2时执行的结构体
-5    }else if(条件3){
-6        条件1/2都不满足，满足条件3时执行的结构体
-7    }else if(条件4){
-8        条件1/2/3都不满足，满足条件4时执行的结构体
-9    }else{
-10        以上条件都不满足，执行的结构体11    }
-</code></pre><p>跳楼现象：程序会选择一个分支执行（跳楼），如果执行了这个分支，表示前面分支的条件都没有满足。</p>
-<p>案例：详细划分成绩评价，优秀，良好，及格，不及格。</p>
-<pre><code>1    if(a &gt;= 90){
-2        alert(&quot;优秀&quot;);
-3    }else if(a &gt;= 70){  //如果走到这一步，隐含了a&lt;90
-4        alert(&quot;良好&quot;);        //执行完之后，直接跳楼，不会执行后面的条件分之
-5    }else if(a &gt;= 60){
-6        alert(&quot;及格&quot;);  //如果走到这一步，隐含了a&lt;70
-7    }else{
-8        alert(&quot;不及格&quot;);9    }
-</code></pre><blockquote>
-<p>大坑</p>
-</blockquote>
-<pre><code>1    var b = 1;
-2            if(b &lt;= 3){  //只会选择这个条件内部的结构体，执行后直接跳楼
-3                b += 4;
-4            }else if(b == 5){
-5                b += 3
-6            }else if(b == 8 ){
-7                b += 4
-8            }else{
-9                b += 10;
-10            }
-11            console.log(b);
-</code></pre><h2 id="3、if语句嵌套"><a href="#3、if语句嵌套" class="headerlink" title="3、if语句嵌套"></a>3、if语句嵌套</h2><p>制作一个结构的时候，有两个限制条件，可以使用if语句的嵌套。</p>
-<p>if语句可以嵌套if语句使用，最终执行符合条件成立的结构体</p>
-<pre><code>1    if(sex == &quot;男&quot; &amp;&amp; age &gt;= 22){
-2                alert(&quot;可以领证了&quot;);
-3            }else if(sex == &quot;女&quot; &amp;&amp; age &gt;= 20){
-4                alert(&quot;可以领证了&quot;);
-5            }else{
-6                alert(&quot;你还小，等等吧&quot;);
-7            }
-</code></pre><p> 以上程序也可以达到效果：结构划分不清晰，条件比较复杂。</p>
-<pre><code>1    //if语句嵌套方法，每一层if语句只判断一个条件，内部再去进行另一个条件的判断。
-2            //第一层，只判断性别
-3            if(sex == &quot;男&quot;){
-4                //第二次，判断年龄
-5                if(age &gt;= 22){
-6                    alert(&quot;可以领证了&quot;);
-7                }else{
-8                    alert(&quot;你还小，等等吧&quot;);
-9                }
-10            }else{
-11                //第二次，判断年龄
-12                if(age &gt;= 20){
-13                    alert(&quot;可以领证了&quot;);
-14                }else{
-15                    alert(&quot;你还小，等等吧&quot;);
-16                }
-17            }
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1、if语句&quot;&gt;&lt;a href=&quot;#1、if语句&quot; class=&quot;headerlink&quot; title=&quot;1、if语句&quot;&gt;&lt;/a&gt;1、if语句&lt;/h2&gt;&lt;p&gt;if是如果的意思。else，否则。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;1    语法：
-2    if(cond
-    
-    </summary>
-    
-      <category term="条件分支语句" scheme="http://yoursite.com/categories/%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5/"/>
-    
-    
-      <category term="if" scheme="http://yoursite.com/tags/if/"/>
     
   </entry>
   
