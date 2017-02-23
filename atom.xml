@@ -366,6 +366,150 @@ if(infoobj.nianling){
   </entry>
   
   <entry>
+    <title>JSONP跨域详解</title>
+    <link href="http://yoursite.com/2016/12/12/title42/"/>
+    <id>http://yoursite.com/2016/12/12/title42/</id>
+    <published>2016-12-12T09:27:56.000Z</published>
+    <updated>2017-02-20T10:38:00.373Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、Ajax因为安全限制不允许跨域"><a href="#1、Ajax因为安全限制不允许跨域" class="headerlink" title="1、Ajax因为安全限制不允许跨域"></a>1、Ajax因为安全限制不允许跨域</h2><p>Ajax不能跨域，指的是如果你的HTML页面在127.0.0.1上，此时将不能访问127.0.0.2上的文件。如果你的文件在www.iqianduan.cn上，也不能访问www.163.com上的文件。有些浏览器甚至不允许你访问news.58gsl.cn。这是浏览器的安全限制，不允许你随随便便的访问其他服务器上的JSON。</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx37voeaaj211y0ildh0.jpg" alt=""></p>
+<h2 id="2、JSONP跨域"><a href="#2、JSONP跨域" class="headerlink" title="2、JSONP跨域"></a>2、JSONP跨域</h2><p>JSONP就是JSON with Padding ( JSON和 赘语），指的就是把函数的执行放到外部文件，HTML用script标签引用这个js文件，实际上引用的是对一个函数的执行。此时函数定义在HTML文件里面，数据就通过实参、形参的结合就进入了HTML数据。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    function fun(data){
+        alert(data.xingming);
+    }
+&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;haha.txt&quot;&gt;&lt;/script&gt;  → 这个文件执行了fun函数
+</code></pre><p>haha.txt文件里面：</p>
+<pre><code>fun({&quot;xingming&quot;:&quot;小明&quot;,&quot;nianling&quot;:12,&quot;xingbie&quot;:&quot;男&quot;});
+</code></pre><p>红色部分是执行一个函数，就是所谓的“P”。</p>
+<p> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx37vvqrfj211x0ebjtg.jpg" alt=""></p>
+<p>京东数据的请求：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    function yuanye(data){
+        for(var i = 0 ; i &lt; data.comments.length ; i++){
+            alert(data.comments[i].content);
+        }
+
+    }
+&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=yuanye&quot;&gt;&lt;/script&gt;
+</code></pre><blockquote>
+<p>JSONP的缺点：</p>
+<p>1） 太不安全，什么时候章泽天和刘强东吵架，刘强东很生气，把JSONP接口换成了</p>
+<pre><code>for(var i = 0 ; i &lt; 1000000 ; i++){
+alert(&quot;你好&quot;);
+}
+</code></pre><p>此时你又在用script引用它，此时你的用户也被连带遭殃了。</p>
+<p>所以JSONP的提供者，一定要可靠！</p>
+<p>2） 没有明显的异步的特点。页面虽然不会假死，但是没有提供回调函数。<br>不过也没关系，页面不假死是重点。</p>
+<p>3） 很难控制请求的发出。比如我想点击一个按钮，然后发出请求。<br>不过也很快被解决了，我们可以动态的创建一个script标签，设置了src，一旦上树，上行请求将发出，此时函数将执行！</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var btn = document.getElementById(&quot;btn&quot;);
+</code></pre></blockquote>
+<pre><code>    //准备一个函数，一会儿外部文件将执行这个函数
+    function fun(data){
+        alert(data.xingming);
+    }
+
+    //事件监听
+    btn.onclick = function(){
+        var oscript = document.createElement(&quot;script&quot;);
+        oscript.src = &quot;haha.txt&quot;;
+        document.head.appendChild(oscript);
+        document.head.removeChild(oscript);
+    }
+&lt;/script&gt;
+</code></pre><p>甚至我们可以封装一个函数，就不用显式的创建fun函数了，可以把用户传输进来的函数，当做fun函数：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var btn = document.getElementById(&quot;btn&quot;);
+
+    function qingqiu(URL,callback){
+        //你第二个传入的参数就是哈哈函数
+        window.fun= callback;
+
+        var oscript = document.createElement(&quot;script&quot;);
+        oscript.src = URL;
+        document.head.appendChild(oscript);
+        document.head.removeChild(oscript);
+    }
+
+    qingqiu(&quot;haha.txt&quot;,function(data){
+        alert(data.nianling);
+    });
+&lt;/script&gt;
+</code></pre><p>jQuery中使用JSONP和使用正经Ajax一样一样的，你完全看不出来，只是些许有些语法不一样。</p>
+<h2 id="3、JSONP的jQuery使用"><a href="#3、JSONP的jQuery使用" class="headerlink" title="3、JSONP的jQuery使用"></a>3、JSONP的jQuery使用</h2><p>首先：</p>
+<pre><code>$.get(URL,function(data){
+});
+
+$.post(URL,function(data){
+});
+</code></pre><p>jQuery中最全活的API是：</p>
+<pre><code>$.ajax();
+</code></pre><p>比如：</p>
+<pre><code>$.ajax({
+    &quot;url&quot; : &quot;php/job.php&quot;,
+    &quot;data&quot; : {
+        &quot;page&quot; : 2
+    },
+    &quot;type&quot; : &quot;get&quot;,
+    &quot;success&quot; : function(data){
+        alert(data);
+    }
+});
+</code></pre><p>等价于：</p>
+<pre><code>$.get(&quot;php/job.php?page=2&quot;,function(data){
+    alert(data);
+})
+</code></pre><p>此时jQuery实现JSONP跨域：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery-1.12.3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $.ajax({
+        //请求的地址，下面是一个域外的地址
+        &quot;url&quot; : &quot;http://127.0.0.2/haha.txt&quot;,
+        //请求类型是jsonp类型，注意是dataType属性而不是type属性
+        &quot;dataType&quot; : &quot;jsonp&quot;,
+        //定义我们传进来的success函数叫什么名字
+        &quot;jsonpCallback&quot; : &quot;fun&quot;,
+        //定义一个函数，这个函数马上会成为window.fun
+        &quot;success&quot; : function(data){
+            alert(data.xingming);
+            alert(data.nianling);
+            alert(data.xingbie);
+        }
+    });
+&lt;/script&gt;
+</code></pre><p>特别的，如果后台哥哥给你写了callback GET请求参数，可以任意设置调用的函数名字，此时jQuery中可以用？代替这个部分，jQuery会自动帮你填入随机乱码：</p>
+<pre><code>$.ajax({
+    &quot;url&quot; : &quot;https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=?&quot;,
+    &quot;dataType&quot; : &quot;jsonp&quot;,
+    &quot;success&quot; : function(data){
+        alert(data.comments.length);
+    }
+});
+</code></pre><p>此时jQuery就会把请求发往：</p>
+<blockquote>
+<p><a href="https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=jQuery112306426957034965071_1480068166765" target="_blank" rel="external">https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=jQuery112306426957034965071_1480068166765</a></p>
+</blockquote>
+<p>工作中这种模式最最常用。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、Ajax因为安全限制不允许跨域&quot;&gt;&lt;a href=&quot;#1、Ajax因为安全限制不允许跨域&quot; class=&quot;headerlink&quot; title=&quot;1、Ajax因为安全限制不允许跨域&quot;&gt;&lt;/a&gt;1、Ajax因为安全限制不允许跨域&lt;/h2&gt;&lt;p&gt;Ajax不能跨域，指
+    
+    </summary>
+    
+      <category term="JSONP" scheme="http://yoursite.com/categories/JSONP/"/>
+    
+    
+      <category term="JSONP" scheme="http://yoursite.com/tags/JSONP/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PHP实现分页以及Hash</title>
     <link href="http://yoursite.com/2016/12/12/title43/"/>
     <id>http://yoursite.com/2016/12/12/title43/</id>
@@ -523,150 +667,6 @@ window.location.hash = &quot;maomao1&quot;; //设置
     
     
       <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JSONP跨域详解</title>
-    <link href="http://yoursite.com/2016/12/12/title42/"/>
-    <id>http://yoursite.com/2016/12/12/title42/</id>
-    <published>2016-12-12T09:27:56.000Z</published>
-    <updated>2017-02-20T10:38:00.373Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1、Ajax因为安全限制不允许跨域"><a href="#1、Ajax因为安全限制不允许跨域" class="headerlink" title="1、Ajax因为安全限制不允许跨域"></a>1、Ajax因为安全限制不允许跨域</h2><p>Ajax不能跨域，指的是如果你的HTML页面在127.0.0.1上，此时将不能访问127.0.0.2上的文件。如果你的文件在www.iqianduan.cn上，也不能访问www.163.com上的文件。有些浏览器甚至不允许你访问news.58gsl.cn。这是浏览器的安全限制，不允许你随随便便的访问其他服务器上的JSON。</p>
-<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx37voeaaj211y0ildh0.jpg" alt=""></p>
-<h2 id="2、JSONP跨域"><a href="#2、JSONP跨域" class="headerlink" title="2、JSONP跨域"></a>2、JSONP跨域</h2><p>JSONP就是JSON with Padding ( JSON和 赘语），指的就是把函数的执行放到外部文件，HTML用script标签引用这个js文件，实际上引用的是对一个函数的执行。此时函数定义在HTML文件里面，数据就通过实参、形参的结合就进入了HTML数据。</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
-    function fun(data){
-        alert(data.xingming);
-    }
-&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;haha.txt&quot;&gt;&lt;/script&gt;  → 这个文件执行了fun函数
-</code></pre><p>haha.txt文件里面：</p>
-<pre><code>fun({&quot;xingming&quot;:&quot;小明&quot;,&quot;nianling&quot;:12,&quot;xingbie&quot;:&quot;男&quot;});
-</code></pre><p>红色部分是执行一个函数，就是所谓的“P”。</p>
-<p> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx37vvqrfj211x0ebjtg.jpg" alt=""></p>
-<p>京东数据的请求：</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
-    function yuanye(data){
-        for(var i = 0 ; i &lt; data.comments.length ; i++){
-            alert(data.comments[i].content);
-        }
-
-    }
-&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=yuanye&quot;&gt;&lt;/script&gt;
-</code></pre><blockquote>
-<p>JSONP的缺点：</p>
-<p>1） 太不安全，什么时候章泽天和刘强东吵架，刘强东很生气，把JSONP接口换成了</p>
-<pre><code>for(var i = 0 ; i &lt; 1000000 ; i++){
-alert(&quot;你好&quot;);
-}
-</code></pre><p>此时你又在用script引用它，此时你的用户也被连带遭殃了。</p>
-<p>所以JSONP的提供者，一定要可靠！</p>
-<p>2） 没有明显的异步的特点。页面虽然不会假死，但是没有提供回调函数。<br>不过也没关系，页面不假死是重点。</p>
-<p>3） 很难控制请求的发出。比如我想点击一个按钮，然后发出请求。<br>不过也很快被解决了，我们可以动态的创建一个script标签，设置了src，一旦上树，上行请求将发出，此时函数将执行！</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
-    var btn = document.getElementById(&quot;btn&quot;);
-</code></pre></blockquote>
-<pre><code>    //准备一个函数，一会儿外部文件将执行这个函数
-    function fun(data){
-        alert(data.xingming);
-    }
-
-    //事件监听
-    btn.onclick = function(){
-        var oscript = document.createElement(&quot;script&quot;);
-        oscript.src = &quot;haha.txt&quot;;
-        document.head.appendChild(oscript);
-        document.head.removeChild(oscript);
-    }
-&lt;/script&gt;
-</code></pre><p>甚至我们可以封装一个函数，就不用显式的创建fun函数了，可以把用户传输进来的函数，当做fun函数：</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
-    var btn = document.getElementById(&quot;btn&quot;);
-
-    function qingqiu(URL,callback){
-        //你第二个传入的参数就是哈哈函数
-        window.fun= callback;
-
-        var oscript = document.createElement(&quot;script&quot;);
-        oscript.src = URL;
-        document.head.appendChild(oscript);
-        document.head.removeChild(oscript);
-    }
-
-    qingqiu(&quot;haha.txt&quot;,function(data){
-        alert(data.nianling);
-    });
-&lt;/script&gt;
-</code></pre><p>jQuery中使用JSONP和使用正经Ajax一样一样的，你完全看不出来，只是些许有些语法不一样。</p>
-<h2 id="3、JSONP的jQuery使用"><a href="#3、JSONP的jQuery使用" class="headerlink" title="3、JSONP的jQuery使用"></a>3、JSONP的jQuery使用</h2><p>首先：</p>
-<pre><code>$.get(URL,function(data){
-});
-
-$.post(URL,function(data){
-});
-</code></pre><p>jQuery中最全活的API是：</p>
-<pre><code>$.ajax();
-</code></pre><p>比如：</p>
-<pre><code>$.ajax({
-    &quot;url&quot; : &quot;php/job.php&quot;,
-    &quot;data&quot; : {
-        &quot;page&quot; : 2
-    },
-    &quot;type&quot; : &quot;get&quot;,
-    &quot;success&quot; : function(data){
-        alert(data);
-    }
-});
-</code></pre><p>等价于：</p>
-<pre><code>$.get(&quot;php/job.php?page=2&quot;,function(data){
-    alert(data);
-})
-</code></pre><p>此时jQuery实现JSONP跨域：</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery-1.12.3.min.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-    $.ajax({
-        //请求的地址，下面是一个域外的地址
-        &quot;url&quot; : &quot;http://127.0.0.2/haha.txt&quot;,
-        //请求类型是jsonp类型，注意是dataType属性而不是type属性
-        &quot;dataType&quot; : &quot;jsonp&quot;,
-        //定义我们传进来的success函数叫什么名字
-        &quot;jsonpCallback&quot; : &quot;fun&quot;,
-        //定义一个函数，这个函数马上会成为window.fun
-        &quot;success&quot; : function(data){
-            alert(data.xingming);
-            alert(data.nianling);
-            alert(data.xingbie);
-        }
-    });
-&lt;/script&gt;
-</code></pre><p>特别的，如果后台哥哥给你写了callback GET请求参数，可以任意设置调用的函数名字，此时jQuery中可以用？代替这个部分，jQuery会自动帮你填入随机乱码：</p>
-<pre><code>$.ajax({
-    &quot;url&quot; : &quot;https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=?&quot;,
-    &quot;dataType&quot; : &quot;jsonp&quot;,
-    &quot;success&quot; : function(data){
-        alert(data.comments.length);
-    }
-});
-</code></pre><p>此时jQuery就会把请求发往：</p>
-<blockquote>
-<p><a href="https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=jQuery112306426957034965071_1480068166765" target="_blank" rel="external">https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=jQuery112306426957034965071_1480068166765</a></p>
-</blockquote>
-<p>工作中这种模式最最常用。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1、Ajax因为安全限制不允许跨域&quot;&gt;&lt;a href=&quot;#1、Ajax因为安全限制不允许跨域&quot; class=&quot;headerlink&quot; title=&quot;1、Ajax因为安全限制不允许跨域&quot;&gt;&lt;/a&gt;1、Ajax因为安全限制不允许跨域&lt;/h2&gt;&lt;p&gt;Ajax不能跨域，指
-    
-    </summary>
-    
-      <category term="JSONP" scheme="http://yoursite.com/categories/JSONP/"/>
-    
-    
-      <category term="JSONP" scheme="http://yoursite.com/tags/JSONP/"/>
     
   </entry>
   
@@ -1132,75 +1132,6 @@ if(x &gt; end.x - 5 &amp;&amp; x &lt; end.x + 5 &amp;&amp; y &gt; end.y - 5 &amp
   </entry>
   
   <entry>
-    <title>移动端缓冲ease事件</title>
-    <link href="http://yoursite.com/2016/11/30/title37/"/>
-    <id>http://yoursite.com/2016/11/30/title37/</id>
-    <published>2016-11-30T09:27:56.000Z</published>
-    <updated>2017-02-20T10:36:48.263Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1、缓冲ease"><a href="#1、缓冲ease" class="headerlink" title="1、缓冲ease"></a>1、缓冲ease</h2><p>CSS中的transition第三个参数就是缓冲描述：</p>
-<pre><code>transition:all 1s linear 0s;  
-transition:all 1s ease 0s;
-</code></pre><p>JS也有，但是要自己推理：</p>
-<p>让div用100帧，从left100变化到left800。匀速的话，非常好计算：</p>
-<p>总变化量就是700，所以每帧的变化量应该是7。</p>
-<p>帧编号t    距起点的增量t<em>c/d    绝对位置b + t</em>c/d</p>
-<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx117g54qj20hr097wek.jpg" alt=""></p>
-<blockquote>
-<p>假设帧编号为t（本例中t自增），t就是time的意思</p>
-<p>起点成为b（本例中b为100），b就是begin起点的意思</p>
-<p>总变化量c（本例中c为700），c就是change变化量的意思</p>
-<p>总帧数d（本例中d为100），d就是duration持续时间的意思</p>
-</blockquote>
-<p>所以刚才的推理就变为了一个函数：</p>
-<pre><code>function linear(t,b,c,d){
-    return b + t * c / d;
-}
-</code></pre><p>此时这个函数接受四个参数的意义，上面已经说明了，返回的是绝对位置。此时观察这个函数，</p>
-<blockquote>
-<p>t=0的时候，返回值是b （运动没有开始） ； </p>
-<p>t= d的时候，返回值就是b+c　（运动结束）。</p>
-</blockquote>
-<p>所以我们就可以自己写一些函数，比如二次的：</p>
-<pre><code>function haha(t,b,c,d){
-    return b + t * t * c / (d *d);
-}
-</code></pre><p>Excel中做图：<br> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx117mk4gj20vq0f5dhk.jpg" alt=""></p>
-<p>上网能下载到很多t、b、c、d的函数</p>
-<p> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx117vwgoj20oq0gx0tl.jpg" alt=""></p>
-<p>jQuery中实现缓冲，下载jQuery.easing.js的包</p>
-<pre><code>$().animate({},1000,&quot;easeInOut&quot;);
-</code></pre><h2 id="2、手指滚滚屏"><a href="#2、手指滚滚屏" class="headerlink" title="2、手指滚滚屏"></a>2、手指滚滚屏</h2><p>手机滚滚屏中，希望有一个loading界面，当所有图片都加载好支持，再从容给用户观看。<br>所以我们要管理好资源，我们的想法就是使用一个JSON列出所有的图片资源：</p>
-<pre><code>{
-    &quot;tu1&quot; : &quot;images/1.jpg&quot;,
-    &quot;tu2&quot; : &quot;images/2.jpg&quot;,
-    &quot;tu3&quot; : &quot;images/3.jpg&quot;
-}
-</code></pre><p>用JS写程序创建一个个孤儿节点，图片对象存储在和这个JSON相同的另一个对象中：</p>
-<pre><code>{
-    &quot;tu1&quot; : Image(),
-    &quot;tu2&quot; : Image(),
-    &quot;tu3&quot; : Image()
-}
-</code></pre><p>此时HTML页面上，仅仅用img标签的“模板”来占位，用JS的真实图片孤儿节点，替换这个节点。</p>
-<pre><code>&lt;img data-name=&quot;tu1&quot; /&gt;
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1、缓冲ease&quot;&gt;&lt;a href=&quot;#1、缓冲ease&quot; class=&quot;headerlink&quot; title=&quot;1、缓冲ease&quot;&gt;&lt;/a&gt;1、缓冲ease&lt;/h2&gt;&lt;p&gt;CSS中的transition第三个参数就是缓冲描述：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;tra
-    
-    </summary>
-    
-      <category term="移动web" scheme="http://yoursite.com/categories/%E7%A7%BB%E5%8A%A8web/"/>
-    
-    
-      <category term="移web" scheme="http://yoursite.com/tags/%E7%A7%BBweb/"/>
-    
-  </entry>
-  
-  <entry>
     <title>移动端JS事件</title>
     <link href="http://yoursite.com/2016/11/30/title36/"/>
     <id>http://yoursite.com/2016/11/30/title36/</id>
@@ -1345,6 +1276,75 @@ document.onmouseup = function(){
     <summary type="html">
     
       &lt;p&gt;##1、触摸事件 ##&lt;br&gt;移动端JS事件，重要就是触摸事件。触摸事件和鼠标事件完全不一样，因为鼠标不可能离开屏幕，鼠标在屏幕上可以点击可以不点击；但是手指可以离开屏幕，手指一旦碰到屏幕，就被视为点击了。所以，JS设计了一套完整的触摸事件系列，适应移动端web开发。&lt;/p
+    
+    </summary>
+    
+      <category term="移动web" scheme="http://yoursite.com/categories/%E7%A7%BB%E5%8A%A8web/"/>
+    
+    
+      <category term="移web" scheme="http://yoursite.com/tags/%E7%A7%BBweb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>移动端缓冲ease事件</title>
+    <link href="http://yoursite.com/2016/11/30/title37/"/>
+    <id>http://yoursite.com/2016/11/30/title37/</id>
+    <published>2016-11-30T09:27:56.000Z</published>
+    <updated>2017-02-20T10:36:48.263Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、缓冲ease"><a href="#1、缓冲ease" class="headerlink" title="1、缓冲ease"></a>1、缓冲ease</h2><p>CSS中的transition第三个参数就是缓冲描述：</p>
+<pre><code>transition:all 1s linear 0s;  
+transition:all 1s ease 0s;
+</code></pre><p>JS也有，但是要自己推理：</p>
+<p>让div用100帧，从left100变化到left800。匀速的话，非常好计算：</p>
+<p>总变化量就是700，所以每帧的变化量应该是7。</p>
+<p>帧编号t    距起点的增量t<em>c/d    绝对位置b + t</em>c/d</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx117g54qj20hr097wek.jpg" alt=""></p>
+<blockquote>
+<p>假设帧编号为t（本例中t自增），t就是time的意思</p>
+<p>起点成为b（本例中b为100），b就是begin起点的意思</p>
+<p>总变化量c（本例中c为700），c就是change变化量的意思</p>
+<p>总帧数d（本例中d为100），d就是duration持续时间的意思</p>
+</blockquote>
+<p>所以刚才的推理就变为了一个函数：</p>
+<pre><code>function linear(t,b,c,d){
+    return b + t * c / d;
+}
+</code></pre><p>此时这个函数接受四个参数的意义，上面已经说明了，返回的是绝对位置。此时观察这个函数，</p>
+<blockquote>
+<p>t=0的时候，返回值是b （运动没有开始） ； </p>
+<p>t= d的时候，返回值就是b+c　（运动结束）。</p>
+</blockquote>
+<p>所以我们就可以自己写一些函数，比如二次的：</p>
+<pre><code>function haha(t,b,c,d){
+    return b + t * t * c / (d *d);
+}
+</code></pre><p>Excel中做图：<br> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx117mk4gj20vq0f5dhk.jpg" alt=""></p>
+<p>上网能下载到很多t、b、c、d的函数</p>
+<p> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx117vwgoj20oq0gx0tl.jpg" alt=""></p>
+<p>jQuery中实现缓冲，下载jQuery.easing.js的包</p>
+<pre><code>$().animate({},1000,&quot;easeInOut&quot;);
+</code></pre><h2 id="2、手指滚滚屏"><a href="#2、手指滚滚屏" class="headerlink" title="2、手指滚滚屏"></a>2、手指滚滚屏</h2><p>手机滚滚屏中，希望有一个loading界面，当所有图片都加载好支持，再从容给用户观看。<br>所以我们要管理好资源，我们的想法就是使用一个JSON列出所有的图片资源：</p>
+<pre><code>{
+    &quot;tu1&quot; : &quot;images/1.jpg&quot;,
+    &quot;tu2&quot; : &quot;images/2.jpg&quot;,
+    &quot;tu3&quot; : &quot;images/3.jpg&quot;
+}
+</code></pre><p>用JS写程序创建一个个孤儿节点，图片对象存储在和这个JSON相同的另一个对象中：</p>
+<pre><code>{
+    &quot;tu1&quot; : Image(),
+    &quot;tu2&quot; : Image(),
+    &quot;tu3&quot; : Image()
+}
+</code></pre><p>此时HTML页面上，仅仅用img标签的“模板”来占位，用JS的真实图片孤儿节点，替换这个节点。</p>
+<pre><code>&lt;img data-name=&quot;tu1&quot; /&gt;
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、缓冲ease&quot;&gt;&lt;a href=&quot;#1、缓冲ease&quot; class=&quot;headerlink&quot; title=&quot;1、缓冲ease&quot;&gt;&lt;/a&gt;1、缓冲ease&lt;/h2&gt;&lt;p&gt;CSS中的transition第三个参数就是缓冲描述：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;tra
     
     </summary>
     
@@ -2579,6 +2579,98 @@ arr2是[3,4,5,6,7]
   </entry>
   
   <entry>
+    <title>jQuery节点关系</title>
+    <link href="http://yoursite.com/2016/11/20/title25/"/>
+    <id>http://yoursite.com/2016/11/20/title25/</id>
+    <published>2016-11-20T09:27:56.000Z</published>
+    <updated>2017-02-20T10:34:46.456Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h1><p>jQuery控制元素时，都是批量控制。</p>
+<p>添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。</p>
+<p>jQuery帮我们简化了这个找关系的过程，封装了一系列的方法可以帮我们找到父亲、儿子、兄弟、祖先、孙子等元素。</p>
+<h2 id="1、-this-自己"><a href="#1、-this-自己" class="headerlink" title="1、$(this)自己"></a>1、$(this)自己</h2><p>事件内部有一个$(this)的对象，指向的就是触发事件的这个元素本身。</p>
+<p>就是原生js里的事件函数内的那个this，用$()将this转成jQuery对象，就能调用jQuery的方法。this不要加引号。</p>
+<pre><code>1    // 谁触发事件谁动
+2    $(&quot;p&quot;).click(function(){
+3        $(this).animate({&quot;left&quot;:1000},1000);
+4    });
+</code></pre><h2 id="2、parent-父亲"><a href="#2、parent-父亲" class="headerlink" title="2、parent()父亲"></a>2、parent()父亲</h2><p>寻找元素父级的方法：必须加小括号，找到的也是亲生的父亲。爷爷和叔叔都不能。</p>
+<p>案例：点击一个元素，让他的父亲背景变色。</p>
+<pre><code>1    $(&quot;p&quot;).click(function(){
+2        $(this).parent().css(&quot;background&quot;,&quot;lightblue&quot;);
+3    });
+</code></pre><p>说明：方法返回的是某一个元素的父亲的jQuery对象，继续打点调用jQuery方法。</p>
+<h2 id="3、children-儿子"><a href="#3、children-儿子" class="headerlink" title="3、children()儿子"></a>3、children()儿子</h2><p>寻找子级元素的方法：必须加小括号，选中的是元素的所有儿子级元素。孙子级的元素选不中。</p>
+<p>案例：点击一个元素，让他的子级全部消失。</p>
+<pre><code>1    //让点击元素的子级全部消失
+2            $(&quot;div&quot;).click(function(){
+3                $(this).children().hide(300);
+4            });    
+</code></pre><p>方法可以传递参数：还是一个选择器，指的是我要选择儿子级里面还要满足选择器要求的那些元素。</p>
+<pre><code>1    //要选择儿子级元素中符合选择器要求的部分
+2    $(&quot;div&quot;).click(function(){
+3        $(this).children(&quot;.cur&quot;).hide(300);
+4    });    
+
+4、siblings()兄弟
+</code></pre><p>寻找的是同级的兄弟元素：方法必须加小括号，找到的是亲兄弟元素。</p>
+<p>案例：点击一个元素，让他的兄弟都变色，自身不变色。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).siblings().css(&quot;background&quot;,&quot;red&quot;);
+3    });
+</code></pre><p>可以通过参数进行选择器筛选.</p>
+<pre><code>1    //筛选h2的兄弟元素
+2            $(&quot;div&quot;).children().click(function(){
+3                $(this).siblings(&quot;h2&quot;).css(&quot;background&quot;,&quot;red&quot;);
+4            });
+</code></pre><p>指的是选中的是兄弟元素中的h2标签。</p>
+<h2 id="5、连续打点调用"><a href="#5、连续打点调用" class="headerlink" title="5、连续打点调用"></a>5、连续打点调用</h2><p>案例：点击一个元素，让他自己变红，让他的兄弟编绿，父亲变蓝，父亲的兄弟变紫色，兄弟的儿子变金色。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).css(&quot;background&quot;,&quot;red&quot;) //自己
+3        .siblings().css(&quot;background&quot;,&quot;green&quot;)   //自己的兄弟
+4        .parent().css(&quot;background&quot;,&quot;blue&quot;)//自己和兄弟的父亲
+5        .siblings().css(&quot;background&quot;,&quot;purple&quot;)  //父亲的兄弟
+6        .children().css(&quot;background&quot;,&quot;gold&quot;);  //父亲兄弟的儿子
+7    });
+</code></pre><p>原理：一个jQuery对象打点调用完自己的任何方法，都会return一个对象，就是jQuery对象本身。</p>
+<pre><code>1    $(&quot;p&quot;).html(&quot;哈哈&quot;).css(&quot;background&quot;,&quot;skyblue&quot;);
+</code></pre><h2 id="6、其他节点关系"><a href="#6、其他节点关系" class="headerlink" title="6、其他节点关系"></a>6、其他节点关系</h2><p>find()：找的是元素的后代的一些元素，根据参数的选择器去选择。</p>
+<pre><code>1    $(&quot;div&quot;).find(&quot;span&quot;).css(&quot;background&quot;,&quot;#00f&quot;)
+</code></pre><p>next()：选中的是当前元素的下一个元素，必须是同级的。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).next().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>nextAll()：选中的是当前元素后面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).nextAll().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>prev()：选中的是当前元素的上一个元素，必须是同级的。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).prev().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>prevAll()：选中的是当前元素前面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).prevAll().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>parents()：选择的是包含html标签在内的所有祖先元素。内部可以传参数，选择符合选择器的祖先元素。</p>
+<pre><code>1    $(&quot;p&quot;).parents(&quot;div&quot;).css(&quot;background&quot;,&quot;pink&quot;)
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;节点关系&quot;&gt;&lt;a href=&quot;#节点关系&quot; class=&quot;headerlink&quot; title=&quot;节点关系&quot;&gt;&lt;/a&gt;节点关系&lt;/h1&gt;&lt;p&gt;jQuery控制元素时，都是批量控制。&lt;/p&gt;
+&lt;p&gt;添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。&lt;
+    
+    </summary>
+    
+      <category term="jQuery" scheme="http://yoursite.com/categories/jQuery/"/>
+    
+    
+      <category term="jQuery" scheme="http://yoursite.com/tags/jQuery/"/>
+    
+  </entry>
+  
+  <entry>
     <title>jQuery排序常见方法</title>
     <link href="http://yoursite.com/2016/11/20/title26/"/>
     <id>http://yoursite.com/2016/11/20/title26/</id>
@@ -2810,98 +2902,6 @@ arr2是[3,4,5,6,7]
     
       &lt;h2 id=&quot;1、概述&quot;&gt;&lt;a href=&quot;#1、概述&quot; class=&quot;headerlink&quot; title=&quot;1、概述&quot;&gt;&lt;/a&gt;1、概述&lt;/h2&gt;&lt;p&gt;animate是动画的意思。是jQuery自己的一个运动方法。非常好用的方法。&lt;/p&gt;
 &lt;p&gt;原生js动画必须依靠setIn
-    
-    </summary>
-    
-      <category term="jQuery" scheme="http://yoursite.com/categories/jQuery/"/>
-    
-    
-      <category term="jQuery" scheme="http://yoursite.com/tags/jQuery/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>jQuery节点关系</title>
-    <link href="http://yoursite.com/2016/11/20/title25/"/>
-    <id>http://yoursite.com/2016/11/20/title25/</id>
-    <published>2016-11-20T09:27:56.000Z</published>
-    <updated>2017-02-20T10:34:46.456Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h1><p>jQuery控制元素时，都是批量控制。</p>
-<p>添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。</p>
-<p>jQuery帮我们简化了这个找关系的过程，封装了一系列的方法可以帮我们找到父亲、儿子、兄弟、祖先、孙子等元素。</p>
-<h2 id="1、-this-自己"><a href="#1、-this-自己" class="headerlink" title="1、$(this)自己"></a>1、$(this)自己</h2><p>事件内部有一个$(this)的对象，指向的就是触发事件的这个元素本身。</p>
-<p>就是原生js里的事件函数内的那个this，用$()将this转成jQuery对象，就能调用jQuery的方法。this不要加引号。</p>
-<pre><code>1    // 谁触发事件谁动
-2    $(&quot;p&quot;).click(function(){
-3        $(this).animate({&quot;left&quot;:1000},1000);
-4    });
-</code></pre><h2 id="2、parent-父亲"><a href="#2、parent-父亲" class="headerlink" title="2、parent()父亲"></a>2、parent()父亲</h2><p>寻找元素父级的方法：必须加小括号，找到的也是亲生的父亲。爷爷和叔叔都不能。</p>
-<p>案例：点击一个元素，让他的父亲背景变色。</p>
-<pre><code>1    $(&quot;p&quot;).click(function(){
-2        $(this).parent().css(&quot;background&quot;,&quot;lightblue&quot;);
-3    });
-</code></pre><p>说明：方法返回的是某一个元素的父亲的jQuery对象，继续打点调用jQuery方法。</p>
-<h2 id="3、children-儿子"><a href="#3、children-儿子" class="headerlink" title="3、children()儿子"></a>3、children()儿子</h2><p>寻找子级元素的方法：必须加小括号，选中的是元素的所有儿子级元素。孙子级的元素选不中。</p>
-<p>案例：点击一个元素，让他的子级全部消失。</p>
-<pre><code>1    //让点击元素的子级全部消失
-2            $(&quot;div&quot;).click(function(){
-3                $(this).children().hide(300);
-4            });    
-</code></pre><p>方法可以传递参数：还是一个选择器，指的是我要选择儿子级里面还要满足选择器要求的那些元素。</p>
-<pre><code>1    //要选择儿子级元素中符合选择器要求的部分
-2    $(&quot;div&quot;).click(function(){
-3        $(this).children(&quot;.cur&quot;).hide(300);
-4    });    
-
-4、siblings()兄弟
-</code></pre><p>寻找的是同级的兄弟元素：方法必须加小括号，找到的是亲兄弟元素。</p>
-<p>案例：点击一个元素，让他的兄弟都变色，自身不变色。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).siblings().css(&quot;background&quot;,&quot;red&quot;);
-3    });
-</code></pre><p>可以通过参数进行选择器筛选.</p>
-<pre><code>1    //筛选h2的兄弟元素
-2            $(&quot;div&quot;).children().click(function(){
-3                $(this).siblings(&quot;h2&quot;).css(&quot;background&quot;,&quot;red&quot;);
-4            });
-</code></pre><p>指的是选中的是兄弟元素中的h2标签。</p>
-<h2 id="5、连续打点调用"><a href="#5、连续打点调用" class="headerlink" title="5、连续打点调用"></a>5、连续打点调用</h2><p>案例：点击一个元素，让他自己变红，让他的兄弟编绿，父亲变蓝，父亲的兄弟变紫色，兄弟的儿子变金色。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).css(&quot;background&quot;,&quot;red&quot;) //自己
-3        .siblings().css(&quot;background&quot;,&quot;green&quot;)   //自己的兄弟
-4        .parent().css(&quot;background&quot;,&quot;blue&quot;)//自己和兄弟的父亲
-5        .siblings().css(&quot;background&quot;,&quot;purple&quot;)  //父亲的兄弟
-6        .children().css(&quot;background&quot;,&quot;gold&quot;);  //父亲兄弟的儿子
-7    });
-</code></pre><p>原理：一个jQuery对象打点调用完自己的任何方法，都会return一个对象，就是jQuery对象本身。</p>
-<pre><code>1    $(&quot;p&quot;).html(&quot;哈哈&quot;).css(&quot;background&quot;,&quot;skyblue&quot;);
-</code></pre><h2 id="6、其他节点关系"><a href="#6、其他节点关系" class="headerlink" title="6、其他节点关系"></a>6、其他节点关系</h2><p>find()：找的是元素的后代的一些元素，根据参数的选择器去选择。</p>
-<pre><code>1    $(&quot;div&quot;).find(&quot;span&quot;).css(&quot;background&quot;,&quot;#00f&quot;)
-</code></pre><p>next()：选中的是当前元素的下一个元素，必须是同级的。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).next().css(&quot;background&quot;,&quot;#f00&quot;);
-3    })
-</code></pre><p>nextAll()：选中的是当前元素后面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).nextAll().css(&quot;background&quot;,&quot;#f00&quot;);
-3    })
-</code></pre><p>prev()：选中的是当前元素的上一个元素，必须是同级的。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).prev().css(&quot;background&quot;,&quot;#f00&quot;);
-3    })
-</code></pre><p>prevAll()：选中的是当前元素前面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).prevAll().css(&quot;background&quot;,&quot;#f00&quot;);
-3    })
-</code></pre><p>parents()：选择的是包含html标签在内的所有祖先元素。内部可以传参数，选择符合选择器的祖先元素。</p>
-<pre><code>1    $(&quot;p&quot;).parents(&quot;div&quot;).css(&quot;background&quot;,&quot;pink&quot;)
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;节点关系&quot;&gt;&lt;a href=&quot;#节点关系&quot; class=&quot;headerlink&quot; title=&quot;节点关系&quot;&gt;&lt;/a&gt;节点关系&lt;/h1&gt;&lt;p&gt;jQuery控制元素时，都是批量控制。&lt;/p&gt;
-&lt;p&gt;添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。&lt;
     
     </summary>
     
