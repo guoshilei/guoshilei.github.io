@@ -77,7 +77,7 @@
 
 
 
-  <link rel="alternate" href="http://www.163.com/rss/" title="Layne'blog" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Layne'blog" type="application/atom+xml" />
 
 
 
@@ -106,7 +106,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"right","display":"remove"},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -115,10 +115,10 @@
     },
     algolia: {
       applicationID: '',
-      apiKey: 'dc96c02b91e9cd9712cdf5381782a4ed',
-      indexName: 'index',
-      hits: {"per_page":6},
-      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与「${query}」相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
     }
   };
 </script>
@@ -166,40 +166,39 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
+  <div class="container one-collumn sidebar-position-right 
    page-home 
  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Layne'blog</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Layne'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Web world is wonderful!</p>
+      
   </div>
-    
-      <p class="site-subtitle">Web world is wonderful!</p>
-    
-</div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
 <nav class="site-nav">
-<nav class="site-nav">
-
   
-
 
   
     <ul id="menu" class="menu">
@@ -208,8 +207,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> 
-
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             Home
           </a>
@@ -219,21 +217,9 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> 
-
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> 
-
-            
-            About
           </a>
         </li>
       
@@ -241,8 +227,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> 
-
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             Archives
           </a>
@@ -252,65 +237,29 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> 
-
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             Tags
           </a>
         </li>
       
-
-
-  
-    <li class="menu-item menu-item-search">
-      
-        <a href="javascript:;" class="popup-trigger">
-
-
-
-      
         
-          <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-        
-        Search
-      </a>
-    </li>
-  
-</ul>
-
-  
-
-
-  
-    <div class="site-search">
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
       
+
+      
+    </ul>
   
-  <div class="algolia-popup popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
 
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
   
 </nav>
-
 
 
  </div>
@@ -322,183 +271,6 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/14/title20/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Layne">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Layne'blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Layne'blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/14/title20/" itemprop="url">
-                  JS封装简单运动框架
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-14T17:27:56+08:00">
-                2016-11-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JS/" itemprop="url" rel="index">
-                    <span itemprop="name">JS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/11/14/title20/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/title20/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2016/11/14/title20/" class="leancloud_visitors" data-flag-title="JS封装简单运动框架">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          ##1 封装简单运动框架 ##
-两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。
-可以随意定义left的步长，可以计算次数，同样可以计算宽度的步长
-1 △left = 20；
-
-2 次数 = （400 - 0） / 20 = 20
-
-3 △width = (3
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/11/14/title20/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
     
       
 
@@ -636,7 +408,9 @@
 数组：存储的是一组数据，可以操作每一项内容，有自己的局限性，通过具体下标才能获得某一项。
 数据多的时候，数组的使用效率变低。
 JSON对象可以解决这个问题。也可以存多个数据，每个数据都有自己的名字。可以通过数据的名字得到数据的值。
-JSON叫做JavaScript Object Notatio
+JSON叫做JavaScript Object Notation， JavaScript对象表示法。
+JSON对象创建的最简单的方式，就是字面量，一对大括号{}。
+语法：{}内部包括多个数据，每个数据之间用逗号隔开，最后一个数据后不能写逗号。每一项数据都包含属性
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -810,7 +584,10 @@ JSON叫做JavaScript Object Notatio
 1    window.setInterval(函数,间隔时间);
 
 1    //获得div标签
-2            var box = document.getElementsByTagName(&quot;div&
+2            var box = document.getElementsByTagName(&quot;div&quot;)[0];
+3            //全局变量累加
+4            var nowleft = 0;
+5            window.setInterval(funct
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -989,7 +766,8 @@ offsetHeight
 clientWidth
 clientHeight
 
-1、offsetLeft
+1、offsetLeft和offsetTop严重的兼容性问题。以offsetLeft为例。offset具有偏移量的含义。元素天生具有一个属性，认识一个叫做offsetParent的元素，偏移参考元素。
+调用方法：打点调用of
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1161,7 +939,8 @@ clientHeight
           
           计算后样式点语法不能得到计算后样式，只能得到和更改行内样式。计算后样式：其实是多个选择器叠加的最终样式。
 1、高级浏览器1    var box = document.getElementById(&quot;box&quot;);
-2    console.log(box.style.width)
+2    console.log(box.style.width); 
+W3C制定的标准API，所有现代浏览器（包括IE9，但不包括之前的版本）都window.getComputedStyle()，该方法接收一个要进行样式计算的元素，并返回一个可以进行属性查询的接口
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1335,7 +1114,10 @@ clientHeight
 参数：引号包裹标签名。
 通过p标签获得元素：查找所有页面上的p标签，得到的是所有标签元素对象组成的数组。
 1    &lt;p&gt;1&lt;/p&gt;
-2  
+2        &lt;p&gt;2&lt;/p&gt;
+3        &lt;p&gt;3&lt;/p&gt;
+4        &lt;p&gt;4&lt;/p&gt;
+5        &lt;
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1507,6 +1289,8 @@ clientHeight
           
           1、DOM体验DOM（Document Object Model，文档对象模型）描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。这使得JavaScript操作HTML，不是在操作字符串，而是在操作节点，极大地降低了编程难度。编写例子整体感知一下这个事儿。
 1    //获得元素
+2            var oDiv = document.getElementById(&quot;box&quot;);
+3            var oKaola = documen
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1680,11 +1464,191 @@ clientHeight
 1    function fun(a,b){
 2                console.log(1);
 3            }
-4   
+4            function fun(a,b,c){
+5                console.log(2);
+6            }
+以上在其他语言里，作为两个不同的函数执行，如
           ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2016/10/29/title13/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/26/title12/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Layne">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Layne'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Layne'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/26/title12/" itemprop="url">
+                  正则的术语和操作符
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-26T17:27:56+08:00">
+                2016-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/正则/" itemprop="url" rel="index">
+                    <span itemprop="name">正则</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/26/title12/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/26/title12/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/10/26/title12/" class="leancloud_visitors" data-flag-title="正则的术语和操作符">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          由一些普通字符和一些特殊字符（又叫元字符–metacharacters）组成。普通字符包括大小写的字母和数字，而元字符则具有特殊的含义。
+特殊字符：
+（） [ ] { } \ ^ $ | ? * + .
+就想匹配特殊字符，将特殊字符进行转义。用到转义符号\。
+(    [    .
+1、精确匹配精确匹配指的是我们要去匹配某一个固定值或者常量，匹配abc，正则表达式里必须用精确的术语进行匹配。
+正则表达式：/abc/,表示我们要匹配的是三个字符，分别是a，b，c，必须是顺序在一起，顺序不能颠倒。
+
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/10/26/title12/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1735,121 +1699,6 @@ clientHeight
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://tva2.sinaimg.cn/crop.280.682.1517.1517.180/a579329cjw8fcmjtm02y4j21kw23vnpe.jpg"
-               alt="Layne" />
-          <p class="site-author-name" itemprop="name">Layne</p>
-           
-              <p class="site-description motion-element" itemprop="description">Diligence makes an ordinary man realize an extraordinary ideal!</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-        
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">44</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-
-          
-            <div class="site-state-item site-state-categories">
-              <a href="/categories">
-                <span class="site-state-item-count">28</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">19</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-          <div class="feed-link motion-element">
-            <a href="http://www.163.com/rss/" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              Links
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://github.com/" title="github" target="_blank">github</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.runoob.com/" title="菜鸟" target="_blank">菜鸟</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://nodejs.org/en/" title="nodejs" target="_blank">nodejs</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://angularjs.org/" title="Angular" target="_blank">Angular</a>
-                </li>
-              
-            </ul>
-          </div>
-        
-
-        
-
-
-      </section>
-
-      
-
-    </div>
-  </aside>
-
-
-        
       </div>
     </main>
 
@@ -1857,7 +1706,7 @@ clientHeight
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy;  2014 - 
+  &copy;  2015 - 
   <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -2256,19 +2105,6 @@ clientHeight
 
 
   
-
-  
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
-
 
 
 </body>

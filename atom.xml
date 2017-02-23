@@ -1,0 +1,3077 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Layne&#39;blog</title>
+  <subtitle>Web world is wonderful!</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-02-20T12:47:26.688Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Layne</name>
+    <email>294268937@qq.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>函数声明提升</title>
+    <link href="http://yoursite.com/2017/02/17/title9/"/>
+    <id>http://yoursite.com/2017/02/17/title9/</id>
+    <published>2017-02-17T10:15:38.691Z</published>
+    <updated>2017-02-20T12:47:26.688Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、函数声明提升"><a href="#1、函数声明提升" class="headerlink" title="1、函数声明提升"></a>1、函数声明提升</h2><p>变量可以先使用后定义。js的解析器在运行的时候，会将所有的全局变量提升到最开始的位置，如果使用的时候可以找到这个变量定义。变量声明提升只提升定义，不提升赋值。初始值默认是undefined。</p>
+<pre><code>1    var a;
+2    console.log(a);
+3    a = 12;
+</code></pre><p>函数声明提升：函数可以先调用，后定义。解析器在程序最开始，将全局范围内定义的函数声明提升到代码最前面，声明的时候提升的就是那个变量名指针，总能够根据函数名找到这个函数的圆型。</p>
+<pre><code>1    //先调用
+2            fun();
+3            //后定义
+4            function fun(){
+5                console.log(1);
+6            }
+</code></pre><p>函数声明头提升是强制性的：无视if语句以及for循环。</p>
+<p>函数的另外一种定义方式：函数表达式的定义，不会进行函数声明提升，它进行的是变量的声明提升。变量声明提升只提升定义 ，不提升函数赋值，里面存的undefined，给调用函数方法，出现引用类型错误。</p>
+<pre><code>1    fun1();
+2            var fun1 = function(){
+3                console.log(2);
+4            }
+</code></pre><p>对比：同一个变量名给函数和变量，看顺序。变量写在后面，覆盖掉前面的函数名。</p>
+<pre><code>1    function fun(){
+2                console.log(1);
+3            }
+4            var fun = function(){
+5                console.log(2);
+6            }
+7            fun();
+</code></pre><p>函数声明优先于变量声明：同一个标识符，给变量和函数，在定义提升的时候，会将这个标识符优先给函数使用。</p>
+<pre><code>1    //先调用
+2            
+3            fun();
+4            //后定义
+5            function fun(){
+6                console.log(1);
+7            }
+8            var fun = function(){
+9                console.log(2);
+10            }
+11    fun();
+</code></pre><p>特殊情况解释：函数在定义的时候，进行强制性的声明提升，定义过程已经被提升到代码最前面了，后面再遇到定义的代码，直接忽视。后面定义的变量会遮盖掉这个定义。</p>
+<pre><code>1    var fun = function(){
+2                console.log(2);
+3            }
+4            function fun(){
+5                console.log(1);
+6            }        
+7            fun();
+</code></pre><p>注意：尽量不要用同一个标识符给变量和函数，定义函数时不要使用函数表达式的方式，用函数关键字的方式。</p>
+<h2 id="2、作用域"><a href="#2、作用域" class="headerlink" title="2、作用域"></a>2、作用域</h2><p>2.1 概述</p>
+<p>在函数内定义的变量不能从函数之外的任何地方取得，变量仅仅在该函数的内部有定义。因为我们的函数关住了变量的作用域（定义域）。</p>
+<p>JS的作用域：没有块级作用域{}，唯一关住作用域的结构就是函数。在函数内部定义的变量就是函数内部的局部变量，只能在函数内部调用，在外部调用会出现错误。</p>
+<pre><code>1    //函数关住作用域，内部定义的是局部变量
+2            function fun(){
+3                var a = 1;
+4                console.log(a);
+5            }
+6            fun();
+7            console.log(a);
+</code></pre><p>全局变量：从广义上讲，是一个最外层的局部变量，作用域是全局，所以叫做全局变量。可以在全局范围内都访问到这个变量。</p>
+<pre><code>1    var b = 2;
+2            function fun(){
+3                var a = 1;
+4                console.log(a);
+5                console.log(b);
+6            }
+7            fun();
+</code></pre><p>原理：全局变量语句没有任何限制，只要遇到就会生成一个变量，在任何地方是能找到。局部变量是声明在函数内部的，函数定义时，内部语句并没有执行，没有定义成这个变量，在函数执行的瞬间，立即定义了一个局部变量，执行完之后，这个变量被立即销毁，从外部找不到这个变量的定义，不能调用。</p>
+<p>2.2作用域链</p>
+<p>函数内部在调用一个变量的时候，查找的路径问题：当遇见一个变量时，JS引擎会从其所在的作用域依次向外层查找，查找会在找到第一个匹配的标识符的时候停止。在多层嵌套的作用域中可以定义同名的标识符，发生“遮蔽效应”。</p>
+<pre><code>1        var a = 1;
+2            function outer(){
+3                var a = 2;
+4                function inner(){
+5                    //var a = 3;
+6                    console.log(a);
+7                }
+8                inner();
+9            }
+10            outer();
+</code></pre><p>如果函数内部定义变量时，没有写var关键字，认为我们自动在全局进行了变量的声明，我们创建的不在是局部变量，而是全局变量。会造成一个全局污染。</p>
+<pre><code>1    var a = 1;
+2            function outer(){
+3                a = 2;
+4                function inner(){
+5                    //var a = 3;
+6                    console.log(a);
+7                }
+8                inner();
+9            }
+10            outer();
+11            console.log(a);
+</code></pre><p>在全局定义变量，忘了写var关键字，只要有赋值，变量会自动在全局进行声明。</p>
+<pre><code>1    b = 3;
+2    console.log(b);
+</code></pre><p>建议：任何时候定义变量都要写var关键字，避免全局污染。</p>
+<p>2.3 函数的参数</p>
+<p>函数的参数是一个局部变量。在函数内部可以正常使用。在函数外部不能访问函数参数这个变量。</p>
+<pre><code>1    function fun(a,b){
+2                a = 1;
+3                b = 4;
+4                console.log(a + b);
+5            }
+6            fun();
+7            console.log(a);
+</code></pre><p>实际工作中如果能封装函数，用到的变量，尽量定义在函数内部，不会影响其他的函数或者全局变量。</p>
+<p>2.4 全局变量</p>
+<p>全局变量尽量少定义，但是它有自己独特的作用：传递、累加。</p>
+<p>程序：有两个函数，执行函数加，给我们的一个变量加1，如果执行函数减，让我们的这个变量减1.两个函数控制同一个变量。</p>
+<p>传递：在不同的函数之间进行通信，函数都能使用，必须使用全局变量。</p>
+<pre><code>1    //全局变量，可以让任何函数使用，通信
+2            var a = 1;
+3            function plus(){
+4                a++;            
+5                return a;
+6            }
+7            function minus(){
+8                a--;
+9                return a;
+10            }
+11            console.log(plus());
+12            console.log(plus());
+13            console.log(plus());
+14            console.log(plus());
+15            console.log(minus());
+16            console.log(minus());
+17            console.log(minus());
+</code></pre><p>如果一个函数需要累加一个变量的值，多次执行，值依次累加的。不能使用局部变量，因为每次初始值都会被重置。</p>
+<p>累加：全局变量会将变化的值存起来，以备下次使用。</p>
+<pre><code>1    //全局变量。，累加功能
+2            var a = 1;
+3            function sum(){
+4                a++;
+5                return a;
+6            }
+7            console.log(sum());
+8            console.log(sum());
+9            console.log(sum());
+10            console.log(sum());
+</code></pre><p>2.5 函数的作用域 </p>
+<p>函数也有作用域，就是它定义的那个环境，如果定义在另一个函数内，它也只能在这个函数内部调用，在函数外面调用时引用错误。</p>
+<pre><code>1    function sum(a){
+2                return ++a;
+3            }
+4            //函数定义在另一个函数内部，在外面是访问不到
+5            function outer(){
+6                var a = 1;
+7                function inner(){
+8                    console.log(sum(a));
+9                }
+10                inner();
+11            }
+12            outer();
+13            inner();
+</code></pre><h2 id="3、闭包"><a href="#3、闭包" class="headerlink" title="3、闭包"></a>3、闭包</h2><p>观察闭包的经典案例：</p>
+<pre><code>1    //函数定义在另一个函数内部，在外面是访问不到
+2            function outer(){
+3                var a = 1;
+4                function inner(){   //只能在定义域内使用
+5                    console.log(a);
+6                }
+7                return inner;   //返回值得到一个inner函数的定义
+8            }
+9            // 将函数执行结果赋值给一个变量
+10            var fun = outer();//其实将inner函数赋值给了fun
+11            //函数如果执行，需要在定义域范围去找变量a。全局没有，正常输出了一个1
+12            //执行fun函数，其实是执行指向的那个函数原型，它会在自己定义的作用域内执行
+13            // inner定义时作用域内有一个a = 1，inner函数记住了这个定义域
+14            // 哪怕在outer函数外面使用inner的时候，我也可以访问到a的定义
+15            // console.log(typeof fun);
+16            // console.log(fun);
+17            fun();
+</code></pre><p>每个函数天生就是一个闭包。函数在定义时，会记住自己的作用域环境以及内部的语句，将外部环境和内部语句组成了一个密闭的环境，就是闭包。</p>
+<p>闭包不需要特殊的结构，只是会通过特殊结构来观察函数的这一性质。<br>案例观察：</p>
+<pre><code>1    function outer(x){
+2                function inner(y){   //如果执行函数outer，才会定义inner
+3                    console.log(x + y);
+4                }
+5                return inner;  //一定不要加小括号，如果加了，就立即执行
+6            }
+7            var i = outer(3);   //inner函数定义的位置，环境x = 3
+8            // x = 3;
+9            // i = function inner(y){
+10            //     console.log(x + y);
+11            // }
+12            console.log(i);
+13            i(5);
+
+
+1    function fun1(m,n){
+2                function fun2(m){
+3                    console.log(m + n);
+4                }
+5                return fun2;
+6            }
+7            var f = fun1(3,4);//fun2定义的位置
+8            f(6);
+</code></pre><p>函数这个闭包里的变量并不是一成不变，可以通过函数调用发生一些变化。</p>
+<pre><code>1    function outer(){
+2                var i = 9;
+3                function inner(){
+4                    return i++;
+5                }
+6                return inner;
+7            }
+8            var inn = outer();  //新建了一个函数，函数是inner，赋值给了变量inn
+9            console.log(inn());
+10            console.log(inn());
+11            console.log(inn());
+</code></pre><p>函数定义一次，可以进行多次调用。<br>我们可以认为，每次重新定义，都会产生新的闭包。新的闭包指的是，语句全新，所处环境也是全新的。</p>
+<pre><code>1    function outer(){
+2                var i = 9;
+3                function inner(){
+4                    return i++;
+5                }
+6                return inner;
+7            }
+8            var inn = outer();  //新建了一个函数，函数是inner，赋值给了变量inn
+9            var inn2 = outer();  //新建了一个函数，函数是inner，赋值给了变量inn2
+10            console.log(inn());
+11            console.log(inn());
+12            console.log(inn());
+13            console.log(inn2());  //新的函数，闭包是全新的
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、函数声明提升&quot;&gt;&lt;a href=&quot;#1、函数声明提升&quot; class=&quot;headerlink&quot; title=&quot;1、函数声明提升&quot;&gt;&lt;/a&gt;1、函数声明提升&lt;/h2&gt;&lt;p&gt;变量可以先使用后定义。js的解析器在运行的时候，会将所有的全局变量提升到最开始的位置，如果使
+    
+    </summary>
+    
+      <category term="函数" scheme="http://yoursite.com/categories/%E5%87%BD%E6%95%B0/"/>
+    
+    
+      <category term="js" scheme="http://yoursite.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Cookie和Session</title>
+    <link href="http://yoursite.com/2016/12/13/title44/"/>
+    <id>http://yoursite.com/2016/12/13/title44/</id>
+    <published>2016-12-13T09:27:56.000Z</published>
+    <updated>2017-02-20T13:02:24.023Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、Cookie"><a href="#1、Cookie" class="headerlink" title="1、Cookie"></a>1、Cookie</h2><p>就是一个Response头部的一个K-V对儿。</p>
+<blockquote>
+<p>当服务器下发了一个Set-Cookie，今后每次request浏览器都会带着相同的cookie上去。</p>
+</blockquote>
+<p>HTTP是无连接的，当你第一次访问一个服务器的时候，第二次再来到这个服务器（可能就10s之后），服务器此时的HTTP和第一次毫无关系的。对于服务器来说，HTTP是两次，两次之间没有持久保持连续。</p>
+<p>setcookie函数就是设置cookie的，有三个参数：k、v、过期时间</p>
+<pre><code>&lt;?php
+    setcookie(&quot;xingming&quot;,&quot;kaola&quot;,time()+3600);
+?&gt;
+</code></pre><p>第一次访问页面的时候，我们关心的是Response Headers：</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx3vcvg58j20fc04njrm.jpg" alt=""><br>里面有一个Set-Cookie，值为</p>
+<pre><code>xingming=kaola; expires=Fri, 27-Jan-2017 12:38:36 GMT
+</code></pre><p>表示Cookie的值，和过期时间。</p>
+<p>今后的每一次访问同一个域名下的任何网站，都可以看见Request Header中携带了相同的Cookie：</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx3vd4wexj20ns05pmxn.jpg" alt=""><br>有什么用！可以方便让：</p>
+<blockquote>
+<p>① 浏览器记录服务器曾经给我们的信息；</p>
+<p>② 服务器记录用户提供的信息</p>
+<p>在本地，我们可以轻松使用document.cookie来使用cookie。</p>
+</blockquote>
+<p>此时你会得到一个String，任何的cookie会被链接成为一个String：</p>
+<pre><code>console.log(document.cookie);
+</code></pre><p><img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx3vdbgf3j20lu01laa1.jpg" alt=""></p>
+<p>转码：</p>
+<pre><code>var c = decodeURIComponent(document.cookie);
+</code></pre><p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx3vdgfebj20jy016t8k.jpg" alt=""><br>此时仍然是字符串</p>
+<p>变为数组，用;来拆分：</p>
+<pre><code>var arr = c.split(&quot;;&quot;);
+</code></pre><p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx3vdmzwrj20mc00vmx1.jpg" alt=""> </p>
+<p>遍历这个数组，继续用=来拆分为数组：</p>
+<pre><code>var result = {};
+for(var i = 0 ; i &lt; arr.length ; i++){
+    var t_arr = arr[i].split(&quot;=&quot;);
+    console.log(t_arr);
+}
+</code></pre><p><img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx3vdsctsj20ic01z0sp.jpg" alt=""><br>变为对象：</p>
+<pre><code>for(var i = 0 ; i &lt; arr.length ; i++){
+    var t_arr = arr[i].split(&quot;=&quot;);
+    result[trim(t_arr[0])] = t_arr[1];
+}
+
+console.log(result);
+</code></pre><p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx3vdy86xj20o300uglk.jpg" alt=""></p>
+<p>他的值不是object，所以eval：</p>
+<pre><code>var infoobj = eval(&quot;(&quot; + result[&quot;iqianduan.cn&quot;] + &quot;)&quot;);
+</code></pre><p>自动填入表单</p>
+<pre><code>//如果xingming和nianling不是空，则默认填入文本框
+if(infoobj.xingming){
+    document.getElementById(&quot;xingmingTxt&quot;).value = infoobj.xingming;
+}
+
+if(infoobj.nianling){
+    document.getElementById(&quot;nianlingTxt&quot;).value = infoobj.nianling;
+}
+</code></pre><p>总结一下：</p>
+<p>**&gt; cookie的产生仰赖服务器的一次Set-Cookie。今后每一次的访问，我们的request头部都会携带cookie这个东西。</p>
+<blockquote>
+<p>其实如果不借助服务器，我们浏览器自己能不能发送带有cookie的头部呢，能！就是xhr.setRequestHeader()，不过这个东西没有意义！**</p>
+</blockquote>
+<p>Cookie的性质</p>
+<blockquote>
+<p>① Cookie不安全，可以在任何时候被浏览器的network面板被查看。所以千万不要试图让服务器下发密码等机密信息。可以被自由修改！</p>
+</blockquote>
+<p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx3ve5p7tj20n70dqdgc.jpg" alt=""></p>
+<blockquote>
+<p>② Cookie是文件格式存储。</p>
+</blockquote>
+<p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx3vebpv4j20tv09pwf7.jpg" alt=""></p>
+<blockquote>
+<p>③ 有超时的限制，可以自由设置存活时间。</p>
+</blockquote>
+<h2 id="2、Session"><a href="#2、Session" class="headerlink" title="2、Session"></a>2、Session</h2><p>有cookie，让服务器发起Set-Cookie: username=且试天下Always;login=true;  此时我们的浏览器今后访问每一个这个网站的页面都会带着cookie上去。服务器识别cookie，一看就知道你登录了！</p>
+<p>但是，cookie可以被自由篡改！也就是说，我想登陆谁的号，就登录了谁的号！</p>
+<p>有人发明了一个机制，不要通过cookie下发明文信息，发送一个随机乱码下去！服务器同时在内存中保存这个随机数字的人的各种信息。如果有人带这个随机乱码上来，一定是这个人！</p>
+<p>此时我们把这种特别的cookie叫做SESSION，也叫作会话。也就是说，session就是cookie！是一种特殊的cookie，是不发送明文，而是发送随机乱码的cookie。 </p>
+<p>服务器下发：</p>
+<pre><code>&lt;?php
+    //开始session
+    session_start();
+
+    $_SESSION[&quot;xingming&quot;] = &quot;小丹尼&quot;;
+?&gt;
+</code></pre><p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx3vknzt6j20lk067q3g.jpg" alt=""><br>今后我的每一次访问，都会带着这个码上去。这个吗对于浏览器来说，没有任何意义！但是服务器就是通过这个码来知道你是你的。</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx3vktblej20nz065mxn.jpg" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、Cookie&quot;&gt;&lt;a href=&quot;#1、Cookie&quot; class=&quot;headerlink&quot; title=&quot;1、Cookie&quot;&gt;&lt;/a&gt;1、Cookie&lt;/h2&gt;&lt;p&gt;就是一个Response头部的一个K-V对儿。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当服
+    
+    </summary>
+    
+      <category term="Cookie和Session" scheme="http://yoursite.com/categories/Cookie%E5%92%8CSession/"/>
+    
+    
+      <category term="Cookie\Session" scheme="http://yoursite.com/tags/Cookie-Session/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP实现分页以及Hash</title>
+    <link href="http://yoursite.com/2016/12/12/title43/"/>
+    <id>http://yoursite.com/2016/12/12/title43/</id>
+    <published>2016-12-12T09:27:56.000Z</published>
+    <updated>2017-02-20T12:52:15.632Z</updated>
+    
+    <content type="html"><![CDATA[<p>##1、PHP实现分页 ##<br>SQL里面的数据非常多的时候，我们不可能一次性查询全部，这样你前台页面无法显示那么多条目。此时可以用LIMIT子句来控制条目跳过多少条，并且读取多少条。</p>
+<p>比如：</p>
+<pre><code>SELECT * FROM banji0910 LIMIT 25,5;
+</code></pre><p>表示跳过25条读取25条。我们就是利用这个SQL语句，制作分页的。</p>
+<p>此时PHP工程师会暴露两个参数在GET请求中，page当前页码，pagesize每页条目数：</p>
+<pre><code>&lt;?php
+    mysql_connect(&quot;localhost&quot;,&quot;root&quot;,123456);
+    mysql_select_db(&quot;student&quot;);
+    mysql_query(&quot;SET NAMES UTF8&quot;);
+
+    $page = $_GET[&quot;page&quot;];  //从1开始
+    $pagesize = $_GET[&quot;pagesize&quot;];
+
+    $skip = $pagesize * ($page - 1);
+
+    $sql = &quot;SELECT * FROM banji0910 ORDER BY id LIMIT {$skip},{$pagesize}&quot;;
+    $result = mysql_query($sql);
+?&gt;
+</code></pre><p>根据这个思路，就可以制作PHP版本的页码条：</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx37wqplcj20dr0alaab.jpg" alt=""><br>简单说一下：</p>
+<pre><code>//得到条目总数，所以就要发出一次SQL查询
+$sql2 = mysql_query(&quot;SELECT count(*) FROM banji0910&quot;);
+$r = mysql_fetch_array($sql2);
+$count = $r[0];
+
+&lt;div class=&quot;nav&quot;&gt;
+    &lt;ul&gt;
+        &lt;?php
+            //总页数
+            $pageAmount = ceil($count / $pagesize);
+            for($i = 1 ; $i &lt;= $pageAmount ; $i++){
+        ?&gt;
+            &lt;li&gt;&lt;a href=&quot;&lt;?php echo &quot;01_PHP_FENYE.php?page={$i}&amp;pagesize={$pagesize}&quot; ?&gt;&quot;&gt;&lt;?php echo $i;?&gt;&lt;/a&gt;&lt;/li&gt;
+         &lt;?php
+             }
+         ?&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><blockquote>
+<p>PHP分页的好处是：</p>
+<p>便于分享网址，因为URL改变了。</p>
+<p>PHP分页的缺点是：</p>
+<p>页面刷新了并且页面全局刷新了。当你页面其他部分有很多东西的时候，此时非常恐怖，页面的其他的部分陪葬了，重新都刷了一遍。</p>
+</blockquote>
+<p>现在越来越流行Ajax分页，先说优点就是Ajax不会全局刷新整个页面；缺点就是不便于分享网址。</p>
+<h2 id="2、分页条组件的开发"><a href="#2、分页条组件的开发" class="headerlink" title="2、分页条组件的开发"></a>2、分页条组件的开发</h2><p>Ajax分页最难的东西就是分页条组件的开发：</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx37wcl3vj20mb0cxgms.jpg" alt=""></p>
+<pre><code> `&lt;script type=&quot;text/javascript&quot;&gt;`
+    //分页条组件
+    function PageNav(params){
+        //自己的盒子
+        this.$box = $(&quot;#&quot; + params.boxid);
+        //试着创建DOM
+        $(&quot;&lt;a&gt;&lt;/a&gt;&quot;).addClass(&quot;cBtn&quot;).html(&quot;上一页&quot;).appendTo(this.$box);
+        $(&quot;&lt;a&gt;&lt;/a&gt;&quot;).addClass(&quot;nBtn&quot;).html(1).appendTo(this.$box);
+        $(&quot;&lt;a&gt;&lt;/a&gt;&quot;).addClass(&quot;nBtn&quot;).html(2).appendTo(this.$box);
+        $(&quot;&lt;a&gt;&lt;/a&gt;&quot;).addClass(&quot;nBtn&quot;).html(3).appendTo(this.$box);
+        $(&quot;&lt;a&gt;&lt;/a&gt;&quot;).addClass(&quot;nBtn&quot;).html(4).appendTo(this.$box);
+        $(&quot;&lt;a&gt;&lt;/a&gt;&quot;).addClass(&quot;ellipsis&quot;).html(&quot;...&quot;).appendTo(this.$box);
+        $(&quot;&lt;a&gt;&lt;/a&gt;&quot;).addClass(&quot;nBtn&quot;).html(999).appendTo(this.$box);
+        $(&quot;&lt;a&gt;&lt;/a&gt;&quot;).addClass(&quot;cBtn&quot;).html(&quot;下一页&quot;).appendTo(this.$box);
+
+        this.$box.find(&quot;.nBtn&quot;).eq(3).addClass(&quot;cur&quot;);
+    }
+
+    var pn = new PageNav({
+        &quot;boxid&quot; : &quot;pn&quot;
+    });
+&lt;/script&gt;
+</code></pre><p>事件委托，就是给li添加监听，不如给ul添加，用event.target来判断是谁。</p>
+<p>函数委托的事情，就是当一个函数要运行的时候，此时不要直接些业务，把具体的业务委托给另一个函数。</p>
+<p>在new的时候，要定义一个函数，当页码改变的时候触发：</p>
+<pre><code>var pn = new PageNav({
+    &quot;boxid&quot; : &quot;pn&quot;,
+    //函数委托
+    &quot;change&quot; : function(index){
+        alert(&quot;页码到了&quot; + index + &quot;页&quot;);
+
+    }
+});
+</code></pre><p>我们使用翻页的条的时候，new翻页条的时候需要一个总页数。但是总页数往往是在Ajax返回的JSON中：</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx37wk1evj20rs079aah.jpg" alt=""><br>此时就要先发出Ajax请求，然后new出翻页条。此时为了防止每次点击翻页条都重新new，一定要判断：</p>
+<pre><code>//请求页面
+function getStudent(pageNumber){
+    $.get(&quot;php/student.php?page=&quot; + pageNumber + &quot;&amp;pagesize=5&quot;,function(data){
+        //转为对象
+        var dataobj = typeof data == &quot;object&quot; ? data : eval(&quot;(&quot; + data + &quot;)&quot;);
+        //数组
+        var list = dataobj.result;
+        //计算总页数
+        var pageAmount = Math.ceil(dataobj.count / 5);
+        //删除之前的所有tr
+        $(&quot;table tr:gt(0)&quot;).remove();
+        //遍历字典，组建DOM上树
+        _.each(list,function(dictionary){
+            var str = compiled(dictionary);
+            $(str).appendTo(&quot;table&quot;);
+        });
+
+        //验证导航条是否存在，如果不存在new一个
+        if(pageNav == null){
+            pageNav = new PageNav({
+                &quot;boxid&quot; : &quot;pn&quot;,
+                &quot;pageAmount&quot; : pageAmount,
+                //函数委托
+                &quot;change&quot; : function(index){
+                    getStudent(index);
+                }
+            })
+        }
+    });
+}
+</code></pre><h2 id="3、Hash"><a href="#3、Hash" class="headerlink" title="3、Hash"></a>3、Hash</h2><p>Ajax做的一切都是有一个问题，就是URL不变，这样的话，不方便分享网址。此时可以用hash来解决。</p>
+<p>一个较完整的URL：</p>
+<pre><code>http://www.iqianduan.cn/a/b/c.php?name=%A3%B4%C3%A3%B4%C3&amp;age=12#good
+</code></pre><blockquote>
+<p>Path 文件路径： <a href="http://www.iqianduan.cn/a/b/c.php" target="_blank" rel="external">http://www.iqianduan.cn/a/b/c.php</a></p>
+<p>Query String 查询字符串：?name=%A3%B4%C3%A3%B4%C3&amp;age=12</p>
+<p>Hash 锚点：#good</p>
+</blockquote>
+<p>锚点的本质是a标签，a标签可以发出超级链接，也可以定位超级链接。</p>
+<pre><code>&lt;a name=&quot;maomao1&gt;&lt;/a&gt;
+</code></pre><p>a不需要有href属性，不需要有内部文本，此时URL中</p>
+<blockquote>
+<p>#maomao1</p>
+<p>就能快速定位浏览器卷动，默认卷动到这里。</p>
+<p>hash的更改不会引起页面的刷新，不会重新发送HTTP请求。</p>
+</blockquote>
+<p>JavaScript得到hash、设置hash都是用：</p>
+<pre><code>window.location.hash //读取
+window.location.hash = &quot;maomao1&quot;; //设置
+</code></pre><p>用百度招聘为例，此时要解决：</p>
+<blockquote>
+<p>1） 用户输入一个有hash的URL的时候，能够自动加载这个页面的数据，同时分页条也要对应页面有cur；</p>
+<p>2） 当用户点击分页条的时候，要改变页面hash</p>
+</blockquote>
+<p> <img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx37w2kboj20j809xglu.jpg" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;##1、PHP实现分页 ##&lt;br&gt;SQL里面的数据非常多的时候，我们不可能一次性查询全部，这样你前台页面无法显示那么多条目。此时可以用LIMIT子句来控制条目跳过多少条，并且读取多少条。&lt;/p&gt;
+&lt;p&gt;比如：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SELECT * FROM ba
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+    
+    
+      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JSONP跨域详解</title>
+    <link href="http://yoursite.com/2016/12/12/title42/"/>
+    <id>http://yoursite.com/2016/12/12/title42/</id>
+    <published>2016-12-12T09:27:56.000Z</published>
+    <updated>2017-02-20T10:38:00.373Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、Ajax因为安全限制不允许跨域"><a href="#1、Ajax因为安全限制不允许跨域" class="headerlink" title="1、Ajax因为安全限制不允许跨域"></a>1、Ajax因为安全限制不允许跨域</h2><p>Ajax不能跨域，指的是如果你的HTML页面在127.0.0.1上，此时将不能访问127.0.0.2上的文件。如果你的文件在www.iqianduan.cn上，也不能访问www.163.com上的文件。有些浏览器甚至不允许你访问news.58gsl.cn。这是浏览器的安全限制，不允许你随随便便的访问其他服务器上的JSON。</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx37voeaaj211y0ildh0.jpg" alt=""></p>
+<h2 id="2、JSONP跨域"><a href="#2、JSONP跨域" class="headerlink" title="2、JSONP跨域"></a>2、JSONP跨域</h2><p>JSONP就是JSON with Padding ( JSON和 赘语），指的就是把函数的执行放到外部文件，HTML用script标签引用这个js文件，实际上引用的是对一个函数的执行。此时函数定义在HTML文件里面，数据就通过实参、形参的结合就进入了HTML数据。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    function fun(data){
+        alert(data.xingming);
+    }
+&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;haha.txt&quot;&gt;&lt;/script&gt;  → 这个文件执行了fun函数
+</code></pre><p>haha.txt文件里面：</p>
+<pre><code>fun({&quot;xingming&quot;:&quot;小明&quot;,&quot;nianling&quot;:12,&quot;xingbie&quot;:&quot;男&quot;});
+</code></pre><p>红色部分是执行一个函数，就是所谓的“P”。</p>
+<p> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx37vvqrfj211x0ebjtg.jpg" alt=""></p>
+<p>京东数据的请求：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    function yuanye(data){
+        for(var i = 0 ; i &lt; data.comments.length ; i++){
+            alert(data.comments[i].content);
+        }
+
+    }
+&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=yuanye&quot;&gt;&lt;/script&gt;
+</code></pre><blockquote>
+<p>JSONP的缺点：</p>
+<p>1） 太不安全，什么时候章泽天和刘强东吵架，刘强东很生气，把JSONP接口换成了</p>
+<pre><code>for(var i = 0 ; i &lt; 1000000 ; i++){
+alert(&quot;你好&quot;);
+}
+</code></pre><p>此时你又在用script引用它，此时你的用户也被连带遭殃了。</p>
+<p>所以JSONP的提供者，一定要可靠！</p>
+<p>2） 没有明显的异步的特点。页面虽然不会假死，但是没有提供回调函数。<br>不过也没关系，页面不假死是重点。</p>
+<p>3） 很难控制请求的发出。比如我想点击一个按钮，然后发出请求。<br>不过也很快被解决了，我们可以动态的创建一个script标签，设置了src，一旦上树，上行请求将发出，此时函数将执行！</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var btn = document.getElementById(&quot;btn&quot;);
+</code></pre></blockquote>
+<pre><code>    //准备一个函数，一会儿外部文件将执行这个函数
+    function fun(data){
+        alert(data.xingming);
+    }
+
+    //事件监听
+    btn.onclick = function(){
+        var oscript = document.createElement(&quot;script&quot;);
+        oscript.src = &quot;haha.txt&quot;;
+        document.head.appendChild(oscript);
+        document.head.removeChild(oscript);
+    }
+&lt;/script&gt;
+</code></pre><p>甚至我们可以封装一个函数，就不用显式的创建fun函数了，可以把用户传输进来的函数，当做fun函数：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var btn = document.getElementById(&quot;btn&quot;);
+
+    function qingqiu(URL,callback){
+        //你第二个传入的参数就是哈哈函数
+        window.fun= callback;
+
+        var oscript = document.createElement(&quot;script&quot;);
+        oscript.src = URL;
+        document.head.appendChild(oscript);
+        document.head.removeChild(oscript);
+    }
+
+    qingqiu(&quot;haha.txt&quot;,function(data){
+        alert(data.nianling);
+    });
+&lt;/script&gt;
+</code></pre><p>jQuery中使用JSONP和使用正经Ajax一样一样的，你完全看不出来，只是些许有些语法不一样。</p>
+<h2 id="3、JSONP的jQuery使用"><a href="#3、JSONP的jQuery使用" class="headerlink" title="3、JSONP的jQuery使用"></a>3、JSONP的jQuery使用</h2><p>首先：</p>
+<pre><code>$.get(URL,function(data){
+});
+
+$.post(URL,function(data){
+});
+</code></pre><p>jQuery中最全活的API是：</p>
+<pre><code>$.ajax();
+</code></pre><p>比如：</p>
+<pre><code>$.ajax({
+    &quot;url&quot; : &quot;php/job.php&quot;,
+    &quot;data&quot; : {
+        &quot;page&quot; : 2
+    },
+    &quot;type&quot; : &quot;get&quot;,
+    &quot;success&quot; : function(data){
+        alert(data);
+    }
+});
+</code></pre><p>等价于：</p>
+<pre><code>$.get(&quot;php/job.php?page=2&quot;,function(data){
+    alert(data);
+})
+</code></pre><p>此时jQuery实现JSONP跨域：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery-1.12.3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $.ajax({
+        //请求的地址，下面是一个域外的地址
+        &quot;url&quot; : &quot;http://127.0.0.2/haha.txt&quot;,
+        //请求类型是jsonp类型，注意是dataType属性而不是type属性
+        &quot;dataType&quot; : &quot;jsonp&quot;,
+        //定义我们传进来的success函数叫什么名字
+        &quot;jsonpCallback&quot; : &quot;fun&quot;,
+        //定义一个函数，这个函数马上会成为window.fun
+        &quot;success&quot; : function(data){
+            alert(data.xingming);
+            alert(data.nianling);
+            alert(data.xingbie);
+        }
+    });
+&lt;/script&gt;
+</code></pre><p>特别的，如果后台哥哥给你写了callback GET请求参数，可以任意设置调用的函数名字，此时jQuery中可以用？代替这个部分，jQuery会自动帮你填入随机乱码：</p>
+<pre><code>$.ajax({
+    &quot;url&quot; : &quot;https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=?&quot;,
+    &quot;dataType&quot; : &quot;jsonp&quot;,
+    &quot;success&quot; : function(data){
+        alert(data.comments.length);
+    }
+});
+</code></pre><p>此时jQuery就会把请求发往：</p>
+<blockquote>
+<p><a href="https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=jQuery112306426957034965071_1480068166765" target="_blank" rel="external">https://sclub.jd.com/comment/productPageComments.action?productId=4048938&amp;score=0&amp;sortType=3&amp;page=1&amp;pageSize=10&amp;callback=jQuery112306426957034965071_1480068166765</a></p>
+</blockquote>
+<p>工作中这种模式最最常用。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、Ajax因为安全限制不允许跨域&quot;&gt;&lt;a href=&quot;#1、Ajax因为安全限制不允许跨域&quot; class=&quot;headerlink&quot; title=&quot;1、Ajax因为安全限制不允许跨域&quot;&gt;&lt;/a&gt;1、Ajax因为安全限制不允许跨域&lt;/h2&gt;&lt;p&gt;Ajax不能跨域，指
+    
+    </summary>
+    
+      <category term="JSONP" scheme="http://yoursite.com/categories/JSONP/"/>
+    
+    
+      <category term="JSONP" scheme="http://yoursite.com/tags/JSONP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ajax中的GET请求和POST请求</title>
+    <link href="http://yoursite.com/2016/12/09/title41/"/>
+    <id>http://yoursite.com/2016/12/09/title41/</id>
+    <published>2016-12-09T09:27:56.000Z</published>
+    <updated>2017-02-20T10:37:51.699Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、GET请求"><a href="#1、GET请求" class="headerlink" title="1、GET请求"></a>1、GET请求</h2><p>GET请求参数在URL中，所以参数非常好携带。GET请求没有上行报文体，所以send里面是null。</p>
+<pre><code>xhr.open(&quot;get&quot;,&quot;check.php?username=考拉&amp;age=12&quot;,true);
+xhr.send(null);
+</code></pre><p>研究两个事情：字符转码的问题、用JSON来转为query string。</p>
+<p>我们观察一个事情，此时在地址栏中输入你好：</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx2sd5ktnj20ac04r746.jpg" alt=""><br>复制出来就是：</p>
+<p><a href="http://127.0.0.1/test.txt?%E4%BD%A0%E5%A5%BD" target="_blank" rel="external">http://127.0.0.1/test.txt?%E4%BD%A0%E5%A5%BD</a></p>
+<p>也就是说中文汉字就是：%AA%AA%AA</p>
+<p>其中AA是一个两位16进制数字。</p>
+<p>这个叫做URI转码（Uniform Resource Identifier，统一资源标识符），URI和URL差不多，只不过URL强调的是地址，URI强调的是具体的写法。</p>
+<p>因为网址只能是英语字符和数字，不能是中文、日语、韩语、阿拉伯文等等，所以URI就想了个办法，用16进制数字来表示非英语文字。</p>
+<p>JavaScript内置了转码的函数，各个浏览器兼容很好：</p>
+<blockquote>
+<p>从中文 → URI编码：<br>encodeURIComponent(“我爱你”)<br>URL编码 → 中文：<br>decodeURIComponent(“%E4%BD%A0%E5%A5%BD”)</p>
+</blockquote>
+<p>此时任何后台语言都不需要再次解码就能识别标准URI编码。所以你要知道这个东西不是密码，就是在传输过程中为了防止非英语文字变形，用的临时编码。</p>
+<pre><code>&lt;?php
+    $ciyu = $_GET[&quot;ciyu&quot;];
+    echo $ciyu;
+?&gt;
+</code></pre><p>为了防止传输过程中变形，所以我们的Ajax程序要：</p>
+<pre><code>xhr.open(&quot;get&quot;,&quot;check.php?yonghuming=&quot; + encodeURIComponent(yonghuming) + &quot;&amp;age=&quot; + encodeURIComponent(12));
+</code></pre><p>再来研究一个事情，能不能写一个函数，接受一个JSON，返回query string。<br>比如传入：</p>
+<pre><code>{
+   &quot;yonghuming&quot; : &quot;小明&quot;,
+   &quot;age&quot; : 12,
+   &quot;sex&quot; : &quot;男&quot;
+}
+</code></pre><p>返回</p>
+<pre><code>&quot;?yonghuming=%E5%B0%8F%E6%98%8E&amp;age=12&amp;sex=%E7%94%B7&quot;
+</code></pre><p>函数很好写，利用数组的join方法，是个神器！一旦你遇见让你返回字符串，然后字符串之间有符号，开头、结尾没有符号，就要想到join方法。</p>
+<pre><code>function changeJSON2QueryString(JSON){
+    var temp = [];
+    for(var k in JSON){
+        temp.push(k + &quot;=&quot; + encodeURIComponent(JSON[k]));
+    }
+    return temp.join(&quot;&amp;&quot;);
+}
+</code></pre><p>所以现在我们Ajax的open语句可以这么玩儿：</p>
+<pre><code>var querystring = changeJSON2QueryString({
+   &quot;yonghuming&quot; : &quot;小明&quot;,
+   &quot;age&quot; : 12,
+   &quot;sex&quot; : &quot;男&quot;
+});
+xhr.open(&quot;get&quot;,&quot;check.php?&quot; + querystring , true);
+</code></pre><h2 id="2、POST请求"><a href="#2、POST请求" class="headerlink" title="2、POST请求"></a>2、POST请求</h2><p>POST请求是通过request报文体来传输，所谓open简单，send里面有内容。PHP程序需要我们加上一个Request Header中的Content-type为普通表单，才能在后台用$_POST[]识别。</p>
+<p>任何一个post的表单的上行报文头里面，都有这样的K-V对儿：</p>
+<blockquote>
+<p>Content-Type:application/x-www-form-urlencoded</p>
+</blockquote>
+<p>所以我们在Ajax中也要设置（今后遇见node.js就不用设置）：</p>
+<pre><code>xhr.open(&quot;post&quot;,&quot;dopost.php&quot;,true);
+xhr.setRequestHeader(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);
+xhr.send(&quot;yonghuming=%E5%B0%8F%E6%98%8E&amp;age=12&amp;sex=%E7%94%B7&quot;);
+</code></pre><h2 id="3、JSON的识别"><a href="#3、JSON的识别" class="headerlink" title="3、JSON的识别"></a>3、JSON的识别</h2><p>JSON是一个通用信息交换格式，比如PHP工程师，可以使用json_encode()函数把别名数组转为标准JSON：</p>
+<pre><code>&lt;?php
+    $arr = array(
+        &quot;result&quot; =&gt; array(
+            array(&quot;xingming&quot; =&gt; &quot;小明&quot; , &quot;nianling&quot; =&gt; 12 , &quot;xingbie&quot; =&gt;&quot;男&quot;),
+            array(&quot;xingming&quot; =&gt; &quot;小红&quot; , &quot;nianling&quot; =&gt; 15 , &quot;xingbie&quot; =&gt;&quot;女&quot;),
+            array(&quot;xingming&quot; =&gt; &quot;小刚&quot; , &quot;nianling&quot; =&gt; 13 , &quot;xingbie&quot; =&gt;&quot;男&quot;)
+        )
+    );
+
+    echo json_encode($arr);
+?&gt;
+</code></pre><p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx2sdao8vj20wj05tq30.jpg" alt=""><br>JSON显示在页面上的时候，不方便我们看JSON的结构，此时推荐安装一个浏览器插件，叫做JSONView。</p>
+<p>Chrome应用商店打不开，并且网上下载的都不适合现在的Chrome版本。所以我们可以安装QQ浏览器，它的内核也是Chrome内核，中国人没有自己的浏览器内核。在应用中心中，安装“JSONView”。</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx2sdhppfj20xd0gjtal.jpg" alt=""><br>安装完插件之后，访问JSON页面：</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx2sdnovwj20ee0cb74g.jpg" alt=""></p>
+<h2 id="4、JSON识别"><a href="#4、JSON识别" class="headerlink" title="4、JSON识别"></a>4、JSON识别</h2><p>我们使用Ajax读取一个JSON的时候，此时明明是JSON，但是读进来是String。此时就要把String变为JSON。</p>
+<pre><code>$.get(&quot;04_JSON.php&quot;,function(data){
+    console.log(data);
+    console.log(typeof data);
+});
+</code></pre><p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx2sdz8ikj20l404u74m.jpg" alt=""><br>一共有三种方法。</p>
+<blockquote>
+<p>方法1：使用内置构造函数JSON的方法</p>
+</blockquote>
+<pre><code>var dataobj = JSON.parse(data);
+console.log(dataobj);
+console.log(typeof dataobj);
+</code></pre><p>JSON是系统内置的构造函数，和Number、String、Array一样。它IE8才开始有，IE6、7不支持JSON内置构造函数。</p>
+<p>它一共就有两个方法：</p>
+<blockquote>
+<p>JSON.parse() 字符串 → 对象</p>
+<p>JSON.stringify() 对象 → 字符串</p>
+</blockquote>
+<p>JSON.parse()函数里面的字符串必须是标准JSON，必须有双引号引用所有的key。</p>
+<blockquote>
+<p>方法2：使用eval语句</p>
+</blockquote>
+<p>eval语句可以把字符串变为语句，是JS中的一个特色。</p>
+<pre><code>var str = &quot;alert(1+2+3)&quot;; //字符串
+eval(str);  //字符串变为了语句
+</code></pre><p>弹出6。</p>
+<p>eval()一般都是当做奇淫技巧使用，注意任何文本框都需要用正则表达式阻止eval。比如让你输出一个用户名，你叫做eval(“setInterval(function(){alert(‘哈哈’);},1)”);  极其危险！</p>
+<p>我们可以利用eval语句来把JSON字符串变为对象的JSON，但是此时要注意：<br>如果直接eval一个JSON字符串，会报错：</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx2se74w1j20dh01ljra.jpg" alt=""><br>语法要求必须用圆括号括起来：</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx2sedfy8j208001j3yd.jpg" alt=""><br>所以：</p>
+<pre><code>var dataobj = eval(&quot;(&quot; + data + &quot;)&quot;);
+console.log(dataobj);
+console.log(typeof dataobj);
+</code></pre><blockquote>
+<p>方法3：借助Function函数</p>
+<pre><code>var sum = new Function(&quot;a&quot;,&quot;b&quot;,&quot;return a + b&quot;);
+alert(sum(3,4));
+</code></pre></blockquote>
+<p>Function你仔细琢磨，也可以把字符串变为语句啊！</p>
+<pre><code>var dataobj = (new Function(&quot;return &quot; + data))();
+console.log(dataobj);
+console.log(typeof dataobj);
+</code></pre><h2 id="5、复杂JSON的JS处理"><a href="#5、复杂JSON的JS处理" class="headerlink" title="5、复杂JSON的JS处理"></a>5、复杂JSON的JS处理</h2><p>现在拿一个JSON举例子：</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx2seks0wj20sa0gx3z0.jpg" alt=""><br>请用Ajax读取它，在HTML页面上枚举所有点击数大于1000的文章标题。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    $.get(&quot;system/baijiayanshi.txt&quot;,function(data){
+        //把字符串转为真正的JSON
+        var dataobj = eval(&quot;(&quot; + data + &quot;)&quot;);
+        //如鱼得水，“JSON回家了”
+        var arr = dataobj.data.list;
+
+        for(var i = 0 ; i &lt; arr.length ; i++){
+            if(arr[i].hotcount &gt; 1000){
+                $(&quot;&lt;p&gt;&quot; + arr[i].m_title + &quot;【点击数：&quot; + arr[i].hotcount + &quot;】&lt;/p&gt;&quot;).appendTo(&quot;#box&quot;);
+            }
+        }
+    });
+&lt;/script&gt;
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、GET请求&quot;&gt;&lt;a href=&quot;#1、GET请求&quot; class=&quot;headerlink&quot; title=&quot;1、GET请求&quot;&gt;&lt;/a&gt;1、GET请求&lt;/h2&gt;&lt;p&gt;GET请求参数在URL中，所以参数非常好携带。GET请求没有上行报文体，所以send里面是null。
+    
+    </summary>
+    
+      <category term="Ajax" scheme="http://yoursite.com/categories/Ajax/"/>
+    
+    
+      <category term="Ajax" scheme="http://yoursite.com/tags/Ajax/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>原生Ajax的实现</title>
+    <link href="http://yoursite.com/2016/12/08/title40/"/>
+    <id>http://yoursite.com/2016/12/08/title40/</id>
+    <published>2016-12-08T09:27:56.000Z</published>
+    <updated>2017-02-20T10:37:44.760Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="原生Ajax的实现"><a href="#原生Ajax的实现" class="headerlink" title="原生Ajax的实现"></a>原生Ajax的实现</h2><p>原生Ajax要依赖一个内置构造函数，XMLHttpRequest()，字面理解“XML HTTP 请求者”。这个对象的实例有能力异步发出HTTP请求的能力。</p>
+<p>要实例化这个对象：</p>
+<pre><code>var xhr = new XMLHttpRequest();
+</code></pre><p>此时IE6不兼容这个对象：</p>
+<pre><code>//实例化XMLHttpRequest对象，有兼容问题
+if(window.XMLHttpRequest){
+    //高级浏览器
+    var xhr = new XMLHttpRequest();
+}else{
+    //IE6
+    var xhr = new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);
+}
+</code></pre><p>我们可以配置它的发送请求：</p>
+<pre><code>xhr.open(&quot;get&quot;,&quot;test.txt&quot;,true);
+</code></pre><p>三个参数分别是请求的类型、URL、是否是异步。第三个参数一定是true，否则就不是异步读取了。<br>请求没有真正发出，仅仅是配置了打开了发送“窗口”。</p>
+<p>此时用send方法发出请求。send就是发送请求，参数是上行请求的报文体。get请求不需要报文体，就是null。</p>
+<pre><code>xhr.send(null);
+</code></pre><p>原生JS中没有提供给一个明显的回调函数，此时需要监听一个事件，就绪状态改变事件：</p>
+<pre><code>xhr.onreadystatechange = function(){
+    console.log(&quot;就绪状态改变了&quot; + xhr.readyState);
+}
+</code></pre><p>对我们有用的两个readyState就是3、4。当readyState为3的时候，已经可以得到服务器的信息，因为header已经回来了，做倒计时秒杀的收，就用3这个状态。4表示所有内容已经成功返回，更有用，因为只有状态是4的时候才能得到完整的文件信息。</p>
+<p>接受到的信息是xhr.responesText。</p>
+<pre><code>xhr.onreadystatechange = function(){
+    if(xhr.readyState == 4){
+        info.innerHTML = xhr.responseText;
+    }
+}
+</code></pre><p>有规定，onreadystatechange必须写在open和send前。所以至此代码：</p>
+<pre><code>//① 实例化XMLHttpRequest对象，有兼容问题
+if(window.XMLHttpRequest){
+    //高级浏览器
+    var xhr = new XMLHttpRequest();
+}else{
+    //IE6
+    var xhr = new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);
+}
+
+//② 监听一个事件，叫做“就绪状态”改变的事件
+xhr.onreadystatechange = function(){
+    if(xhr.readyState == 4){
+        info.innerHTML = xhr.responseText;
+    }
+}
+
+// ③ 配置一个请求，open可以理解为打开一个请求“窗口”
+xhr.open(&quot;get&quot;,&quot;test.txt&quot;,true);
+// ④ 发送请求，send就是发送请求，参数是上行请求的报文体。get请求不需要报文体，就是null。
+xhr.send(null);
+</code></pre><p>此时我们需要让程序更加鲁棒，当文件不存在的时候，整个页面的错误信息也读到本页面来了：</p>
+<p>所以就要用HTTP状态码来验证文件是否已经成功发送。</p>
+<p>HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码。这个代码是后台哥哥可以随便设置的，阿帕奇服务器也会帮我们自动生成状态码。</p>
+<p>重要的状态码是：</p>
+<blockquote>
+<p>200-成功</p>
+<p>302-临时移动</p>
+<p>304-没有更改</p>
+<p>400-错误的请求</p>
+<p>401-没有权限</p>
+<p>403-禁止</p>
+<p>404-页面丢失，没有找到</p>
+<p>500-服务器错误</p>
+<p>502-错误的网关</p>
+<p>503-服务无效</p>
+<p>504-访问超时</p>
+</blockquote>
+<p>xhr对象的status属性可以得到状态码。从而可以用来验证页面是不是真的发过来了，此时验证字头是2开头的或者是304。</p>
+<pre><code>xhr.onreadystatechange = function(){
+    if(xhr.readyState == 4){
+        if(xhr.status.toString().charAt(0) == &quot;2&quot; || xhr.status == &quot;304&quot;){
+            info.innerHTML = xhr.responseText;
+        }
+    }
+}
+</code></pre><p>也可以：</p>
+<pre><code>if(xhr.status == &quot;200&quot; || xhr.status == &quot;304&quot;){
+}
+</code></pre><p>也可以：</p>
+<pre><code>if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300 || xhr.status == 304){
+}
+</code></pre><p>Ajax的缓存比较严重，此时可以通过每次访问的时候带一个不同的参数即可。<br>此时可以挂一个随机数，或者时间戳：</p>
+<pre><code>xhr.open(&quot;get&quot;,&quot;test.txt?&quot; + Date.parse(new Date()),true);
+
+xhr.open(&quot;get&quot;,&quot;test.txt?&quot; + Math.random(),true);
+</code></pre><p>至此，已经学习了xhr的：</p>
+<blockquote>
+<p>● 一个事件</p>
+<p>xhr.onreadystatechange  就绪状态改变事件</p>
+<p>● 两个方法 </p>
+<p>xhr.open()方法      打开一个发射窗口<br>xhr.send()方法    发送请求</p>
+<p>● 三个属性</p>
+<p>xhr.responseText        返回的文本<br>xhr.readyState        就绪状态<br>xhr.status            3位数字的状态码number类型</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;原生Ajax的实现&quot;&gt;&lt;a href=&quot;#原生Ajax的实现&quot; class=&quot;headerlink&quot; title=&quot;原生Ajax的实现&quot;&gt;&lt;/a&gt;原生Ajax的实现&lt;/h2&gt;&lt;p&gt;原生Ajax要依赖一个内置构造函数，XMLHttpRequest()，字面理解“XM
+    
+    </summary>
+    
+      <category term="Ajax" scheme="http://yoursite.com/categories/Ajax/"/>
+    
+    
+      <category term="Ajax" scheme="http://yoursite.com/tags/Ajax/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>游戏开发中canvas常见要点</title>
+    <link href="http://yoursite.com/2016/12/05/title39/"/>
+    <id>http://yoursite.com/2016/12/05/title39/</id>
+    <published>2016-12-05T09:27:56.000Z</published>
+    <updated>2017-02-20T10:37:03.766Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-游戏图片、音乐资源的管理"><a href="#1-游戏图片、音乐资源的管理" class="headerlink" title="1 游戏图片、音乐资源的管理"></a>1 游戏图片、音乐资源的管理</h2><p>不管游戏中有多少元素在运动，游戏仅仅有1个定时器，这1个定时器让所有的演员更新、渲染。<br>实际上，一个游戏需要大量的图片，只有当所有图片都load了，游戏才能开始。换句话说，只有当所有图片都load了，主循环setInterval()才能启动。</p>
+<p>所以我们的思路就是用JSON imagesObj 存放所有的资源图片的名字，用循环语句for..in…去创建他们的Image对象，然后监听他们的load事件，load一个计数器加1，当load完一个图片的时候，计数器正好等于了数组总长度，此时表示所有图片加载完毕。比较巧妙的是，我们创建了一个R对象，这个对象和imagesObj 的key是一样的，但是v是图片的Image实体，用图片的时候，要通过R打点来找到图片。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   //得到画布标签
+   var myCanvas = document.querySelector(&quot;#myCanvas&quot;);
+   //上下文，就相当于打开Photoshop之后让你新建画布
+   var ctx = myCanvas.getContext(&quot;2d&quot;);
+   //今后的操作都是这个画布的事情，都是ctx的事情，和myCanvas没有关系了。
+
+   //如果要使用图片，必须要创建一个Image的实例，然后监听这个img的load事件
+   //只有load的图片才能上画布
+   var imagesObj = {
+       &quot;shibing&quot; : &quot;images/shibing.png&quot;,
+       &quot;baozha&quot; : &quot;images/baozha.png&quot;
+   };
+
+   //图片资源对象，k和imagesObj是一样的，v是真正的图片Image对象
+   var R = {};
+
+   //已经加载好的图片个数
+   var count = 0;
+
+   var cutx = 0;
+   var baozhaxuhao = 0;
+
+   for(var k in imagesObj){
+       //创建图片节点
+       R[k] = new Image();
+       //设置src
+       R[k].src = imagesObj[k];
+       //监听是否load
+       R[k].onload = function(){
+          count++;
+          if(count === 2){
+              //全部都加载完毕
+              setInterval(function(){
+                 cutx ++;
+                 baozhaxuhao++;
+                 if(cutx &gt; 7){
+                     cutx = 0;
+                 }
+                 if(baozhaxuhao &gt; 11){
+                     baozhaxuhao = 0;
+                 }
+
+                 //清屏
+                 ctx.clearRect(0, 0, 800, 600);
+
+                 ctx.drawImage(R.shibing,120 * cutx,150 * 3,120,150,100,100,120,150);
+
+                 ctx.drawImage(R.baozha,192 * (baozhaxuhao % 5),192 * parseInt(baozhaxuhao / 5),192,192,100,100,192,192);
+              },20);
+           }
+       }
+   }
+&lt;/script&gt;
+</code></pre><h2 id="2、Game类Game类就是中介者模式中的中介者-。"><a href="#2、Game类Game类就是中介者模式中的中介者-。" class="headerlink" title="2、Game类Game类就是中介者模式中的中介者 ##。"></a>2、Game类Game类就是中介者模式中的中介者 ##。</h2><p>中介者就是全局变量！比如我们以前</p>
+<pre><code>var idx = 10;
+</code></pre><p>信号量，就是全局变量，现在把这个量放入一个类的实例身上，此时这个类就是中介者。</p>
+<p>信号量在中介者身上：</p>
+<pre><code>var game = new Game();
+game.idx = 10;
+</code></pre><p>以后所有的元素都是Game类new出来的，我们只需要new出中介者，其他元素都是Game帮我们new出来的。</p>
+<p>其他元素如果要互相通信，要通过Game类：</p>
+<pre><code>game.bird.y
+</code></pre><p>在HTML5游戏中，Game类还将有：主循环、游戏资源管理两个任务。</p>
+<p>图片资源管理利用两个对象，RObj和R对象。Robj就是Ajax请求来的文本转为的对象，v是路径； R对象的拥有Robj相同的k，但是v是真实对象：</p>
+<h2 id="3-背景类背景类的实例化"><a href="#3-背景类背景类的实例化" class="headerlink" title="3 背景类背景类的实例化"></a>3 背景类背景类的实例化</h2><p>在Game的start函数里面。而start函数的调用的前提是所有资源已经加载完毕了。说白了，背景类里面可以直接使用图片资源。</p>
+<p>canvas里面也有猫腻，也有模式。渲染三张，目的是无缝连续滚动，当猫腻图的左边框到达0点，就拉回来。</p>
+<h2 id="4、cancas变形"><a href="#4、cancas变形" class="headerlink" title="4、cancas变形"></a>4、cancas变形</h2><p>canvas中，提供了变形属性，需要注意的是，所有的变形都是针对画布上下文ctx对象的，而不是某一个要绘制的元素的。</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx1r55msdj206a069dfn.jpg" alt=""><br>    <script type="text/javascript"><br>       var mycanvas = document.getElementById(“mycanvas”);</p>
+<pre><code>   var ctx = mycanvas.getContext(&quot;2d&quot;);
+
+   //保存当前的上下文状态
+   ctx.save();
+    //移动坐标系
+   ctx.translate(100,100);
+   //画圆
+   ctx.fillStyle = &quot;blue&quot;;
+   ctx.beginPath();
+   ctx.arc(0,0,50,0,Math.PI * 2,true);
+   ctx.fill();
+   //恢复上下文存档状态
+   ctx.restore();
+
+   //画方块
+   ctx.fillRect(100, 100, 100, 100);
+&lt;/script&gt;
+</code></pre><p>坐标系还可以通过</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx1r5arbij20kw0ccwg0.jpg" alt=""><br>    ctx.rotate(1);<br>渲染1弧度。同样的，旋转的是整个坐标系，而不是某一个元素。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   var mycanvas = document.getElementById(&quot;mycanvas&quot;);
+
+   var ctx = mycanvas.getContext(&quot;2d&quot;);
+
+   ctx.rotate(1); //1弧度，顺时针
+   ctx.fillStyle = &quot;orange&quot;;
+   ctx.fillRect(100, 100, 100, 100);
+&lt;/script&gt;
+</code></pre><p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx1r5hccaj20sl0c7di8.jpg" alt=""></p>
+<p>如果想要让一个元素以自己的几何中心点旋转，此时需要：</p>
+<blockquote>
+<p>① 先让坐标系的原点移动到它的中心点，此时盒子的渲染位置就是负的自己的宽度的一半，负的自己的高度的一半。</p>
+<p>② 旋转</p>
+<p>公式：</p>
+<p>t指的是开始下落后的时间，此时小鸟就要维护自己的小帧号birdF。</p>
+</blockquote>
+<pre><code>//物理公式：s = 1/2gt^2
+//掉
+birdF++;
+birdY = 100 + 1.3 * birdF * birdF;
+birdRotate+=0.08;
+</code></pre><h2 id="5、碰撞检测"><a href="#5、碰撞检测" class="headerlink" title="5、碰撞检测"></a>5、碰撞检测</h2><p>但是游戏中我们一般使用AABB盒检测。</p>
+<p>AABB盒是英语Axis Aligned Bounding Box 轴对齐包围盒。</p>
+<p>鸟是一个不规则形状，判断碰撞的时候取一个大概，用矩形盒子来判断：</p>
+<pre><code>//更新自己的碰撞检测盒
+this.A = this.y + 7;
+this.B = this.x + 41;
+this.C = this.y + 41;
+this.D = this.x + 7;
+</code></pre><p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx25ury91j20h90c80sx.jpg" alt=""><br>鸟这个图片本身是48宽度，碰撞盒是34，所以两边有误差7。</p>
+<p>所谓的ABCD都是边的x或者y，横边就取y值，纵边就取x值。<br>碰撞检测：</p>
+<pre><code>if(
+    game.bird.A &lt; this.C1 &amp;&amp; game.bird.B &gt; this.D1 &amp;&amp; game.bird.D &lt; this.B1
+       ||
+    game.bird.C &gt; this.A2 &amp;&amp; game.bird.B &gt; this.D2 &amp;&amp; game.bird.D &lt; this.B2
+){
+    console.log(&quot;撞！&quot;);
+    clearInterval(game.timer);
+}
+</code></pre><h2 id="6、合成canvas"><a href="#6、合成canvas" class="headerlink" title="6、合成canvas"></a>6、合成canvas</h2><p>ctx.globalCompositeOperation = type</p>
+<p>一共有12种值，表示新画的图形和老图形的关系，称为“合成”。</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx1r5yi62j20i60gimyb.jpg" alt=""></p>
+<p><img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx1r6m40cj20hx0e2wfe.jpg" alt=""><br>比如：</p>
+<pre><code>ctx.fillStyle = &quot;blue&quot;;
+ctx.fillRect(100,100,100,100);
+
+ctx.globalCompositeOperation = &quot;source-in&quot;;
+
+ctx.beginPath();
+ctx.arc(180,180,50,0,7,false);
+ctx.fillStyle = &quot;red&quot;;
+ctx.fill();
+</code></pre><p>像素操作到目前为止，我们尚未深入了解Canvas画布真实像素的原理，事实上，你可以直接通过ImageData对象操纵像素数据，直接读取或将数据数组写入该对象中。稍后我们也将深入了解如何控制图像使其平滑（反锯齿）以及如何从Canvas画布中保存图像。</p>
+<p>得到像素：</p>
+<pre><code>var myImageData = ctx.getImageData(0,0,560,300);
+</code></pre><p>0,0表示起点位置，560是宽度，300是高度。</p>
+<p>得到的值可以被使用作为查看初始像素数据。每个像素用4个1bytes值(按照红，绿，蓝和透明值的顺序; 这就是”RGBA”格式) 来代表。每个颜色值部份用0至255来代表。每个部份被分配到一个在数组内连续的索引，左上角像素的红色部份在数组的索引0位置。像素从左到右被处理，然后往下，遍历整个数组。</p>
+<h2 id="7、事件监听"><a href="#7、事件监听" class="headerlink" title="7、事件监听"></a>7、事件监听</h2><p>canvas上必须检测范围，因为得不到元素。</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx1r6uvngj20hr09qdfr.jpg" alt=""><br>贝塞尔曲线：</p>
+<pre><code>ctx.moveTo(100,100);
+ctx.bezierCurveTo(200, 50, 400, 50, 400, 100);
+ctx.stroke();
+</code></pre><p>点击鼠标的时候，要遍历每个元素，看看点击到了谁，点击到的这个元素，就存入变量。然后让变量中的元素x、用、跟随你的鼠标变化即可。</p>
+<pre><code>if(x &gt; ctrl1.x - 5 &amp;&amp; x &lt; ctrl1.x + 5 &amp;&amp; y &gt; ctrl1.y - 5 &amp;&amp; y &lt; ctrl1.y + 5){
+   diandaodedian = ctrl1;
+}
+
+if(x &gt; ctrl2.x - 5 &amp;&amp; x &lt; ctrl2.x + 5 &amp;&amp; y &gt; ctrl2.y - 5 &amp;&amp; y &lt; ctrl2.y + 5){
+   diandaodedian = ctrl2;
+}
+
+if(x &gt; start.x - 5 &amp;&amp; x &lt; start.x + 5 &amp;&amp; y &gt; start.y - 5 &amp;&amp; y &lt; start.y + 5){
+   diandaodedian = start;
+}
+
+if(x &gt; end.x - 5 &amp;&amp; x &lt; end.x + 5 &amp;&amp; y &gt; end.y - 5 &amp;&amp; y &lt; end.y + 5){
+   diandaodedian = end;
+}
+</code></pre><h2 id="8、场景Scene管理"><a href="#8、场景Scene管理" class="headerlink" title="8、场景Scene管理"></a>8、场景Scene管理</h2><p>开始画面、游戏过程、结束画面。</p>
+<p>场景现在开始接手管理自己的演员！！<br>但是，场景还是应该把演员注册到game身上，但是管理的权限、谁上台、谁下台，是场景管理器的任务。</p>
+<p>监听都是场景管理器负责注册！！</p>
+<p><a href="http://squishybird.com/">http://squishybird.com/</a></p>
+<p><a href="http://so2.4399.com/">http://so2.4399.com/</a></p>
+</script></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-游戏图片、音乐资源的管理&quot;&gt;&lt;a href=&quot;#1-游戏图片、音乐资源的管理&quot; class=&quot;headerlink&quot; title=&quot;1 游戏图片、音乐资源的管理&quot;&gt;&lt;/a&gt;1 游戏图片、音乐资源的管理&lt;/h2&gt;&lt;p&gt;不管游戏中有多少元素在运动，游戏仅仅有1个定
+    
+    </summary>
+    
+      <category term="Canvas" scheme="http://yoursite.com/categories/Canvas/"/>
+    
+    
+      <category term="Canvas" scheme="http://yoursite.com/tags/Canvas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>移动端缓冲ease事件</title>
+    <link href="http://yoursite.com/2016/11/30/title37/"/>
+    <id>http://yoursite.com/2016/11/30/title37/</id>
+    <published>2016-11-30T09:27:56.000Z</published>
+    <updated>2017-02-20T10:36:48.263Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、缓冲ease"><a href="#1、缓冲ease" class="headerlink" title="1、缓冲ease"></a>1、缓冲ease</h2><p>CSS中的transition第三个参数就是缓冲描述：</p>
+<pre><code>transition:all 1s linear 0s;  
+transition:all 1s ease 0s;
+</code></pre><p>JS也有，但是要自己推理：</p>
+<p>让div用100帧，从left100变化到left800。匀速的话，非常好计算：</p>
+<p>总变化量就是700，所以每帧的变化量应该是7。</p>
+<p>帧编号t    距起点的增量t<em>c/d    绝对位置b + t</em>c/d</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx117g54qj20hr097wek.jpg" alt=""></p>
+<blockquote>
+<p>假设帧编号为t（本例中t自增），t就是time的意思</p>
+<p>起点成为b（本例中b为100），b就是begin起点的意思</p>
+<p>总变化量c（本例中c为700），c就是change变化量的意思</p>
+<p>总帧数d（本例中d为100），d就是duration持续时间的意思</p>
+</blockquote>
+<p>所以刚才的推理就变为了一个函数：</p>
+<pre><code>function linear(t,b,c,d){
+    return b + t * c / d;
+}
+</code></pre><p>此时这个函数接受四个参数的意义，上面已经说明了，返回的是绝对位置。此时观察这个函数，</p>
+<blockquote>
+<p>t=0的时候，返回值是b （运动没有开始） ； </p>
+<p>t= d的时候，返回值就是b+c　（运动结束）。</p>
+</blockquote>
+<p>所以我们就可以自己写一些函数，比如二次的：</p>
+<pre><code>function haha(t,b,c,d){
+    return b + t * t * c / (d *d);
+}
+</code></pre><p>Excel中做图：<br> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx117mk4gj20vq0f5dhk.jpg" alt=""></p>
+<p>上网能下载到很多t、b、c、d的函数</p>
+<p> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx117vwgoj20oq0gx0tl.jpg" alt=""></p>
+<p>jQuery中实现缓冲，下载jQuery.easing.js的包</p>
+<pre><code>$().animate({},1000,&quot;easeInOut&quot;);
+</code></pre><h2 id="2、手指滚滚屏"><a href="#2、手指滚滚屏" class="headerlink" title="2、手指滚滚屏"></a>2、手指滚滚屏</h2><p>手机滚滚屏中，希望有一个loading界面，当所有图片都加载好支持，再从容给用户观看。<br>所以我们要管理好资源，我们的想法就是使用一个JSON列出所有的图片资源：</p>
+<pre><code>{
+    &quot;tu1&quot; : &quot;images/1.jpg&quot;,
+    &quot;tu2&quot; : &quot;images/2.jpg&quot;,
+    &quot;tu3&quot; : &quot;images/3.jpg&quot;
+}
+</code></pre><p>用JS写程序创建一个个孤儿节点，图片对象存储在和这个JSON相同的另一个对象中：</p>
+<pre><code>{
+    &quot;tu1&quot; : Image(),
+    &quot;tu2&quot; : Image(),
+    &quot;tu3&quot; : Image()
+}
+</code></pre><p>此时HTML页面上，仅仅用img标签的“模板”来占位，用JS的真实图片孤儿节点，替换这个节点。</p>
+<pre><code>&lt;img data-name=&quot;tu1&quot; /&gt;
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、缓冲ease&quot;&gt;&lt;a href=&quot;#1、缓冲ease&quot; class=&quot;headerlink&quot; title=&quot;1、缓冲ease&quot;&gt;&lt;/a&gt;1、缓冲ease&lt;/h2&gt;&lt;p&gt;CSS中的transition第三个参数就是缓冲描述：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;tra
+    
+    </summary>
+    
+      <category term="移动web" scheme="http://yoursite.com/categories/%E7%A7%BB%E5%8A%A8web/"/>
+    
+    
+      <category term="移web" scheme="http://yoursite.com/tags/%E7%A7%BBweb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>移动端JS事件</title>
+    <link href="http://yoursite.com/2016/11/30/title36/"/>
+    <id>http://yoursite.com/2016/11/30/title36/</id>
+    <published>2016-11-30T09:27:56.000Z</published>
+    <updated>2017-02-20T10:36:38.746Z</updated>
+    
+    <content type="html"><![CDATA[<p>##1、触摸事件 ##<br>移动端JS事件，重要就是触摸事件。触摸事件和鼠标事件完全不一样，因为鼠标不可能离开屏幕，鼠标在屏幕上可以点击可以不点击；但是手指可以离开屏幕，手指一旦碰到屏幕，就被视为点击了。所以，JS设计了一套完整的触摸事件系列，适应移动端web开发。</p>
+<blockquote>
+<p>touchstart 开始触摸</p>
+<p>touchmove 手指移动</p>
+<p>touchend 结束触摸</p>
+<p>touchstart 在手指触摸的一瞬间发生，如果有多个手指触摸，每个手指触摸的时候都会发生。</p>
+<p>touchend 在手指离开屏幕的一瞬间发生，如果有多个手指离开，每个手指离开的时候都是触发这个事件。</p>
+<p>绑定他们的时候，只能用DOM2级来绑定，不能用window.on<em>*</em>来绑定。</p>
+</blockquote>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var box = document.querySelector(&quot;#box&quot;);
+
+    box.addEventListener(&quot;touchstart&quot;, function(){
+        box.innerHTML = &quot;你触摸了我&quot;;
+    }, true);
+
+    box.addEventListener(&quot;touchend&quot;, function(){
+        box.innerHTML = &quot;你结束触摸了我&quot;;
+    }, true);
+&lt;/script&gt;
+</code></pre><p>注意，touchstouch事件和touchmove事件中event事件对象中有一个属性叫做touches是一个数组，里面封装了每个手指的信息，包括手指的位置、手指的粗细、力度（仅仅iPhone7提供）都有：<br> <img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx0rleo7yj2093096dfz.jpg" alt=""><br>手指的数量：</p>
+<pre><code>var fingers = event.touches.length;
+</code></pre><p>每根手指的位置信息：</p>
+<pre><code>//触摸移动
+box.addEventListener(&quot;touchmove&quot;, function(event){
+    //阻止默认事件
+    event.preventDefault();
+    //得到每个手指的信息
+    var fingers = event.touches;
+    //清空
+    box.innerHTML = &quot;&quot;;
+    //遍历每个手指，显示信息
+    for(var i = 0 ; i &lt; fingers.length ; i++){
+        box.innerHTML += &quot;第&quot; + i + &quot;根手指位置&quot; + fingers[i].clientX + &quot;,&quot; + fingers[i].clientY + &quot;&lt;br /&gt;&quot;;
+    }
+}, true);
+</code></pre><p>touchend事件中比较特殊，touches属性是一个数组，表示现在仍然在屏幕上的手指；而changedTouches属性也是一个数组，表示离开的手指的信息。先离开屏幕的手指，先被push进入数组。</p>
+<p>事件比较简单就是三个事件，和里面的event.touches属性。难点在于程序，在于三个事件的配合。手机端，要注意几个模型：拖拽、轮播图、抛掷、滑动拖出。</p>
+<blockquote>
+<p>最后说一个问题，就是手机中也有click事件，但是click事件比touchstart要晚触发200ms到300ms左右，因为浏览器有默认的一些手指快捷操作，比如双击两次放大视口。如果你用click写了一个div的单击事件，此时点击之后浏览器会等待200~300ms时间看看你有没有第二次点击，如果200~300ms以内没有点击，此时触发你的click事件，如果有点击，则你的click事件业务不发生，而是放大视口。但是touchstart不会等待，只要你碰到了屏幕一定会执行touchstart事件。</p>
+</blockquote>
+<p>注意，a标签执行的是类似click事件，等于说a标签被延迟了200~300触发，所以手机web中越来越不使用a标签跳转了，而是touchstart事件跳转。方法就是让元素携带data-href属性，然后用js批量给他们绑定的touchstart事件，让window.location切换为自己携带的data-href属性的值。</p>
+<pre><code>&lt;div id=&quot;box&quot; data-herf=&quot;http://m.taobao.com&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;box&quot; data-herf=&quot;http://m.dangdang.com&quot;&gt;&lt;/div&gt;
+
+var herfBoxs = document.querySelectorAll(&quot;[data-herf]&quot;);
+for(var i = 0 ; i &lt; herfBoxs.length ; i++){
+    herfBoxs[i].index = i;
+    herfBoxs[i].addEventListener(&quot;touchstart&quot;, function(){
+        window.location = this.getAttribute(&quot;data-herf&quot;);
+    }, true);
+}
+</code></pre><h2 id="2、拖拽"><a href="#2、拖拽" class="headerlink" title="2、拖拽"></a>2、拖拽</h2><p>拖拽是一切的基础，我们之前在鼠标的事件中已经学习过，但是你会发现：</p>
+<pre><code>box.onmousedown = function(){
+    document.onmousemove = function(){
+
+    }
+}
+
+document.onmouseup = function(){
+    document.onmousemove = null;
+}
+</code></pre><p>鼠标事件和触摸事件不一样，因为手指移动一定是在屏幕上的。所以touchmove事件不需要写在touchstart事件里面。其他的原理完全一致。</p>
+<p>三个事件各自有各自的用处：<br> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx0rlmbvwj20ns0ihadj.jpg" alt=""></p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var img = document.querySelector(&quot;#yangyang&quot;);
+
+    //信号量
+    var x = 100;
+    var y = 100;
+
+    var startX,startY,dx,dy;
+
+    //触摸开始
+    img.addEventListener(&quot;touchstart&quot;, function(event){
+        //阻止页面有默认事件
+        event.preventDefault();
+        //拿到这个手指
+        var thefinger = event.touches[0];
+        //记录开始触摸的位置
+        startX = thefinger.clientX;
+        startY = thefinger.clientY;
+
+        console.log(startX,startY);
+    }, true);
+
+
+    //触摸移动
+    img.addEventListener(&quot;touchmove&quot;, function(event){
+        //阻止页面有默认事件
+        event.preventDefault();
+        //拿到这个手指
+        var thefinger = event.touches[0];
+        //记录开始触摸的位置
+        dx = thefinger.clientX - startX;
+        dy = thefinger.clientY - startY;
+
+        img.style.left = x + dx + &quot;px&quot;;
+        img.style.top = y + dy + &quot;px&quot;;
+    }, true);
+
+
+    //触摸结束
+    img.addEventListener(&quot;touchend&quot;, function(event){
+        //阻止页面有默认事件
+        event.preventDefault();
+        //改变信号量
+        x += dx;
+        y += dy;
+    }, true);
+&lt;/script&gt;
+</code></pre><h2 id="3、指滑轮播图"><a href="#3、指滑轮播图" class="headerlink" title="3、指滑轮播图"></a>3、指滑轮播图</h2><p>有人研究过，top、left属性的效率，不如transform属性的效率。所以要进行移动什么东西，多考虑transform属性。<br> <img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx0rlu3s1j20k608sjvc.jpg" alt=""></p>
+<p> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx0rm1q5wj20r60dy0t5.jpg" alt=""></p>
+<p>屏幕旋转的时候触发window的onresize事件，HTML5也提供了事件onorientationchange，但是这个事件不好用，有些浏览器不支持。所以onresize还是不错的。</p>
+<h2 id="4、惯性抛掷"><a href="#4、惯性抛掷" class="headerlink" title="4、惯性抛掷"></a>4、惯性抛掷</h2><p>拖拽，但是停不下来，有惯性，会慢慢停下来。主要制作方法有两大种：</p>
+<blockquote>
+<p>方法1：overflow:auto; 很智能的就把移除的内容就变成可以滑动、抛掷、惯性的了。</p>
+</blockquote>
+<p>触摸的时候的颜色：</p>
+<pre><code>-webkit-tap-highlight-color: rgba(0,0,0,0);
+</code></pre><blockquote>
+<p>方法2：自己写函数，自己模拟</p>
+<p>比如新浪首页：<a href="https://sina.cn/" target="_blank" rel="external">https://sina.cn/</a>:<br> <img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx0rml1abj20yu07j78q.jpg" alt=""><br>比如我们现在按住了图片，拖拽，松手的地方是-500px，此时它应该根据我们的速度继续让这个盒子运动到终点，每一次都有衰减。</p>
+</blockquote>
+<p>难点就是在获得用户的抛掷速度上面，我们都是使用touchmove事件的最后两个点的距离间隔。</p>
+<p>touchmove事件不是移动1px就触发一次！不是！而是CPU有一个时钟周期，3.5GHz，每秒钟再玩命的检测你的鼠标位置，所以你的鼠标的位置值，不是连续的。</p>
+<p>很快的抛掷的最后几个点的横坐标：<br> <img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx0rmqhbcj208o055748.jpg" alt=""><br>很慢的抛掷的最后几个点的横坐标：<br> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx0rmwbu7j20a004r0sn.jpg" alt=""></p>
+<p>取最后两个点的间隔，间隔越大表示用户抛掷的速度越快，间隔越小，就是抛掷的慢。</p>
+<p>就是用定时器去模拟几次滑动即可，模拟几帧？衰减多快？</p>
+<blockquote>
+<p>模拟几帧：50帧以上，跟速度成正比</p>
+<p>衰减多块：速</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;##1、触摸事件 ##&lt;br&gt;移动端JS事件，重要就是触摸事件。触摸事件和鼠标事件完全不一样，因为鼠标不可能离开屏幕，鼠标在屏幕上可以点击可以不点击；但是手指可以离开屏幕，手指一旦碰到屏幕，就被视为点击了。所以，JS设计了一套完整的触摸事件系列，适应移动端web开发。&lt;/p
+    
+    </summary>
+    
+      <category term="移动web" scheme="http://yoursite.com/categories/%E7%A7%BB%E5%8A%A8web/"/>
+    
+    
+      <category term="移web" scheme="http://yoursite.com/tags/%E7%A7%BBweb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>移动web百分比布局</title>
+    <link href="http://yoursite.com/2016/11/28/title35/"/>
+    <id>http://yoursite.com/2016/11/28/title35/</id>
+    <published>2016-11-28T09:27:56.000Z</published>
+    <updated>2017-02-20T10:36:11.774Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-百分比布局"><a href="#1-百分比布局" class="headerlink" title="1 百分比布局"></a>1 百分比布局</h2><p>手机web页面都没有版心，都是撑满的，这是因为：</p>
+<blockquote>
+<p>手机本身就小，你再留白边，寸土寸金的地方都浪费了；</p>
+<p>APP一般都是撑满的，大家手机上网的时候，也希望撑满。<br>     <img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx0c1n65zj20so0bi7dt.jpg" alt="">           </p>
+</blockquote>
+<p>此时就会给制作带来难度，因为尺寸不能写px单位了，比如版心设置为360px，此时iPhone6plus的414视口会看见白色边：<br> <img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx0c20shdj20bq0dfaa4.jpg" alt="">     </p>
+<h2 id="2-百分比布局基础"><a href="#2-百分比布局基础" class="headerlink" title="2 百分比布局基础"></a>2 百分比布局基础</h2><p>用百分比设置宽度、高度（绝大多数高度可以写为px）、padding、margin的布局方式，叫做流式布局，页面有弹性，所以也叫弹性布局。</p>
+<pre><code>&lt;body&gt;
+    &lt;div&gt;&lt;/div&gt;  → div是body的亲儿子，60%指的是窗口宽度的60%
+&lt;/body&gt;
+
+&lt;body&gt;
+    &lt;div&gt; 
+        &lt;main&gt; → 60%指的是div的width的60%，无视div的padding。
+            &lt;p&gt;&lt;/p&gt; → 60%指的是main的width的60%，无视div的padding。
+        &lt;/main&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+</code></pre><p>看看padding，都参考父亲的width。注意，竖直方向上的padding也是看父亲的width，而不是height。</p>
+<pre><code>&lt;div&gt;
+    &lt;main&gt;&lt;/main&gt;  → padding-left:10%;指的是父亲的width的10%，而不是父亲的padding。
+                       padding-top:10%;指的是父亲的width的10%，而不是父亲的height。
+&lt;/div&gt;
+</code></pre><p>再来看border，不能用百分比写。</p>
+<pre><code>border: 10% solid #000;
+</code></pre><p>再来看margin，一律参考父亲width，不参考父亲的margin和height。<br><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx0c2hty9j206j05w745.jpg" alt=""></p>
+<pre><code>&lt;style type=&quot;text/css&quot;&gt;
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    div{
+        width: 200px;
+        height: 600px;
+        border: 10% solid #000;
+    }
+    p{
+        margin: 10%;
+    }
+&lt;/style&gt;
+</code></pre><blockquote>
+<p>总结：</p>
+<p>无论margin、padding、width、height，无论竖直方向还是水平方向，参考的都是父亲的width。</p>
+<h2 id="3-边框带来的麻烦"><a href="#3-边框带来的麻烦" class="headerlink" title="3 边框带来的麻烦"></a>3 边框带来的麻烦</h2><p>因为边框不能用百分比来写，所以会带来麻烦：</p>
+</blockquote>
+<pre><code>&lt;div&gt;
+    &lt;p&gt;1&lt;/p&gt;  → float: left;width:50%; border:1px solid red;
+    &lt;p&gt;2&lt;/p&gt;  → float: left;width:50%; border:1px solid red;
+&lt;/div&gt;
+</code></pre><p>p就不能浮动成功，因为总宽度已经是100%多了4个px。</p>
+<p>此时边框不能写成百分比，所以就不好减！</p>
+<pre><code>div{
+    width: 80%;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #eee;
+}
+p{
+    float: left;
+    width: 50%;  → 这里不能轻松减去2px
+    height: 200px;
+    background: orange;
+    border: 1px solid #000;
+}
+</code></pre><p>谁说不能？！CSS3中增加了calc函数：<br>        div{<br>            width: 80%;<br>            height: 200px;<br>            margin: 0 auto;<br>            background-color: #eee;<br>        }<br>        p{<br>            float: left;<br>            width: calc(50% - 2px);  → 谁说不能？！CSS3中增加了calc函数<br>            height: 200px;<br>            background: orange;<br>            border: 1px solid #000;<br>        }</p>
+<p>使用的时候一定要在运算符前后加上空格：</p>
+<pre><code>calc(50%-2px);
+</code></pre><p>应该是</p>
+<pre><code>calc(50% - 2px);
+</code></pre><p>兼容性不好，至少安卓4.4还不是特别兼容。<br><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx0c2p6igj211y0k10ux.jpg" alt=""></p>
+<h2 id="4-CSS3新的盒模型"><a href="#4-CSS3新的盒模型" class="headerlink" title="4 CSS3新的盒模型"></a>4 CSS3新的盒模型</h2><p>我们之前的盒模型padding、border、margin都是外扩的，</p>
+<pre><code>div{
+    width : 200px; 
+    height : 200px;
+    padding:10px 20px 30px 40px;
+}
+</code></pre><p>此时真实面积： 260 × 240 </p>
+<p>此时加上：</p>
+<pre><code>div{
+    width : 200px; 
+    height : 200px;
+    padding:10px 20px 30px 40px;
+    box-sizing:border-box;
+}
+</code></pre><p>box表示“盒子”，sizing“尺寸”，“border-box”表示border这一圈的宽度、高度。</p>
+<p>此时padding就是内减的，而不是外扩的了：</p>
+<p>但是border还是在外面：</p>
+<pre><code>div{
+    width : 200px; 
+    height : 200px;
+    box-sizing:border-box;
+    padding:10px 20px 30px 40px;
+    border-top:10px solid red;
+    border-left:20px solid red;
+    border-right:30px solid red;
+    border-bottom:40px solid red;
+    margin: 10px;
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-百分比布局&quot;&gt;&lt;a href=&quot;#1-百分比布局&quot; class=&quot;headerlink&quot; title=&quot;1 百分比布局&quot;&gt;&lt;/a&gt;1 百分比布局&lt;/h2&gt;&lt;p&gt;手机web页面都没有版心，都是撑满的，这是因为：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;手机本身就
+    
+    </summary>
+    
+      <category term="移动web" scheme="http://yoursite.com/categories/%E7%A7%BB%E5%8A%A8web/"/>
+    
+    
+      <category term="移web" scheme="http://yoursite.com/tags/%E7%A7%BBweb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Less语法的使用简介</title>
+    <link href="http://yoursite.com/2016/11/27/title32/"/>
+    <id>http://yoursite.com/2016/11/27/title32/</id>
+    <published>2016-11-27T09:27:56.000Z</published>
+    <updated>2017-02-20T10:35:48.947Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>PHP和HTML的关系就是LESS和CSS的关系。</p>
+<p>PHP是超文本预处理器</p>
+<pre><code>&lt;h1&gt;好高兴啊，我买了一个iPhone&lt;?php echo 3+4; ?&gt;&lt;/h1&gt;
+</code></pre><p>编译为：</p>
+<pre><code>&lt;h1&gt;好高兴啊，我买了一个iPhone7&lt;/h1&gt;
+</code></pre><p>LESS也是CSS预处理器：</p>
+<pre><code>@a : 100px;
+div{
+  width:@a;
+}
+编译为：
+div{
+  width:100px;
+}
+</code></pre><p>用的时候还是用CSS！浏览器不能直接渲染PHP、不能直接渲染Less，必须转为HTML、CSS之后才能渲染。但是写的时候PHP就是比HTML厉害，Less就是比CSS厉害。</p>
+<h2 id="2-浏览器编译"><a href="#2-浏览器编译" class="headerlink" title="2 浏览器编译"></a>2 浏览器编译</h2><p>试着写一个a.less文件：</p>
+<pre><code>@a : 200px;
+
+div{
+    width:@a;
+}
+</code></pre><p>@a表示定义一个变量。</p>
+<p>Less现在先解决编译的问题，然后再学习语法！</p>
+<blockquote>
+<p>编译有两种，浏览器编译是最简单的：</p>
+</blockquote>
+<pre><code>&lt;link rel=&quot;stylesheet/less&quot; type=&quot;text/css&quot; href=&quot;a.less&quot;&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/less.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>此时这个js文件就会发出Ajax请求，去请求a.less文件，此时会把返回的文本，用正则表达式进行编译。编译好的内容，直接内嵌到当前HTML文件中。</p>
+<h2 id="3、服务器端编译"><a href="#3、服务器端编译" class="headerlink" title="3、服务器端编译"></a>3、服务器端编译</h2><p>使用nodejs编译less。</p>
+<p>nodejs是一个js的运行环境，可以让js运行在服务器端。原来js运行在浏览器中，JS现在开始可以和PHP、ASP、JSP平起平坐！</p>
+<h2 id="4-less编译工具的安装（手动编译）"><a href="#4-less编译工具的安装（手动编译）" class="headerlink" title="4 less编译工具的安装（手动编译）"></a>4 less编译工具的安装（手动编译）</h2><p>所以有很多人发明了一些工具，发布出去了，发布到了npm的世界中，nodejs package management，nodejs包管理器。安装完node之后，npm已经被自动安装了。我们可以使用npm命令，轻松的从互联网上下载各式各样的nodejs程序。</p>
+<blockquote>
+<p>npm install命令表示通过连接互联网，从网上下载工具，我们下载的就是less工具。</p>
+<p>npm install表示安装，-g表示安装到全局，每个人的全局地址都不一样，请通过</p>
+<p>npm root -g来查看</p>
+</blockquote>
+<p>装好less处理器之后，就能通过lessc命令来编译less文件了。</p>
+<h2 id="5-利用Grunt自动监控less文件自动编译"><a href="#5-利用Grunt自动监控less文件自动编译" class="headerlink" title="5 利用Grunt自动监控less文件自动编译"></a>5 利用Grunt自动监控less文件自动编译</h2><p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcw82puhsoj20ut0imdib.jpg" alt=""></p>
+<p>Grunt是一个自动化构建工具，依赖NodeJS，说白了就是NodeJS程序而已<br>。<br>要使用Grunt必须现在系统的全局安装grunt-cli程序，cli就是命令行界面的意思。</p>
+<p>需要先安装grunt-cli程序，打开系统CMD，输入下面的命令（保证计算机已经联网）：</p>
+<blockquote>
+<p>npm install -g grunt-cli</p>
+<p>不要忘记-g，必须装在全局。</p>
+<p>此时，你的神秘全局文件夹中就有了，此时你就可以在CMD中输入grunt命令而不会报错了。</p>
+</blockquote>
+<p>现在，我们要安装grunt，刚才安装的是grunt-cli，此时来到你的项目文件夹中，注意这句话，来到你的项目文件夹中。</p>
+<blockquote>
+<p>cd 你的项目路径</p>
+</blockquote>
+<p>然后在这个文件夹中安装grunt，不要加-g。</p>
+<blockquote>
+<p>npm install grunt</p>
+</blockquote>
+<p>此时你的项目文件夹中就会出node_modules文件夹：</p>
+<p>接下来我们就要告诉Grunt你要做什么，所以我们建立一个Gruntfile.js的文件，告诉Grunt你的任务。注意这个文件的名字不能换！</p>
+<p>下面就是这个Gruntfile.js的代码清单：<br> 配置任务，列出了三个任务：pkg、less、watch。pkg任务是必须写的；less任务就是编译less的任务，watch任务就是监控任务。</p>
+<p>部分在罗列插件。grunt-contrib-less、grunt-contrib-watch。</p>
+<p>部分是事务队列、清单。</p>
+<pre><code>module.exports = function (grunt) {
+//任务配置,所有插件的配置信息
+grunt.initConfig({
+    pkg: grunt.file.readJSON(&apos;package.json&apos;),
+    //less插件配置
+    less: {
+        main: {
+            expand: true,
+            src: [&apos;less/*.less&apos;],   //核心语句，编译less
+            dest: &apos;desc&apos;,
+            ext: &apos;.css&apos;
+        },
+        dev: {
+            options: {
+                compress: true,
+                yuicompress:false
+            }
+        }
+    },
+    watch: {
+        scripts: {
+            files: [&apos;less/*.less&apos;],
+            tasks: [&apos;less&apos;]
+        }
+    }
+});
+
+//告诉grunt我们将使用插件
+grunt.loadNpmTasks(&apos;grunt-contrib-less&apos;);
+grunt.loadNpmTasks(&apos;grunt-contrib-watch&apos;);
+
+//告诉grunt当我们在终端中输入grunt时需要做些什么(注意先后顺序)
+grunt.registerTask(&apos;default&apos;, [&apos;less&apos;,&apos;watch&apos;]);
+};
+</code></pre><p>在项目文件夹里面再次放入一个package.json的文件：</p>
+<pre><code>{
+  &quot;name&quot;: &quot;text&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;devDependencies&quot;: {
+  &quot;grunt&quot;: &quot;~0.4.5&quot;,
+  &quot;grunt-contrib-less&quot;: &quot;~0.10.0&quot;
+  }
+}
+</code></pre><p>插件还没有装呢！所以要在项目文件夹中，</p>
+<pre><code>npm install grunt-contrib-less
+
+npm install grunt-contrib-watch
+</code></pre><p>如果全部操作都正确的话，此时你可以在项目文件的CMD中，输入grunt一个单词，可以实时监控你的less文件夹中的less文件。实时编译到dest文件夹中。</p>
+<h2 id="6、Less语法"><a href="#6、Less语法" class="headerlink" title="6、Less语法"></a>6、Less语法</h2><p><a href="http://less.bootcss.com/" target="_blank" rel="external">http://less.bootcss.com/</a></p>
+<p>变量：</p>
+<pre><code>@hong : rgb(252,0,0);
+
+div{
+    background: @hong;
+    border-top: 1px solid @hong;
+    box-shadow: 1px 1px 1px 1px @hong;
+}
+</code></pre><p>选择器也可以用变量：</p>
+<pre><code>@dahezideleiming : container;
+.@{dahezideleiming}{
+    width:100px;
+}
+</code></pre><p>文件路径：</p>
+<pre><code>@imagesURL : &quot;../images&quot;;
+background: url(&quot;@{imagesURL}/1.jpg no-repeat center center&quot;);
+</code></pre><p>导入文件：</p>
+<pre><code>@import &quot;01.less&quot;;
+@import &quot;02.less&quot;;
+</code></pre><p>属性也能用变量：</p>
+<pre><code>@property: color;
+
+.widget {
+  @{property}: #0ee;
+  background-@{property}: #999;
+}
+</code></pre><p>混合：</p>
+<pre><code>.xiao{
+    width: 200px;
+    height: 200px;
+}
+.cu{
+    font-weight: 500;
+}
+.xian{
+    text-decoration: underline;
+}
+
+.zhongyao{
+    .cu();
+    .xian();
+}
+</code></pre><p>嵌套：</p>
+<pre><code>nav{
+    width:100px;
+    height:100px;
+
+    ul{
+        float:left;
+    }
+}
+</code></pre><p>可以接受参数，类似一个函数：</p>
+<pre><code>.yuanjiao(@dushu){
+    -webkit-border-radius: @dushu;
+    -moz-border-radius: @dushu;
+    -ms-border-radius: @dushu;
+    -o-border-radius: @dushu;
+    border-radius: @dushu;
+}
+</code></pre><p>when逻辑判断：</p>
+<pre><code>.haha(@a) when (@a &gt; 100){
+    width:300px;
+    height: 300px;
+}
+
+.haha(@a) when (@a &lt; 100){
+    width:200px;
+    height: 200px;
+}
+
+div{
+    .haha(900);
+}
+</code></pre><p>编译之后：</p>
+<pre><code>div {
+  width: 300px;
+  height: 300px;
+}
+</code></pre><p>循环语句：</p>
+<pre><code>.zihao(@n) when (@n =&lt; 60) {
+  .fs@{n}{
+    font-size:1px * @n;
+  }
+  .zihao(@n + 1);
+}
+
+.zihao(10);
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot; class=&quot;headerlink&quot; title=&quot;1 概述&quot;&gt;&lt;/a&gt;1 概述&lt;/h2&gt;&lt;p&gt;PHP和HTML的关系就是LESS和CSS的关系。&lt;/p&gt;
+&lt;p&gt;PHP是超文本预处理器&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;l
+    
+    </summary>
+    
+      <category term="Less" scheme="http://yoursite.com/categories/Less/"/>
+    
+    
+      <category term="Less" scheme="http://yoursite.com/tags/Less/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP操作SQL语言</title>
+    <link href="http://yoursite.com/2016/11/26/title34/"/>
+    <id>http://yoursite.com/2016/11/26/title34/</id>
+    <published>2016-11-26T09:27:56.000Z</published>
+    <updated>2017-02-20T12:51:31.541Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-SQL语言"><a href="#1-SQL语言" class="headerlink" title="1 SQL语言"></a>1 SQL语言</h2><p>数据库的增删改查操作，CRUD操作。</p>
+<blockquote>
+<p>C create增加，创建</p>
+<p>R read 查找，访问</p>
+<p>U update 更改</p>
+<p>D delete 删除<br>要使用SQL语言对数据库进行CRUD操作。SQL就是Structure Query Language结构化查询语言。是操作数据库的语言，注意，这个语言是使用的软件平台无关。比如你用ASP、PHP、JSP都要使用相同的SQL语言。</p>
+</blockquote>
+<h2 id="2-查询"><a href="#2-查询" class="headerlink" title="2 查询"></a>2 查询</h2><p>看好SQL语句在哪里输入：<br> <img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcwztx3qjij20tb0hctax.jpg" alt=""></p>
+<p>查询所有表中的条目：</p>
+<blockquote>
+<p>SELECT * FROM 表名字<br> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcwztxaff3j20di03rmx7.jpg" alt=""><br>比如：</p>
+</blockquote>
+<p>查询banji0910表中的所有条目：</p>
+<blockquote>
+<p>SELECT * FROM banji0910<br> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcwztxfe8rj20bc03xjrd.jpg" alt=""></p>
+</blockquote>
+<p>查询banji0910表中的所有条目的姓名：</p>
+<blockquote>
+<p>SELECT xingming FROM banji0910<br> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcwztxnwzgj20de03pq2z.jpg" alt=""></p>
+</blockquote>
+<p>可以后缀WHERE子句，查找banji0910中所有男生</p>
+<blockquote>
+<p>SELECT * FROM banji0910 WHERE xingbie = “男”</p>
+</blockquote>
+<p>可以加上与或逻辑，AND表示且，OR表示或查找banji0910中所有男生且年龄大于11岁</p>
+<p>SELECT * FROM banji0910 WHERE xingbie = ‘男’ AND nianling 11</p>
+<p>注意，字符串用单引号包裹；注意，等号就是相等的意思。</p>
+<p>可以排序，查找banji0910中所有男生，并按年龄倒叙：</p>
+<blockquote>
+<p>SELECT * FROM banji0910 WHERE xingbie = “男” ORDER BY nianling DESC</p>
+</blockquote>
+<h2 id="3-增加条目"><a href="#3-增加条目" class="headerlink" title="3 增加条目"></a>3 增加条目</h2><p>用INSERT语句插入条目：</p>
+<blockquote>
+<p>INSERT INTO banji0910 VALUE (‘小青’,9,’女’,324234);<br> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcwztxtdbzj20e8059dfu.jpg" alt=""></p>
+</blockquote>
+<p> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcwzty0gstj20of06lt8z.jpg" alt=""><br>如果不是想插入所有的字段，必须罗列所有的字段：</p>
+<blockquote>
+<p>INSERT INTO banji0910 (xingming,nianling,xingbie) VALUE (‘小宝’,9,’男’)</p>
+</blockquote>
+<h2 id="3-改变条目"><a href="#3-改变条目" class="headerlink" title="3 改变条目"></a>3 改变条目</h2><p>更改小红的性别为男：</p>
+<blockquote>
+<p>UPDATE banji0910 SET xingbie = “男” WHERE xingming = “小红”<br> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcwzty7i4fj20eb04xjrf.jpg" alt=""></p>
+</blockquote>
+<p>更改所有年龄大于等于10的人性别为女：</p>
+<blockquote>
+<p>UPDATE banji0910 SET xingbie = “女” WHERE nianling &gt;= 10</p>
+</blockquote>
+<h2 id="4-删除条目"><a href="#4-删除条目" class="headerlink" title="4 删除条目"></a>4 删除条目</h2><p>删除小明：</p>
+<blockquote>
+<p>DELETE FROM banji0910 WHERE xingming = “小明”</p>
+</blockquote>
+<p>删除所有女生：</p>
+<blockquote>
+<p>DELETE FROM banji0910 WHERE xingbie = ‘女’</p>
+</blockquote>
+<h2 id="5-SQL的备份和恢复"><a href="#5-SQL的备份和恢复" class="headerlink" title="5 SQL的备份和恢复"></a>5 SQL的备份和恢复</h2><p>我的数据库想给你，不能通过U盘直接把数据库拷贝走，因为数据库在计算机的多个文件夹中分布。<br>只能在我的电脑里面把数据库备份为SQL文件，传递给你SQL文件，你执行SQL文件就行了。</p>
+<p>备份数据库为SQL文件<br> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcwztydu2hj20z90ikgov.jpg" alt=""></p>
+<p>从SQL文件恢复：<br> <img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcwztyojegj20rz0jjjxq.jpg" alt=""></p>
+<blockquote>
+<p>记住要刷新</p>
+</blockquote>
+<h2 id="6、PHP操作数据库"><a href="#6、PHP操作数据库" class="headerlink" title="6、PHP操作数据库"></a>6、PHP操作数据库</h2><p>数据库自己用没有意义，可以提供给多种语言使用，SQL就是中间的一层。</p>
+<p>LAMP沆瀣一气，Linux、Apache、MySQL、PHP，他们四个非常亲，彼此非常打通。PHP中仅仅几条语句就能操作数据库：</p>
+<pre><code>&lt;?php
+    //链接数据库。参数：数据库地址、用户名、密码
+    mysql_connect(&quot;localhost&quot;,&quot;root&quot;,&quot;123456&quot;);
+    //选择操作哪个数据库
+    mysql_select_db(&quot;student&quot;);
+    //识别中文
+    mysql_query(&quot;SET NAMES UTF8&quot;);
+    //写SQL语句
+    $sql = &quot;INSERT INTO banji0910 VALUE (&apos;宝宝&apos;,12,&apos;男&apos;,1932434)&quot;;
+    //执行SQL
+    mysql_query($sql);
+?&gt;
+</code></pre><p>使用了里面的诸多内置函数，他们都是mysql<em>开头的。php就是这样，把内置函数都加上了前缀，比如数组的方法，都是array</em>开头，关于数据库的函数都是mysql_开头。</p>
+<blockquote>
+<p>mysql_connect : 链接数据库</p>
+<p>mysql_select_db : 选择数据库</p>
+<p>mysql_query : 执行查询</p>
+</blockquote>
+<p>比较复杂的是，从数据库中读取数据：</p>
+<pre><code>&lt;?php
+    mysql_connect(&quot;localhost&quot;,&quot;root&quot;,123456);
+    mysql_select_db(&quot;student&quot;);
+    mysql_query(&quot;SET NAMES UTF8&quot;);
+
+    //准备一条sql
+    $sql = &quot;SELECT * FROM banji0910&quot;;
+    //执行sql语句，此时的结果是类数组对象
+    $result = mysql_query($sql);
+
+    //把结果转为数组
+    $row = mysql_fetch_array($result);
+    //输出
+    print_r($row);
+    //把结果转为数组
+    $row = mysql_fetch_array($result);
+    //输出
+    print_r($row);
+    //把结果转为数组
+    $row = mysql_fetch_array($result);
+    //输出
+    print_r($row);
+?&gt;
+</code></pre><p>如果是SELECT语句执行，此时的结果是类数组对象。必须使用mysql_fetch_array()来转为数组。此时比较坑的是，转的时候只能转一条，此时如果想转第二条，必须再来一次mysql_fetch_array();<br>执行完毕SQL之后拿到类数组对象，我们一般来说用while语句去循环得到所有数组：</p>
+<pre><code>&lt;?php
+    mysql_connect(&quot;localhost&quot;,&quot;root&quot;,123456);
+    mysql_select_db(&quot;student&quot;);
+    mysql_query(&quot;SET NAMES UTF8&quot;);
+
+    //准备一条sql
+    $sql = &quot;SELECT * FROM banji0910&quot;;
+    //执行sql语句，此时的结果是类数组对象
+    $result = mysql_query($sql);
+
+    //把结果转为数组
+    while($row = mysql_fetch_array($result)){
+        //输出
+        print_r($row);
+    }
+?&gt;
+</code></pre><p> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcwzyt7kp5j20y10acwfe.jpg" alt=""></p>
+<p>注意，每个$row都是一个数组，并且里面有数字下标，也有别名下标。</p>
+<pre><code>&lt;?php
+    mysql_connect(&quot;localhost&quot;,&quot;root&quot;,123456);
+    mysql_select_db(&quot;student&quot;);
+    mysql_query(&quot;SET NAMES UTF8&quot;);
+
+    //准备一条sql
+    $sql = &quot;SELECT * FROM banji0910&quot;;
+    //执行sql语句，此时的结果是类数组对象
+    $result = mysql_query($sql);
+
+    //把结果转为数组
+    while($row = mysql_fetch_array($result)){
+        //输出
+        echo $row[&quot;xingming&quot;] . &quot;&lt;br /&gt;&quot;;
+    }
+?&gt;
+</code></pre><p>主键的概念，姓名能够重复，但是id不能重复。id就是主键，不重复的字段就是主键。<br> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcwzytcytwj211y0epdhx.jpg" alt=""></p>
+<p>查看信息的超级链接，是样子写的：</p>
+<pre><code>&lt;td&gt;&lt;a href=&quot;ziliao.php?id=&lt;?php echo $row[&apos;id&apos;]; ?&gt; &quot;&gt;查看信息&lt;/a&gt;&lt;/td&gt;
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-SQL语言&quot;&gt;&lt;a href=&quot;#1-SQL语言&quot; class=&quot;headerlink&quot; title=&quot;1 SQL语言&quot;&gt;&lt;/a&gt;1 SQL语言&lt;/h2&gt;&lt;p&gt;数据库的增删改查操作，CRUD操作。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;C create增加，
+    
+    </summary>
+    
+      <category term="SQL" scheme="http://yoursite.com/categories/SQL/"/>
+    
+    
+      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP后台语言介绍</title>
+    <link href="http://yoursite.com/2016/11/25/title31/"/>
+    <id>http://yoursite.com/2016/11/25/title31/</id>
+    <published>2016-11-25T09:27:56.000Z</published>
+    <updated>2017-02-20T10:35:33.853Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-从一个实验说开去"><a href="#1-从一个实验说开去" class="headerlink" title="1 从一个实验说开去"></a>1 从一个实验说开去</h2><p>我们做一个实验，新建一个php文件（就是由txt变的）：</p>
+<pre><code>&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot;&gt;
+
+    &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=UTF-8&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;h1&gt;好高兴啊，我买了一个iPhone&lt;?php echo 1+2+3+1;?&gt;啊，真开心！&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>我们直接在本地拖到浏览器里面查看，我么你发现红色部分浏览器没有渲染：<br><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcw7gywrb0j20j504tt8t.jpg" alt=""></p>
+<p>这是因为浏览器把&lt;?php ?&gt;当做注释了：<br> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcw7gz2ngkj20fp06njri.jpg" alt=""></p>
+<p>此时把1.php上传到服务器上，然后通过浏览器输入网址访问发现这个7被算出来了。此时我们查看源代码：<br> <img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcw7gz8mj1j20ep06q74e.jpg" alt=""></p>
+<p>你会发现之前的&lt;?php ?&gt;里面的内容，变成了7，此时你根本察觉不到这个7从何而来。</p>
+<h2 id="2-后台语言"><a href="#2-后台语言" class="headerlink" title="2 后台语言"></a>2 后台语言</h2><p>后台语言就是执行在服务器上的语言，以php为例，在服务器上执行&lt;?php ?&gt;里面的语句，这个操作我们称为“预处理”。当php执行完毕之后，会发回给浏览器纯的、平的HTML文件。<br> <img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcw7gziih3j20o20a6tb5.jpg" alt=""></p>
+<p> <img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcw7gzoh9kj20nk0au0v8.jpg" alt=""></p>
+<p> <img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcw7gzyubxj20nk09976q.jpg" alt=""></p>
+<p> <img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcw7h07vasj20o90amq5b.jpg" alt=""><br>PHP（外文名:PHP: Hypertext Preprocessor，中文名：“超文本预处理器”）是一种通用开源脚本语言。它是一个后台语言，后台语言：<br>● 在服务器上运行<br>● 运行之后，发给浏览器就是不带任何后台标记的纯HTML了<br>● 可以操作数据库</p>
+<p>常见后台语言：PHP、JSP、ASP、.net、python、scala、node.js等等。</p>
+<h2 id="3、在自己的电脑上运行PHP"><a href="#3、在自己的电脑上运行PHP" class="headerlink" title="3、在自己的电脑上运行PHP"></a>3、在自己的电脑上运行PHP</h2><p>PHP是后台语言，必须运行在服务器上，所以我们不便于调试，只能让自己的电脑也变为服务器。</p>
+<p>Apache是世界上第一名的服务器软件，如果你安装了Apache你的电脑就是服务器了。</p>
+<p>光安装Apache没有用，还要安装PHP的语言解析引擎。</p>
+<p>MySQL是著名的数据库之一，免费开源。</p>
+<p>中国人发明了三合一的安装包，叫做phpnow或者WampServer。我们学习phpnow，如果你电脑装不上phpnow，此时就安装wampserver。</p>
+<h2 id="4-运行php"><a href="#4-运行php" class="headerlink" title="4 运行php"></a>4 运行php</h2><p>所有的php文件必须放到根目录运行，一定要通过127.0.0.1来运行，而不能直接把php拖入浏览器。</p>
+<p> 4.1 壳子<br>所有的php程序要写在：</p>
+<pre><code>&lt;?php ?&gt;
+</code></pre><p>的壳子里面。</p>
+<p> 4.1 echo输出</p>
+<pre><code>&lt;h1&gt;我买了一个iPhone&lt;?php echo 3.5 * 2; ?&gt;我很开心&lt;/h1&gt;
+</code></pre><p>注意echo是一个关键字，不是函数，所以不要加圆括号：</p>
+<pre><code>echo();
+</code></pre><p>注意，php要求所有语句必须有分号结尾，没有分号致命。和JS一样，所有的字符串都要有引号包裹。</p>
+<pre><code>&lt;p&gt;&lt;?php echo &quot;你好&quot;; ?&gt;&lt;/p&gt;
+</code></pre><p> 4.3 变量<br>PHP中的变量不需要定义，可以直接使用，变量必须以$开头，剩余部分的命名规范和JS一样。</p>
+<pre><code>&lt;?php
+    $a = 100;
+    echo $a;
+?&gt;
+</code></pre><p>注释和js一样。</p>
+<pre><code>&lt;?php
+    // $a = 100;
+    // $b = 200;
+    // echo $a + $b;
+?&gt;
+</code></pre><p>连字符是.而不是加号。<br>    &lt;?php<br>        $year = 2016;<br>        echo “今年是” . $year . “年”;<br>    ?&gt;</p>
+<p>而在双引号中，用{$}的形式，可以不用连字符，来拼接变量和字符串：</p>
+<pre><code>echo &quot;今年是{$year}年&quot;;
+</code></pre><p> 4.4 for语句、if语句、switch语句、while、do while语句<br>   和js一样一样的,讲讲壳子：</p>
+<pre><code>&lt;?php
+    for($i = 0 ; $i &lt; 100 ; $i++){
+?&gt;
+        &lt;p&gt;★&lt;/p&gt;
+&lt;?php
+    }
+?&gt;
+</code></pre><p>页面上出现100个星星</p>
+<p>4.5 函数<br>和js一样一样。php中的函数不是构造函数，不能被new调用。</p>
+<p>编写函数，检查一个数字是不是质数，并且用数字88来测试：</p>
+<pre><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=UTF-8&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+    function checkZhishu($num){
+        $count = 0;
+         for($j = 1 ; $j &lt;= $num ; $j++){
+             if($num % $j == 0){
+                 $count ++;
+             }
+         }
+         if($count == 2){
+             return true;
+         }else{
+             return false;
+         }
+    }
+
+    if(checkZhishu(88)){
+        echo &quot;是&quot;;
+    }else{
+        echo &quot;不是&quot;;
+    }
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p> 4.6 数组<br>array()函数创建数组：</p>
+<pre><code>&lt;?php
+    $arr = array(&quot;东风&quot;,&quot;二条&quot;,&quot;大饼&quot;,&quot;幺鸡&quot;,&quot;六万&quot;);
+    echo $arr[3];
+?&gt;
+</code></pre><p>php是所有语言中，方法第一多的语言！</p>
+<p>数组可以有别名，和js的json很像：</p>
+<pre><code>&lt;?php
+       $arr = array(&quot;xingming&quot; =&gt; &quot;小明&quot; , &quot;age&quot; =&gt; 12 , &quot;sex&quot; =&gt; &quot;男&quot;);
+    echo $arr[&quot;sex&quot;];
+?&gt;
+</code></pre><p>输出男。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-从一个实验说开去&quot;&gt;&lt;a href=&quot;#1-从一个实验说开去&quot; class=&quot;headerlink&quot; title=&quot;1 从一个实验说开去&quot;&gt;&lt;/a&gt;1 从一个实验说开去&lt;/h2&gt;&lt;p&gt;我们做一个实验，新建一个php文件（就是由txt变的）：&lt;/p&gt;
+&lt;pre&gt;
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+    
+    
+      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>游戏开发中canvas常见要点</title>
+    <link href="http://yoursite.com/2016/11/24/title30/"/>
+    <id>http://yoursite.com/2016/11/24/title30/</id>
+    <published>2016-11-24T09:27:56.000Z</published>
+    <updated>2017-02-20T10:35:27.067Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-游戏图片、音乐资源的管理"><a href="#1-游戏图片、音乐资源的管理" class="headerlink" title="1 游戏图片、音乐资源的管理"></a>1 游戏图片、音乐资源的管理</h2><p>不管游戏中有多少元素在运动，游戏仅仅有1个定时器，这1个定时器让所有的演员更新、渲染。<br>实际上，一个游戏需要大量的图片，只有当所有图片都load了，游戏才能开始。换句话说，只有当所有图片都load了，主循环setInterval()才能启动。</p>
+<p>所以我们的思路就是用JSON imagesObj 存放所有的资源图片的名字，用循环语句for..in…去创建他们的Image对象，然后监听他们的load事件，load一个计数器加1，当load完一个图片的时候，计数器正好等于了数组总长度，此时表示所有图片加载完毕。比较巧妙的是，我们创建了一个R对象，这个对象和imagesObj 的key是一样的，但是v是图片的Image实体，用图片的时候，要通过R打点来找到图片。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   //得到画布标签
+   var myCanvas = document.querySelector(&quot;#myCanvas&quot;);
+   //上下文，就相当于打开Photoshop之后让你新建画布
+   var ctx = myCanvas.getContext(&quot;2d&quot;);
+   //今后的操作都是这个画布的事情，都是ctx的事情，和myCanvas没有关系了。
+
+   //如果要使用图片，必须要创建一个Image的实例，然后监听这个img的load事件
+   //只有load的图片才能上画布
+   var imagesObj = {
+       &quot;shibing&quot; : &quot;images/shibing.png&quot;,
+       &quot;baozha&quot; : &quot;images/baozha.png&quot;
+   };
+
+   //图片资源对象，k和imagesObj是一样的，v是真正的图片Image对象
+   var R = {};
+
+   //已经加载好的图片个数
+   var count = 0;
+
+   var cutx = 0;
+   var baozhaxuhao = 0;
+
+   for(var k in imagesObj){
+       //创建图片节点
+       R[k] = new Image();
+       //设置src
+       R[k].src = imagesObj[k];
+       //监听是否load
+       R[k].onload = function(){
+          count++;
+          if(count === 2){
+              //全部都加载完毕
+              setInterval(function(){
+                 cutx ++;
+                 baozhaxuhao++;
+                 if(cutx &gt; 7){
+                     cutx = 0;
+                 }
+                 if(baozhaxuhao &gt; 11){
+                     baozhaxuhao = 0;
+                 }
+
+                 //清屏
+                 ctx.clearRect(0, 0, 800, 600);
+
+                 ctx.drawImage(R.shibing,120 * cutx,150 * 3,120,150,100,100,120,150);
+
+                 ctx.drawImage(R.baozha,192 * (baozhaxuhao % 5),192 * parseInt(baozhaxuhao / 5),192,192,100,100,192,192);
+              },20);
+           }
+       }
+   }
+&lt;/script&gt;
+</code></pre><h2 id="2、Game类Game类就是中介者模式中的中介者-。"><a href="#2、Game类Game类就是中介者模式中的中介者-。" class="headerlink" title="2、Game类Game类就是中介者模式中的中介者 ##。"></a>2、Game类Game类就是中介者模式中的中介者 ##。</h2><p>中介者就是全局变量！比如我们以前</p>
+<pre><code>var idx = 10;
+</code></pre><p>信号量，就是全局变量，现在把这个量放入一个类的实例身上，此时这个类就是中介者。</p>
+<p>信号量在中介者身上：</p>
+<pre><code>var game = new Game();
+game.idx = 10;
+</code></pre><p>以后所有的元素都是Game类new出来的，我们只需要new出中介者，其他元素都是Game帮我们new出来的。</p>
+<p>其他元素如果要互相通信，要通过Game类：</p>
+<pre><code>game.bird.y
+</code></pre><p>在HTML5游戏中，Game类还将有：主循环、游戏资源管理两个任务。</p>
+<p>图片资源管理利用两个对象，RObj和R对象。Robj就是Ajax请求来的文本转为的对象，v是路径； R对象的拥有Robj相同的k，但是v是真实对象：</p>
+<h2 id="3-背景类背景类的实例化"><a href="#3-背景类背景类的实例化" class="headerlink" title="3 背景类背景类的实例化"></a>3 背景类背景类的实例化</h2><p>在Game的start函数里面。而start函数的调用的前提是所有资源已经加载完毕了。说白了，背景类里面可以直接使用图片资源。</p>
+<p>canvas里面也有猫腻，也有模式。渲染三张，目的是无缝连续滚动，当猫腻图的左边框到达0点，就拉回来。</p>
+<h2 id="4、cancas变形"><a href="#4、cancas变形" class="headerlink" title="4、cancas变形"></a>4、cancas变形</h2><p>canvas中，提供了变形属性，需要注意的是，所有的变形都是针对画布上下文ctx对象的，而不是某一个要绘制的元素的。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   var mycanvas = document.getElementById(&quot;mycanvas&quot;);
+
+   var ctx = mycanvas.getContext(&quot;2d&quot;);
+
+   //保存当前的上下文状态
+   ctx.save();
+    //移动坐标系
+   ctx.translate(100,100);
+   //画圆
+   ctx.fillStyle = &quot;blue&quot;;
+   ctx.beginPath();
+   ctx.arc(0,0,50,0,Math.PI * 2,true);
+   ctx.fill();
+   //恢复上下文存档状态
+   ctx.restore();
+
+   //画方块
+   ctx.fillRect(100, 100, 100, 100);
+&lt;/script&gt;
+</code></pre><p>坐标系还可以通过</p>
+<pre><code>ctx.rotate(1);
+</code></pre><p>渲染1弧度。同样的，旋转的是整个坐标系，而不是某一个元素。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   var mycanvas = document.getElementById(&quot;mycanvas&quot;);
+
+   var ctx = mycanvas.getContext(&quot;2d&quot;);
+
+   ctx.rotate(1); //1弧度，顺时针
+   ctx.fillStyle = &quot;orange&quot;;
+   ctx.fillRect(100, 100, 100, 100);
+&lt;/script&gt;
+</code></pre><p>如果想要让一个元素以自己的几何中心点旋转，此时需要：</p>
+<blockquote>
+<p>① 先让坐标系的原点移动到它的中心点，此时盒子的渲染位置就是负的自己的宽度的一半，负的自己的高度的一半。</p>
+<p>② 旋转</p>
+<p>公式：</p>
+<p>t指的是开始下落后的时间，此时小鸟就要维护自己的小帧号birdF。</p>
+</blockquote>
+<pre><code>//物理公式：s = 1/2gt^2
+//掉
+birdF++;
+birdY = 100 + 1.3 * birdF * birdF;
+birdRotate+=0.08;
+</code></pre><h2 id="5、碰撞检测"><a href="#5、碰撞检测" class="headerlink" title="5、碰撞检测"></a>5、碰撞检测</h2><p>AABB盒是英语Axis Aligned Bounding Box 轴对齐包围盒。</p>
+<p>//更新自己的碰撞检测盒</p>
+<pre><code>this.A = this.y + 7;
+this.B = this.x + 41;
+this.C = this.y + 41;
+this.D = this.x + 7;
+</code></pre><p>所谓的ABCD都是边的x或者y，横边就取y值，纵边就取x值。<br>碰撞检测：</p>
+<pre><code>if(
+    game.bird.A &lt; this.C1 &amp;&amp; game.bird.B &gt; this.D1 &amp;&amp; game.bird.D &lt; this.B1
+       ||
+    game.bird.C &gt; this.A2 &amp;&amp; game.bird.B &gt; this.D2 &amp;&amp; game.bird.D &lt; this.B2
+){
+    console.log(&quot;撞！&quot;);
+    clearInterval(game.timer);
+}
+</code></pre><h2 id="6、合成canvas"><a href="#6、合成canvas" class="headerlink" title="6、合成canvas"></a>6、合成canvas</h2><p>ctx.globalCompositeOperation = type</p>
+<p>一共有12种值，表示新画的图形和老图形的关系，称为“合成”。</p>
+<p>比如：</p>
+<pre><code>ctx.fillStyle = &quot;blue&quot;;
+ctx.fillRect(100,100,100,100);
+
+ctx.globalCompositeOperation = &quot;source-in&quot;;
+
+ctx.beginPath();
+ctx.arc(180,180,50,0,7,false);
+ctx.fillStyle = &quot;red&quot;;
+ctx.fill();
+</code></pre><p>像素操作到目前为止，我们尚未深入了解Canvas画布真实像素的原理，事实上，你可以直接通过ImageData对象操纵像素数据，直接读取或将数据数组写入该对象中。稍后我们也将深入了解如何控制图像使其平滑（反锯齿）以及如何从Canvas画布中保存图像。</p>
+<p>得到像素：</p>
+<pre><code>var myImageData = ctx.getImageData(0,0,560,300);
+</code></pre><p>0,0表示起点位置，560是宽度，300是高度。</p>
+<p>得到的值可以被使用作为查看初始像素数据。每个像素用4个1bytes值(按照红，绿，蓝和透明值的顺序; 这就是”RGBA”格式) 来代表。每个颜色值部份用0至255来代表。每个部份被分配到一个在数组内连续的索引，左上角像素的红色部份在数组的索引0位置。像素从左到右被处理，然后往下，遍历整个数组。</p>
+<h2 id="7、事件监听"><a href="#7、事件监听" class="headerlink" title="7、事件监听"></a>7、事件监听</h2><p>canvas上必须检测范围，因为得不到元素。</p>
+<p>贝塞尔曲线：</p>
+<pre><code>ctx.moveTo(100,100);
+ctx.bezierCurveTo(200, 50, 400, 50, 400, 100);
+ctx.stroke();
+</code></pre><p>点击鼠标的时候，要遍历每个元素，看看点击到了谁，点击到的这个元素，就存入变量。然后让变量中的元素x、用、跟随你的鼠标变化即可。</p>
+<pre><code>if(x &gt; ctrl1.x - 5 &amp;&amp; x &lt; ctrl1.x + 5 &amp;&amp; y &gt; ctrl1.y - 5 &amp;&amp; y &lt; ctrl1.y + 5){
+   diandaodedian = ctrl1;
+}
+
+if(x &gt; ctrl2.x - 5 &amp;&amp; x &lt; ctrl2.x + 5 &amp;&amp; y &gt; ctrl2.y - 5 &amp;&amp; y &lt; ctrl2.y + 5){
+   diandaodedian = ctrl2;
+}
+
+if(x &gt; start.x - 5 &amp;&amp; x &lt; start.x + 5 &amp;&amp; y &gt; start.y - 5 &amp;&amp; y &lt; start.y + 5){
+   diandaodedian = start;
+}
+
+if(x &gt; end.x - 5 &amp;&amp; x &lt; end.x + 5 &amp;&amp; y &gt; end.y - 5 &amp;&amp; y &lt; end.y + 5){
+   diandaodedian = end;
+}
+</code></pre><h2 id="8、场景Scene管理"><a href="#8、场景Scene管理" class="headerlink" title="8、场景Scene管理"></a>8、场景Scene管理</h2><p>开始画面、游戏过程、结束画面。</p>
+<p>场景现在开始接手管理自己的演员！！<br>但是，场景还是应该把演员注册到game身上，但是管理的权限、谁上台、谁下台，是场景管理器的任务。</p>
+<p>监听都是场景管理器负责注册！！</p>
+<p><a href="http://squishybird.com/" target="_blank" rel="external">http://squishybird.com/</a></p>
+<p><a href="http://so2.4399.com/" target="_blank" rel="external">http://so2.4399.com/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-游戏图片、音乐资源的管理&quot;&gt;&lt;a href=&quot;#1-游戏图片、音乐资源的管理&quot; class=&quot;headerlink&quot; title=&quot;1 游戏图片、音乐资源的管理&quot;&gt;&lt;/a&gt;1 游戏图片、音乐资源的管理&lt;/h2&gt;&lt;p&gt;不管游戏中有多少元素在运动，游戏仅仅有1个定
+    
+    </summary>
+    
+      <category term="Canvas" scheme="http://yoursite.com/categories/Canvas/"/>
+    
+    
+      <category term="Canvas" scheme="http://yoursite.com/tags/Canvas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Canvas基本用法</title>
+    <link href="http://yoursite.com/2016/11/24/title29/"/>
+    <id>http://yoursite.com/2016/11/24/title29/</id>
+    <published>2016-11-24T09:27:56.000Z</published>
+    <updated>2017-02-20T10:35:20.812Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、Canvas概述"><a href="#1、Canvas概述" class="headerlink" title="1、Canvas概述"></a>1、Canvas概述</h2><blockquote>
+<p> Canvas和Flash的思路完全不一样，Flash是上屏幕之后还是对象，编程语言叫做Action Script也是ECMAScript范畴。Canvas上屏幕之后像素化了，再也不能得到这个对象了，所以要想让这个元素运动，必须擦除整个屏幕、重绘这个元素。Canvas更流畅，手机端也嗷嗷流畅。</p>
+</blockquote>
+<p>canvas是一个双标签，里面的内容是不支持canvas浏览器显示的内容：</p>
+<pre><code>&lt;canvas width=&quot;800&quot; height=&quot;600&quot;&gt;对不起，你的浏览器不支持画布，请升级浏览器！&lt;/canvas&gt;
+宽度、高度写在标签里面，如果写在css中，就变形、扭曲了。
+</code></pre><p>编程：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   //得到画布标签
+   var myCanvas = document.querySelector(&quot;#myCanvas&quot;);
+   //上下文，就相当于打开Photoshop之后让你新建画布
+   var ctx = myCanvas.getContext(&quot;2d&quot;);
+   //今后的操作都是这个画布的事情，都是ctx的事情，和myCanvas没有关系了。
+   ctx.fillStyle = &quot;lightseagreen&quot;;
+   ctx.fillRect(100,100,300,200);
+&lt;/script&gt;
+</code></pre><p>坐标系：</p>
+<p> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx1bbhka6j211y0kiwfj.jpg" alt=""></p>
+<blockquote>
+<pre><code>API：
+ctx.fillStyle = &quot;red&quot;;   //设置填充颜色
+ctx.fillRect(100,100,300,200);  //绘制一个填充矩形
+</code></pre></blockquote>
+<h2 id="2、笔触"><a href="#2、笔触" class="headerlink" title="2、笔触"></a>2、笔触</h2><p>填充笔触也叫作“描边”，Canvas中的任何形状都是由这两个部分组成的。</p>
+<p>笔触在canvas中视为一个“Path”的实例，必须stroke之后才能上屏幕；填充用fill才能上屏幕。</p>
+<p>制作一个笔触需要用到的API：</p>
+<blockquote>
+<pre><code>ctx.beginPath();  //开始绘制路径
+ctx.closePath();  //自动封闭路径
+ctx.moveTo(100,200);  //将画笔移动到某一个点
+ctx.lineTo(200,200);  //用画笔划线，此时的参数是终点位置，起点就是画笔此时的位置
+ctx.stroke();  //划线
+</code></pre></blockquote>
+<p>比如：<br>    <script type="text/javascript"><br>       //得到画布标签<br>       var myCanvas = document.querySelector(“#myCanvas”);<br>       //上下文，就相当于打开Photoshop之后让你新建画布<br>       var ctx = myCanvas.getContext(“2d”);<br>       //今后的操作都是这个画布的事情，都是ctx的事情，和myCanvas没有关系了。<br>       //开始绘制路径<br>       ctx.beginPath();<br>       ctx.moveTo(100,100);<br>       ctx.lineTo(300,300);<br>       ctx.lineTo(600,300);<br>       ctx.moveTo(600,400);<br>       ctx.lineTo(700,400);<br>       ctx.stroke();<br>    </script></p>
+<p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx1bboz42j20po0het9l.jpg" alt=""><br>在划线之前可以设置线的宽度和颜色：</p>
+<blockquote>
+<pre><code>ctx.lineWidth = &quot;10&quot;;
+ctx.strokeStyle = &quot;red&quot;;
+ctx.stroke();
+</code></pre></blockquote>
+<p><img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx1bbwuibj20n60ge3yn.jpg" alt=""><br>当ctx上已经有一些path之后，此时调用fill()将自动填充。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   //得到画布标签
+   var myCanvas = document.querySelector(&quot;#myCanvas&quot;);
+   //上下文，就相当于打开Photoshop之后让你新建画布
+   var ctx = myCanvas.getContext(&quot;2d&quot;);
+   //今后的操作都是这个画布的事情，都是ctx的事情，和myCanvas没有关系了。
+   //开始绘制路径
+   ctx.beginPath();
+   ctx.moveTo(100,100);
+   ctx.lineTo(300,300);
+   ctx.lineTo(600,300);
+   ctx.closePath();
+   ctx.lineWidth = &quot;10&quot;;
+   ctx.strokeStyle = &quot;red&quot;;
+   ctx.stroke();
+   ctx.fillStyle = &quot;lightseagreen&quot;;
+   ctx.fill();
+&lt;/script&gt;
+</code></pre><p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx1bc2k68j20nv0gzjrj.jpg" alt=""><br>绘制新的形状的时候，要重新beginPath()</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   //得到画布标签
+   var myCanvas = document.querySelector(&quot;#myCanvas&quot;);
+   //上下文，就相当于打开Photoshop之后让你新建画布
+   var ctx = myCanvas.getContext(&quot;2d&quot;);
+   //今后的操作都是这个画布的事情，都是ctx的事情，和myCanvas没有关系了。
+   //开始绘制路径
+   ctx.beginPath();
+   ctx.moveTo(100,100);
+   ctx.lineTo(300,300);
+   ctx.lineTo(600,300);
+   ctx.closePath();
+   ctx.lineWidth = &quot;10&quot;;
+   ctx.strokeStyle = &quot;red&quot;;
+   ctx.stroke();
+   ctx.fillStyle = &quot;lightseagreen&quot;;
+   ctx.fill();
+
+   ctx.beginPath();
+   ctx.moveTo(600,100);
+   ctx.lineTo(600,200);
+   ctx.lineTo(750,200);
+   ctx.lineTo(790,40);
+   ctx.closePath();
+   ctx.fillStyle = &quot;orange&quot;
+   ctx.fill();
+   ctx.stroke();
+&lt;/script&gt;
+</code></pre><p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx1bc7xffj20nb0gaweo.jpg" alt=""><br>fillRect()是一个快捷方法，让你省略了beginPath、moveTo、lineTo。所以fillRect    (100,100,300,200)等价于：</p>
+<pre><code>ctx.move(100,100);
+ctx.lineTo(400,100);
+ctx.lineTo(400,300);
+ctx.lineTo(100,300);
+ctx.closePath();
+ctx.fill();
+</code></pre><h2 id="3、弧和圆形画弧线"><a href="#3、弧和圆形画弧线" class="headerlink" title="3、弧和圆形画弧线"></a>3、弧和圆形画弧线</h2><p>用arc方法，它属于Path。所以画弧之前要beginPath()一下。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   //得到画布标签
+   var myCanvas = document.querySelector(&quot;#myCanvas&quot;);
+   //上下文，就相当于打开Photoshop之后让你新建画布
+   var ctx = myCanvas.getContext(&quot;2d&quot;);
+   //今后的操作都是这个画布的事情，都是ctx的事情，和myCanvas没有关系了。
+   //开始绘制路径
+   ctx.beginPath();
+   ctx.arc(200,200,100,0,1,true);  //圆心坐标200,200。100是半径。0开始角度，1终止角度，true表示逆时针
+   ctx.stroke();
+&lt;/script&gt;
+</code></pre><p>坐标系，Canvas中的角度都是弧度制，1弧度等于57.3度：</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx1bcentqj20nv0ght92.jpg" alt=""></p>
+<p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx1bckjkuj20nv0ght92.jpg" alt=""></p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx1bcq6ltj20or0gjwer.jpg" alt=""></p>
+<p>完整的圆终止角度就是Mathi.PI * 2</p>
+<pre><code>ctx.arc(200,200,200,0,Math.PI*2,false);
+</code></pre><p>画20个同心圆。</p>
+<pre><code>for(var i = 10 ; i &lt;= 400 ; i+=5){
+   ctx.beginPath();
+   ctx.arc(200,200,i,0,Math.PI * 2,true);
+   ctx.strokeStyle = &quot;rgb(&quot; + i + &quot;,&quot; + i + &quot;,&quot; + i + &quot;)&quot;;
+   ctx.stroke();
+}
+</code></pre><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors</a></p>
+<h2 id="4、文字fillText函数"><a href="#4、文字fillText函数" class="headerlink" title="4、文字fillText函数"></a>4、文字fillText函数</h2><p>用来写字，参数是：文字内容、坐标位置</p>
+<pre><code>ctx.fillText(&quot;文字内容&quot;,100,100);
+</code></pre><p>可以使用font属性来调整字号和字形：</p>
+<pre><code>ctx.font = &quot;50px 微软雅黑&quot;;
+ctx.fillText(&quot;你好&quot;,100,100);
+</code></pre><h2 id="5、new-Image"><a href="#5、new-Image" class="headerlink" title="5、new Image()"></a>5、new Image()</h2><p>使用图片使用图片有一个固定的语法，必须new Image()然后设置src，监听load事件，使用ctx.drawImage()函数上画布。</p>
+<pre><code>var img = new Image();
+img.src = &quot;images/0.jpg&quot;;
+
+img.onload = function(){
+ctx.drawImage(img,100,100);
+}
+</code></pre><p>ctx.drawImage()里面的参数是图片对象、左上角的坐标。<br><img src="http://wx2.sinaimg.cn/mw690/a579329cly1fcx1bczk7nj20na0gggxm.jpg" alt=""></p>
+<p>ctx.drawImage()里面可以有四个数字参数，增加了宽度、高度的设置，此时图片会被扭曲：</p>
+<pre><code>var img = new Image();
+img.src = &quot;images/0.jpg&quot;;
+
+img.onload = function(){
+    ctx.drawImage(img,100,100,250,80);
+}
+</code></pre><p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx1h54rtrj20oi0g8abu.jpg" alt=""><br>如果要使用切片，就是9个参数：</p>
+<pre><code>var img = new Image();
+img.src = &quot;images/0.jpg&quot;;
+
+img.onload = function(){
+    ctx.drawImage(img,168,150,126,141,100,100,300,300);
+}
+</code></pre><p>红色部分描述的是切片的事儿：</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx1h5l8fbj211t0kfgzx.jpg" alt=""></p>
+<p>蓝色部分是上屏幕之后的事儿：</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx1h5verjj20oy0gpn3y.jpg" alt=""><br>公式：</p>
+<pre><code>ctx.drawImage(img,切片x,切片y,切片w,切片h,上屏x,上屏y,上屏w,上屏h);
+</code></pre><h2 id="6、运动"><a href="#6、运动" class="headerlink" title="6、运动"></a>6、运动</h2><p>canvas中元素不能运动的，因为上屏幕之后就再也得不到它了，没有任何变量能够持有一个:</p>
+<pre><code>var box = ctx.fillRect(100,100,200,200);
+</code></pre><p>必须重绘一个新的矩形！利用视觉暂留，形成运动！</p>
+<p>清屏 → 更新 → 渲染 → 清屏 → 更新 → 渲染 → 清屏 → 更新 → 渲染 → 清屏 → 更新 → 渲染 →清屏 → 更新 → 渲染 → 清屏 → 更新 → 渲染 →……</p>
+<blockquote>
+<p>清屏：</p>
+</blockquote>
+<pre><code>ctx.clearRect(0,0,800,600);
+</code></pre><p>实际上是清除一个矩形区域，我们一般清除整个画布。</p>
+<p>面向对象制作运动，结构：</p>
+<pre><code>function Circle(){
+
+}
+Circle.prototype.render = function(){
+
+}
+Circle.prototype.update = function(){
+
+}
+
+var yuan = new Circle();
+
+setInterval(function(){
+    ctx.clearRect(0,0,800,600);
+    yuan.update();
+    yuan.render();
+},20);
+</code></pre><p>每一帧都要更新演员、渲染演员。只要这个东西是演员，它必须提供update、render方法。</p>
+<p>面向接口编程，接口就是具有一定方法的类的集合。说白了，就比如说很多类都有render、update方法，此时Actor（演员）就是一个接口，Circle和Fang类都是这个接口的实现。“接口就是类的类”。</p>
+<p>说白了：我们要制作Actor类，Actor类提供update、render方法，并且会把自己放入总数组中。所有演员类，都必须继承这个类，重写Actor和render方法。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、Canvas概述&quot;&gt;&lt;a href=&quot;#1、Canvas概述&quot; class=&quot;headerlink&quot; title=&quot;1、Canvas概述&quot;&gt;&lt;/a&gt;1、Canvas概述&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt; Canvas和Flash的思路完全不一样，Fla
+    
+    </summary>
+    
+      <category term="Canvas" scheme="http://yoursite.com/categories/Canvas/"/>
+    
+    
+      <category term="Canvas" scheme="http://yoursite.com/tags/Canvas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常见字符串、数组算法</title>
+    <link href="http://yoursite.com/2016/11/22/title28/"/>
+    <id>http://yoursite.com/2016/11/22/title28/</id>
+    <published>2016-11-22T09:27:56.000Z</published>
+    <updated>2017-02-20T12:50:49.393Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="常见字符串算法"><a href="#常见字符串算法" class="headerlink" title="常见字符串算法"></a>常见字符串算法</h1><h2 id="1、短横变驼峰"><a href="#1、短横变驼峰" class="headerlink" title="1、短横变驼峰"></a>1、短横变驼峰</h2><p>把单词border-left-color变为borderLeftColor。</p>
+<p>此时有两种方法：</p>
+<blockquote>
+<p>方法1：border-left-color用字符串的split方法变为数组：[“border”,”left”,”color”]，然后遍历这个数组第1项开始的每项，把首字母toUpperCase()变为大写然后与剩余字母连接，然后join到一起，就是borderLeftColor。</p>
+</blockquote>
+<pre><code>// 短横变驼峰函数
+function change(str){
+    //拆为数组
+    var strArr = str.split(&quot;-&quot;);
+
+    //遍历数组
+    for(var i = 1 ; i &lt; strArr.length ; i++){
+        var chars = strArr[i];
+        //将数组的这一项的字符串变为首字母变为大写，与剩余字母做拼接
+        strArr[i] = chars[0].toUpperCase() + chars.slice(1);
+    }
+    //拼接
+    return strArr.join(&quot;&quot;);
+}
+</code></pre><blockquote>
+<p>方法2：正则表达式。border-left-color用正则表达式去replace替换，替换什么？替换所有(-字母)变为大写字母。</p>
+</blockquote>
+<pre><code>    var str = &quot;我爱周杰伦，周杰伦很帅，我要和周杰伦生猴子&quot;;
+    str = str.replace(/周杰伦/g,&quot;杨洋&quot;);
+    console.log(str);
+
+    var str = &quot;我买了一个手机3000元，电脑5000元，电饭锅100元。今天很热，18度。&quot;;
+
+    str = str.replace(/(\d+)元/g,function(match,$1,index){
+        return parseInt($1 / 6) + &quot;美元&quot;;
+    });
+
+    console.log(str);
+
+var str = &quot;border-left-color&quot;;
+str = str.replace(/\-(\w)/g,function(match,$1){
+return $1.toUpperCase();
+});
+console.log(str);
+</code></pre><h2 id="2-、寻找连续三项相同字符串"><a href="#2-、寻找连续三项相同字符串" class="headerlink" title="2 、寻找连续三项相同字符串"></a>2 、寻找连续三项相同字符串</h2><p>现在给你一个字符串，判断里面有没有连续三位或者三位以上相同，如果有，就返回下标数组。</p>
+<p>比如： “aabbbccddddee” 返回[2,3,4,7,8,9,10]。</p>
+<p>双指针法。在字符串的题目中，基本99%都能用双指针法，比如最大连续相同子串、最大连续重复子串等等，都能用双指针法。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var str = &quot;aabbbccddddee&quot;;
+
+    //位置是0、1
+    var i = 0;
+    var j = 1;
+    //结果
+    var result = [];
+
+    while(i &lt; str.length){
+        if(str[i] != str[j]){
+            //判断是不是到了3位
+            if(j - i &gt;= 3){
+                //为位号推入数组
+                for(var m = i; m &lt;= j-1 ; m++){
+                    result.push(m);
+                }
+            }
+            //i追上j，j后移一位
+            i = j;
+        }
+        //不管怎么样j都要后移
+        j++;
+    }
+
+    console.log(result);
+&lt;/script&gt;
+</code></pre><h2 id="3-给数字加上千分位符"><a href="#3-给数字加上千分位符" class="headerlink" title="3 给数字加上千分位符"></a>3 给数字加上千分位符</h2><p>输入12345678901，返回”12,345,678,901”。</p>
+<p>数组和字符串的相互转换方法很好用，要敏感一些！实际上就是[12,345,678,901]进行join(“,”)就是结果。所以问题就简化为把12345678901这个数字拆分为数组！数组长度11。</p>
+<blockquote>
+<p>找找规律：</p>
+<p>12345678901    str.slice(-3)  → 很特殊，没有第二个参数</p>
+<p>12345678901    str.slice(-6,-3)</p>
+<p>12345678901    str.slice(-9,-6)</p>
+<p>12345678901    str.slice(-12,-9)</p>
+</blockquote>
+<p>程序：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var num = 12433245245432;
+    //除了null、undefined之外的任何字面量都有toString()方法，表示变为字符串
+    var length = num.toString().length;
+
+    //循环终点
+    var end = -Math.ceil(length / 3) * 3;
+    //结果数组，把特殊的末尾三位放入数组
+    var result = [num.toString().slice(-3)];
+    //遍历-6、-9、-12、-15……
+    //截取的是slice(-6,-3) slice(-9,-6)  slice(-12,-9)
+    for(var i = -6 ; i &gt;= end ; i-=3){
+        result.unshift(num.toString().slice(i,i+3));
+    }
+    //把数组变为字符串
+    console.log(result.join(&quot;,&quot;));
+&lt;/script&gt;
+</code></pre><p>还可以用正则表达式，我们慢慢推导：</p>
+<p>\B是一个特殊的正则的东西，表示字母边界，非单词边界。\b表示单词边界。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var str = &quot;abc,adsf haha xixi&quot;;
+    str = str.replace(/\B/g,&quot;★&quot;);
+    console.log(str);
+&lt;/script&gt;
+</code></pre><p>出现★的地方就是字母边界</p>
+<p>然后说正则中的(?=)语法，表示定语从句，位置描述。</p>
+<p>比如，我们想替换字符串中所有后面是“你”字的“爱”字.</p>
+<pre><code>var str = &quot;我爱你，你却爱着他&quot;;
+str = str.replace(/爱(?=你)/g,&quot;★&quot;);
+console.log(str);
+</code></pre><p>替换字符串中所有后面有“3位数字”的字母\B ：</p>
+<pre><code>var str = &quot;12324324324&quot;;
+str = str.replace(/\B(?=\d{3})/g,&quot;★&quot;);
+console.log(str);
+</code></pre><p>   比较乱，因为我们没有限制边界</p>
+<p>替换字符串中所有后面到单词结尾有“3位数字”的\B ：</p>
+<pre><code>var str = &quot;12324324324&quot;;
+str = str.replace(/\B(?=\d{3}$)/g,&quot;★&quot;);
+console.log(str);
+</code></pre><p>替换字符串中所有后面到单词结尾有一个或多个“3位数字”的\B ：</p>
+<pre><code>var str = &quot;12324324324&quot;;
+str = str.replace(/\B(?=(\d{3})+$)/g,&quot;★&quot;);
+console.log(str);
+</code></pre><p>这就是答案，只需要把★改为逗号即可。</p>
+<h1 id="常见数组算法"><a href="#常见数组算法" class="headerlink" title="常见数组算法"></a>常见数组算法</h1><p>数组没有indexOf方法，也就是说我给你一个数组，问你这个数组中没有一个项是数字6，你必须遍历所有项目，一个项目一个项目的比对，是不是数字6。</p>
+<h2 id="1-数组的去重"><a href="#1-数组的去重" class="headerlink" title="1 数组的去重"></a>1 数组的去重</h2><p>给你一个数组[3,4,6,32,2,3,4,57,6] 返回去掉重复项的数组[3,4,6,32,2,57]。难点就是验证数字是不是已经在数组中了，而如果要遍历，产生的时间复杂度是很高的。</p>
+<p>大家的普遍算法就是，创建一个新的空数组[]，然后遍历原数组，遍历到原数组的每一项的时候，再遍历新的这个数组依次比对，如果新数组中没有这个项，就push进去。</p>
+<pre><code>var arr = [3,4,6,32,2,3,4,57,57,6];
+    var result = [];
+
+    for(var i = 0 ; i &lt; arr.length ; i++){
+        for(var j = 0 ; j &lt; result.length ; j++){
+            //如果遇见相同的数字，立即终止内层循环
+            if(arr[i] == result[j]) break;
+        }
+        //验收，看看是不是result中的每一项都不等于arr[i]
+        if(j == result.length){
+            result.push(arr[i]);
+        }
+    }
+
+    console.log(result);
+</code></pre><p>我们可以升级，升级为可以对原来的数组排序，把[3,4,6,32,2,3,4,57,6] 先排序，变为[2, 3, 3, 4, 4, 6, 6, 32, 57]。</p>
+<p>再次做一个结果空数组[]，把数组中的每一项和结果数组中的最后一项进行比较，如果不同就说明真的不同了。</p>
+<blockquote>
+<p>方法3是我们要着重介绍的，就是给数组简历一个索引对象。我们创建一个空对象，{}。每次验证对象中有没有这个项，如果没有就push进入result数组，同时把对象中创建一个属性就是你这个数字，值设为1。</p>
+</blockquote>
+<pre><code>{&quot;3&quot; : 1 , &quot;4&quot; : 1 , &quot;6&quot; :1 , &quot;32&quot;:1 , &quot;2&quot;:1 , &quot;57&quot;:1}
+</code></pre><p>哲学就是用对象弥补数组没有indexOf的缺陷！</p>
+<pre><code>var arr = [3,4,6,32,2,3,4,57,6];
+var temp = {};
+var result = [];
+
+for(var i = 0 ; i &lt; arr.length ; i++){
+    //检查对象中有没有这个属性，如果没有这个属性，那么推入结果数组，并且让对象添加这个属性。属性值设置为1。
+    if(!temp[arr[i]]){
+        result.push(arr[i]);
+        temp[arr[i]] = 1;
+    }
+}
+
+console.log(result);
+console.log(temp);
+</code></pre><h2 id="2-数组的差集"><a href="#2-数组的差集" class="headerlink" title="2 数组的差集"></a>2 数组的差集</h2><p>返回在arr1里面但是不在arr2里面的项，比如：</p>
+<pre><code>arr1是[1,2,3,4,5,3]
+arr2是[3,4,5,6,7]
+</code></pre><p>返回[1,2]</p>
+<p>根据我们刚才数组去重的经验，我们可以先遍历arr2，设置一个空对象，把arr2的所有值作为这个对象的属性添加上。然后遍历arr1的时候，只需要看对象身上有没有这个属性即可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;常见字符串算法&quot;&gt;&lt;a href=&quot;#常见字符串算法&quot; class=&quot;headerlink&quot; title=&quot;常见字符串算法&quot;&gt;&lt;/a&gt;常见字符串算法&lt;/h1&gt;&lt;h2 id=&quot;1、短横变驼峰&quot;&gt;&lt;a href=&quot;#1、短横变驼峰&quot; class=&quot;headerlink
+    
+    </summary>
+    
+      <category term="字符串" scheme="http://yoursite.com/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    
+      <category term="js" scheme="http://yoursite.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jQuery排序常见方法</title>
+    <link href="http://yoursite.com/2016/11/20/title26/"/>
+    <id>http://yoursite.com/2016/11/20/title26/</id>
+    <published>2016-11-20T09:27:56.000Z</published>
+    <updated>2017-02-20T10:34:50.742Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="jQuery排序"><a href="#jQuery排序" class="headerlink" title="jQuery排序"></a>jQuery排序</h1><h2 id="1、eq（）整体排序"><a href="#1、eq（）整体排序" class="headerlink" title="1、eq（）整体排序"></a>1、eq（）整体排序</h2><p>通过$()得到jQuery对象，可以继续通过eq()获得某一个元素。</p>
+<p>下标问题：jQuery对象得到的原生对象会进行一个自己的排列，组成一个队列。eq()方法是从这个队列里去进行排序。与原来页面的结构无关。</p>
+<pre><code>1    //不能用一个下标1全部选中，选中的仅仅是所有被选中的p组成的队列里的第一个
+2            // $(&quot;div p&quot;).eq(1).css(&quot;background&quot;,&quot;red&quot;);
+3            // $(&quot;div p&quot;).eq(5).css(&quot;background&quot;,&quot;red&quot;);
+4            // $(&quot;div p&quot;).eq(9).css(&quot;background&quot;,&quot;red&quot;);
+5            // $(&quot;div p&quot;).eq(13).css(&quot;background&quot;,&quot;red&quot;);
+</code></pre><p>上面的排序：将所有的p选出来之后，进行新的排序，新顺序是eq方法的下标。</p>
+<pre><code>1    $(&quot;div p.cur&quot;).eq(1).css(&quot;background&quot;,&quot;red&quot;);
+</code></pre><p>上面的排序：将所有类名叫做cur的元素全部选取出来，进行排序，新顺序是我们的eq的下标顺序，与原来节点关系的排序没关系。</p>
+<h2 id="2、index-在兄弟关系中的排序"><a href="#2、index-在兄弟关系中的排序" class="headerlink" title="2、index()在兄弟关系中的排序"></a>2、index()在兄弟关系中的排序</h2><p>Index()这个方法获得的是元素在html结构中，在自己的同级元素中的位置，与获得的jQuery新队列没关系。</p>
+<pre><code>1    //给p标签绑定事件，点击输出自己的index（）
+2            $(&quot;div p&quot;).click(function(){
+3                console.log($(this).index());
+4            });
+
+1    //给p标签绑定事件，点击输出自己的index（）
+2    $(&quot;div p.cur&quot;).click(function(){
+3        console.log($(this).index());
+4    });
+</code></pre><p>与新队列无关，与兄弟中的排行有关。</p>
+<h2 id="3、对应和排他"><a href="#3、对应和排他" class="headerlink" title="3、对应和排他"></a>3、对应和排他</h2><p>tab栏效果：给上面的元素添加事件，对应的下面的新闻显示。</p>
+<p>可以通过相同的index（）得到的兄弟之间的排序，找到对应关系。</p>
+<p>排他：将不是与我对应的内容设置成默认，与我对应的元素设置特殊。</p>
+<pre><code>1    $(&quot;.top span&quot;).mouseenter(function(){
+2        //自己的排他
+3        $(this).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;);
+4        //具体信息的排他
+5        $(&quot;.bottom ul&quot;).eq($(this).index()).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;);
+6            });
+</code></pre><p>出现一个问题：就是我们所有的ul元素的一个大排队，我们选中的永远是第一个tab栏的ul。</p>
+<p>解决方法：不要拆开去选择元素，所有的元素都是通过节点关系，从自身出发。</p>
+<pre><code>1    //避免所有的tab栏大排序，所有的代码都是从事件元素自身出发去找关系            $(this).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;).parent().siblings().children().eq($(this).index()).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;);
+</code></pre><h2 id="4、each-遍历jQuery对象"><a href="#4、each-遍历jQuery对象" class="headerlink" title="4、each()遍历jQuery对象"></a>4、each()遍历jQuery对象</h2><p>each()遍历我们jQuery对象里的元素队列。</p>
+<p>有一个参数：function，函数参数，规定了遍历过程中对每一个元素做的工作。</p>
+<pre><code>1    $(“p”).each(function(){
+2     对每一个元素的操作。
+3    });
+</code></pre><p>function函数内部有一个默认的参数：i，指的就是这一次遍历的元素在整体队列里的下标。</p>
+<pre><code>1    $(&quot;div&quot;).each(function(i){
+2        //i就是每次进来遍历的元素的下标
+3        //this指向的就是每次进来的那个元素
+4        $(this).children().eq(1).css(&quot;background&quot;,&quot;red&quot;);
+5    });
+</code></pre><p>如果遇到：每一个元素内怎么样，一定要用each方法。</p>
+<pre><code>1    $(&quot;div&quot;).each(function(i){
+2        //i就是每次进来遍历的元素的下标
+3        //this指向的就是每次进来的那个元素
+4        $(this).children().eq(1).css(&quot;background&quot;,&quot;red&quot;);
+5    });
+</code></pre><p>制作：折叠选项卡的效果</p>
+<pre><code>1    //获取h2元素，每一个添加点击事件
+2            // ＋号和-号切换，兄弟元素展开或收起
+3            $(&quot;.box h2&quot;).each(function(){
+4                var $h2 = $(this).parent().siblings().children(&quot;h2&quot;);
+5                $(this).click(function(){
+6                    //自己的兄弟展开
+7                    var $span = $(this).children(&quot;span&quot;);
+8                    $span.html($span.html() == &quot;+&quot; ? &quot;-&quot; : &quot;+&quot;);
+9                    $(this).siblings().slideToggle(300);
+10                    //其他h2的兄弟隐藏
+11                    $h2.children(&quot;span&quot;).html(&quot;+&quot;);
+12                    $h2.siblings().slideUp(300);
+13                })
+14            })
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;jQuery排序&quot;&gt;&lt;a href=&quot;#jQuery排序&quot; class=&quot;headerlink&quot; title=&quot;jQuery排序&quot;&gt;&lt;/a&gt;jQuery排序&lt;/h1&gt;&lt;h2 id=&quot;1、eq（）整体排序&quot;&gt;&lt;a href=&quot;#1、eq（）整体排序&quot; class=&quot;
+    
+    </summary>
+    
+      <category term="jQuery" scheme="http://yoursite.com/categories/jQuery/"/>
+    
+    
+      <category term="jQuery" scheme="http://yoursite.com/tags/jQuery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>animate常见知识</title>
+    <link href="http://yoursite.com/2016/11/20/title27/"/>
+    <id>http://yoursite.com/2016/11/20/title27/</id>
+    <published>2016-11-20T09:27:56.000Z</published>
+    <updated>2017-02-20T10:34:55.244Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><p>animate是动画的意思。是jQuery自己的一个运动方法。非常好用的方法。</p>
+<p>原生js动画必须依靠setInterval，根据步长和间隔时间来操作运动。</p>
+<p>animate动画方法内部给我们用setInterval已经封装好了。不用自己去计算步长。</p>
+<p>方法通过两个参数决定运动的结束位置和总时间。</p>
+<p>语法：</p>
+<pre><code>1    .animate(结束位置JSON，运动总时间)
+</code></pre><p>第一个参数必须是JSON对象：即便只有一个属性变化也需要写在JSON。</p>
+<p>第二个参数是总时间：经过多长时间运动停止，习惯给一个变量during。</p>
+<p>原来JS的代码：</p>
+<pre><code>1    var demo = document.getElementById(&quot;demo&quot;);
+2            var now = 100;
+3            var timer = setInterval(function(){
+4                now += 10;
+5                if(now &gt;= 400){
+6                    now = 400;
+7                    clearInterval(timer);
+8                }
+9                demo.style.width = now + &quot;px&quot;;
+10            },50);
+</code></pre><p>jQuery的方法：</p>
+<pre><code>1    $(&quot;.demo&quot;).animate({&quot;width&quot;:400},1500);
+</code></pre><p>什么样的css属性能够做animate动画。</p>
+<p>很多属性值为数值的属性可以参与运动。css3里面也有一部分可以参与，大部分不能参与的。</p>
+<p>不能参与的：<br>    “background-color” : “red”    //css3的过渡动画可以完成<br>    “background-position”:”0 0”<br>    1    //jQuery的运动函数方法<br>    2            $(“.demo”).animate({<br>    3                “width”:200,<br>    4                “height”:200,<br>    5                “opacity”:0.5,<br>    6                “border-width”:20,<br>    7                “left”:200,<br>    8                “top”:200,<br>    9                “padding”:50,<br>    10                “border-radius”:”50%”,<br>    11                //不能参与动画<br>    12                //“background-color” : “red”//css3的过渡动画可以完成<br>    13                //“background-position”:”0 0”<br>    14            },400);</p>
+<h2 id="2、动画排序"><a href="#2、动画排序" class="headerlink" title="2、动画排序"></a>2、动画排序</h2><p>①同一个元素身上的运动有一个叫做“动画排队”的现象。</p>
+<p>如果同一个元素，身上加了多个运动函数，会进行排队，谁先写的，谁先动。</p>
+<pre><code>1    $(&quot;.demo&quot;).animate({&quot;left&quot;:600},during);
+2    $(&quot;.demo&quot;).animate({&quot;top&quot;:400},during);
+3    $(&quot;.demo&quot;).animate({&quot;left&quot;:0},during);
+4    $(&quot;.demo&quot;).animate({&quot;top&quot;:0},during);
+</code></pre><p>给一个元素添加事件中有运动函数，多次触发事件也会造成动画排队。知道最后一个事件动画结束。</p>
+<pre><code>1    $(&quot;.demo&quot;).mouseenter(function(){
+2                $(this).children(&quot;p&quot;).slideDown(during);
+3            });
+4            $(&quot;.demo&quot;).mouseleave(function(){
+5                $(this).children(&quot;p&quot;).slideUp(during);
+6            });
+</code></pre><p>②不同元素之间都有动画，不会排队。</p>
+<p>原理：animate函数封装时，用的是setInterval异步语句。同一个元素的动画有一个函数节流操作。</p>
+<p>animate就是一个异步语句，异步语句在执行的时候，不会影响后面语句的执行。</p>
+<pre><code>1    $(&quot;.demo1&quot;).animate({&quot;left&quot;:600},during);
+2    $(&quot;.demo1&quot;).animate({&quot;top&quot;:400},during);
+3    $(&quot;.demo1&quot;).animate({&quot;left&quot;:0},during);
+4    $(&quot;.demo1&quot;).animate({&quot;top&quot;:0},during);
+5    $(&quot;.demo2&quot;).animate({&quot;left&quot;:600,&quot;top&quot;:400},during);
+</code></pre><p>③不是动画的语句，也不会等待。</p>
+<pre><code>1    $(&quot;div p&quot;).css(&quot;display&quot;,&quot;block&quot;);
+</code></pre><h2 id="3、异步语句和回调函数"><a href="#3、异步语句和回调函数" class="headerlink" title="3、异步语句和回调函数"></a>3、异步语句和回调函数</h2><p>animate运动方法就是一个异步语句，我们也可以给它一个回调函数，告诉我们运动结束之后我可以做什么事。</p>
+<p>animate方法有一个回调函数的参数，第三个参数可以传递一个回调函数。</p>
+<pre><code>1    $(&quot;.demo1&quot;).animate({&quot;top&quot;:0},during,function(){
+2        $(&quot;.demo1 p&quot;).css(&quot;display&quot;,&quot;block&quot;);
+3    });
+4    $(&quot;.demo2&quot;).animate({&quot;left&quot;:600,&quot;top&quot;:400},during,function(){
+5        $(&quot;.demo2 p&quot;).css(&quot;display&quot;,&quot;block&quot;);
+6    });
+</code></pre><p>其他的运动方法也有回调函数：</p>
+<blockquote>
+<p>slideDown()、slideUp()、fadeIn()、fadeOut()、show(1000)、hide(1000)这几个方法也是运动的方法，都有一个回调函数。</p>
+<pre><code>1    $(&quot;.demo1 p&quot;).slideDown(500,function(){
+2        alert(&quot;出现啦&quot;);
+3    });
+</code></pre></blockquote>
+<h2 id="4、delay-延迟动画"><a href="#4、delay-延迟动画" class="headerlink" title="4、delay()延迟动画"></a>4、delay()延迟动画</h2><p>所有的动画语句都可以在前面有一个延迟语句。表示这条语句执行之后，动画不是立即执行，要等待一段时间再执行。</p>
+<p>书写位置：在动画语句之前。</p>
+<p>参数：规定的是延迟时间。</p>
+<pre><code>1    $(&quot;.demo2&quot;).delay(2000).animate({&quot;left&quot;:600,&quot;top&quot;:400},during,function(){
+2        $(&quot;.demo2 p&quot;).css(&quot;display&quot;,&quot;block&quot;);
+3    });
+</code></pre><p>只要是动画方法都可以写delay延迟。</p>
+<blockquote>
+<p>slideDown()、slideUp()、fadeIn()、fadeOut()、show(1000)、hide(1000)都可以进行延迟。</p>
+</blockquote>
+<pre><code>1    $(&quot;.demo2 p&quot;).delay(1000).slideDown(1000);
+2    $(&quot;.demo2 p&quot;).delay(1000).slideUp(1000);
+</code></pre><p>要想延迟一个运动，前面必须每次都加delay。</p>
+<p>写法等价于：</p>
+<pre><code>1    $(&quot;.demo2 p&quot;).delay(1000).slideDown(1000).delay(1000).slideUp(1000);
+</code></pre><h2 id="5、stop-停止动画"><a href="#5、stop-停止动画" class="headerlink" title="5、stop()停止动画"></a>5、stop()停止动画</h2><p>可以停止我们的动画。</p>
+<p>两个参数：都是布尔值。</p>
+<blockquote>
+<p>第一个参数：表示是否清空排队的动画。true表示清空，false表示不清。</p>
+<p>第二个参数：表示是否立即完成当前动画。true表示立即完成，false表示立即停止不动。</p>
+</blockquote>
+<p>默认不写：两个参数都是false。</p>
+<pre><code>1    //如果参数都是false，不清空动画队列，立即停止当前动画，进入下一个排队的动画
+2            $(&quot;#ff&quot;).click(function(){            
+3                $(&quot;.demo1&quot;).stop();
+4            });
+5            //第一个是true，第二个是false，清空后面的动画，立即停止当前动画
+6            $(&quot;#tf&quot;).click(function(){            
+7                $(&quot;.demo1&quot;).stop(true);
+8            });
+9            //第一个是true，第二个是true，清空后面的动画，立即走完当前动画
+10            $(&quot;#tt&quot;).click(function(){            
+11                $(&quot;.demo1&quot;).stop(true,true);
+12            });
+13            //第一个是false，第二个是true，不清空后面的动画，立即走完当前动画，并且进入下一个排队的动画
+14            $(&quot;#ft&quot;).click(function(){            
+15                $(&quot;.demo1&quot;).stop(false,true);
+16            });
+</code></pre><h2 id="6、解决动画排队问题"><a href="#6、解决动画排队问题" class="headerlink" title="6、解决动画排队问题"></a>6、解决动画排队问题</h2><p>我希望新的动画被触发时，希望前面的这个元素动画全部清空，立即停止。</p>
+<p>防止用户频繁触发事件，动画等待。</p>
+<p>方法1：</p>
+<blockquote>
+<p>用stop()。清空前面所有动画队列，立即停止当前。参数值需要传第一个true。</p>
+</blockquote>
+<pre><code>1    $(&quot;.demo&quot;).mouseenter(function(){
+2        $(this).children(&quot;p&quot;).stop(true).slideDown(during);
+3    });
+4    $(&quot;.demo&quot;).mouseleave(function(){
+5        $(this).children(&quot;p&quot;).stop(true).slideUp(during);
+6    });
+</code></pre><p>为了防止频繁流氓操作，只要添加一个运动动画，前面都必须加一个stop(true)。</p>
+<p>方法2：</p>
+<blockquote>
+<p>节流方法：判断元素是否在运动过程中，如果是，就不执行后面的其他操作，如果不是，就执行后面的动画。</p>
+</blockquote>
+<p>元素都有一个方法叫做is（）,判断是否处于某种状态。</p>
+<p>1    $(“p”).is(“:animated”);   返回true和false。</p>
+<pre><code>1    var during = 500;
+2            $(&quot;.demo&quot;).mouseenter(function(){
+3                if($(this).children(&quot;p&quot;).is(&quot;:animated&quot;)){
+4                    return;
+5                }
+6                $(this).children(&quot;p&quot;).slideDown(during);
+7            });
+8            $(&quot;.demo&quot;).mouseleave(function(){
+9                if($(this).children(&quot;p&quot;).is(&quot;:animated&quot;)){
+10                    return;
+11                }
+12                $(this).children(&quot;p&quot;).slideUp(during);
+13            });
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、概述&quot;&gt;&lt;a href=&quot;#1、概述&quot; class=&quot;headerlink&quot; title=&quot;1、概述&quot;&gt;&lt;/a&gt;1、概述&lt;/h2&gt;&lt;p&gt;animate是动画的意思。是jQuery自己的一个运动方法。非常好用的方法。&lt;/p&gt;
+&lt;p&gt;原生js动画必须依靠setIn
+    
+    </summary>
+    
+      <category term="jQuery" scheme="http://yoursite.com/categories/jQuery/"/>
+    
+    
+      <category term="jQuery" scheme="http://yoursite.com/tags/jQuery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jQuery节点关系</title>
+    <link href="http://yoursite.com/2016/11/20/title25/"/>
+    <id>http://yoursite.com/2016/11/20/title25/</id>
+    <published>2016-11-20T09:27:56.000Z</published>
+    <updated>2017-02-20T10:34:46.456Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h1><p>jQuery控制元素时，都是批量控制。</p>
+<p>添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。</p>
+<p>jQuery帮我们简化了这个找关系的过程，封装了一系列的方法可以帮我们找到父亲、儿子、兄弟、祖先、孙子等元素。</p>
+<h2 id="1、-this-自己"><a href="#1、-this-自己" class="headerlink" title="1、$(this)自己"></a>1、$(this)自己</h2><p>事件内部有一个$(this)的对象，指向的就是触发事件的这个元素本身。</p>
+<p>就是原生js里的事件函数内的那个this，用$()将this转成jQuery对象，就能调用jQuery的方法。this不要加引号。</p>
+<pre><code>1    // 谁触发事件谁动
+2    $(&quot;p&quot;).click(function(){
+3        $(this).animate({&quot;left&quot;:1000},1000);
+4    });
+</code></pre><h2 id="2、parent-父亲"><a href="#2、parent-父亲" class="headerlink" title="2、parent()父亲"></a>2、parent()父亲</h2><p>寻找元素父级的方法：必须加小括号，找到的也是亲生的父亲。爷爷和叔叔都不能。</p>
+<p>案例：点击一个元素，让他的父亲背景变色。</p>
+<pre><code>1    $(&quot;p&quot;).click(function(){
+2        $(this).parent().css(&quot;background&quot;,&quot;lightblue&quot;);
+3    });
+</code></pre><p>说明：方法返回的是某一个元素的父亲的jQuery对象，继续打点调用jQuery方法。</p>
+<h2 id="3、children-儿子"><a href="#3、children-儿子" class="headerlink" title="3、children()儿子"></a>3、children()儿子</h2><p>寻找子级元素的方法：必须加小括号，选中的是元素的所有儿子级元素。孙子级的元素选不中。</p>
+<p>案例：点击一个元素，让他的子级全部消失。</p>
+<pre><code>1    //让点击元素的子级全部消失
+2            $(&quot;div&quot;).click(function(){
+3                $(this).children().hide(300);
+4            });    
+</code></pre><p>方法可以传递参数：还是一个选择器，指的是我要选择儿子级里面还要满足选择器要求的那些元素。</p>
+<pre><code>1    //要选择儿子级元素中符合选择器要求的部分
+2    $(&quot;div&quot;).click(function(){
+3        $(this).children(&quot;.cur&quot;).hide(300);
+4    });    
+
+4、siblings()兄弟
+</code></pre><p>寻找的是同级的兄弟元素：方法必须加小括号，找到的是亲兄弟元素。</p>
+<p>案例：点击一个元素，让他的兄弟都变色，自身不变色。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).siblings().css(&quot;background&quot;,&quot;red&quot;);
+3    });
+</code></pre><p>可以通过参数进行选择器筛选.</p>
+<pre><code>1    //筛选h2的兄弟元素
+2            $(&quot;div&quot;).children().click(function(){
+3                $(this).siblings(&quot;h2&quot;).css(&quot;background&quot;,&quot;red&quot;);
+4            });
+</code></pre><p>指的是选中的是兄弟元素中的h2标签。</p>
+<h2 id="5、连续打点调用"><a href="#5、连续打点调用" class="headerlink" title="5、连续打点调用"></a>5、连续打点调用</h2><p>案例：点击一个元素，让他自己变红，让他的兄弟编绿，父亲变蓝，父亲的兄弟变紫色，兄弟的儿子变金色。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).css(&quot;background&quot;,&quot;red&quot;) //自己
+3        .siblings().css(&quot;background&quot;,&quot;green&quot;)   //自己的兄弟
+4        .parent().css(&quot;background&quot;,&quot;blue&quot;)//自己和兄弟的父亲
+5        .siblings().css(&quot;background&quot;,&quot;purple&quot;)  //父亲的兄弟
+6        .children().css(&quot;background&quot;,&quot;gold&quot;);  //父亲兄弟的儿子
+7    });
+</code></pre><p>原理：一个jQuery对象打点调用完自己的任何方法，都会return一个对象，就是jQuery对象本身。</p>
+<pre><code>1    $(&quot;p&quot;).html(&quot;哈哈&quot;).css(&quot;background&quot;,&quot;skyblue&quot;);
+</code></pre><h2 id="6、其他节点关系"><a href="#6、其他节点关系" class="headerlink" title="6、其他节点关系"></a>6、其他节点关系</h2><p>find()：找的是元素的后代的一些元素，根据参数的选择器去选择。</p>
+<pre><code>1    $(&quot;div&quot;).find(&quot;span&quot;).css(&quot;background&quot;,&quot;#00f&quot;)
+</code></pre><p>next()：选中的是当前元素的下一个元素，必须是同级的。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).next().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>nextAll()：选中的是当前元素后面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).nextAll().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>prev()：选中的是当前元素的上一个元素，必须是同级的。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).prev().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>prevAll()：选中的是当前元素前面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).prevAll().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>parents()：选择的是包含html标签在内的所有祖先元素。内部可以传参数，选择符合选择器的祖先元素。</p>
+<pre><code>1    $(&quot;p&quot;).parents(&quot;div&quot;).css(&quot;background&quot;,&quot;pink&quot;)
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;节点关系&quot;&gt;&lt;a href=&quot;#节点关系&quot; class=&quot;headerlink&quot; title=&quot;节点关系&quot;&gt;&lt;/a&gt;节点关系&lt;/h1&gt;&lt;p&gt;jQuery控制元素时，都是批量控制。&lt;/p&gt;
+&lt;p&gt;添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。&lt;
+    
+    </summary>
+    
+      <category term="jQuery" scheme="http://yoursite.com/categories/jQuery/"/>
+    
+    
+      <category term="jQuery" scheme="http://yoursite.com/tags/jQuery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jQuery常用方法</title>
+    <link href="http://yoursite.com/2016/11/18/title24/"/>
+    <id>http://yoursite.com/2016/11/18/title24/</id>
+    <published>2016-11-18T09:27:56.000Z</published>
+    <updated>2017-02-20T10:34:41.640Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="jQuery常用方法"><a href="#jQuery常用方法" class="headerlink" title="jQuery常用方法"></a>jQuery常用方法</h1><h2 id="1、html"><a href="#1、html" class="headerlink" title="1、html()"></a>1、html()</h2><p>相当于我们原生js里面的innerHTML方法。给元素内部添加内容。</p>
+<p>参数必须是字符串。</p>
+<pre><code>1    $(&quot;div&quot;).html(&quot;你好，这是一个div&quot;);
+</code></pre><p>手动的给标签内部加其他标签。</p>
+<pre><code>1    $(&quot;div&quot;).html(&quot;&lt;p&gt;&lt;a href=\&quot;#\&quot;&gt;你好&lt;/a&gt;&lt;/p&gt;&quot;);
+</code></pre><p>读取内容：只能读取第一个元素内的内容。</p>
+<pre><code>1    console.log($(&quot;div&quot;).html());
+</code></pre><h2 id="2、addClass-和removeClass"><a href="#2、addClass-和removeClass" class="headerlink" title="2、addClass()和removeClass()"></a>2、addClass()和removeClass()</h2><p>增加类名：addClass</p>
+<p>移除类名：removeClass</p>
+<p>要添加或移除的类名作为参数传入小括号内。</p>
+<pre><code>1    $(&quot;.ad&quot;).click(function(){
+2        $(&quot;.box&quot;).addClass(&quot;demo&quot;);
+3    });
+4    $(&quot;.re&quot;).click(function(){
+5        $(&quot;.box&quot;).removeClass(&quot;demo&quot;);
+6    });
+</code></pre><p>操作过程中，不会影响元素原有的类名或其他类名。</p>
+<h2 id="3、attr"><a href="#3、attr" class="headerlink" title="3、attr()"></a>3、attr()</h2><p>调用或更改html元素的属性和属性值。</p>
+<pre><code>1    //获取某一个属性值
+2    // console.log($(&quot;.ad&quot;).attr(&quot;type&quot;));
+3    //添加属性，传两个参数，第一个属性名，第二个属性值
+4    // $(&quot;.box&quot;).attr(&quot;id&quot;,&quot;demo&quot;);
+</code></pre><p>修改属性值。</p>
+<pre><code>1    $(&quot;input&quot;).click(function(){
+2        $(&quot;img&quot;).attr(&quot;src&quot;,&quot;images/cat2.jpg&quot;);
+3    });
+</code></pre><h2 id="4、常用的事件"><a href="#4、常用的事件" class="headerlink" title="4、常用的事件"></a>4、常用的事件</h2><p>jQuery的事件不需要写on。</p>
+<p>单击事件：click()；</p>
+<pre><code>1    $(&quot;input&quot;).click(function(){
+2        $(&quot;img&quot;).attr(&quot;src&quot;,&quot;images/cat2.jpg&quot;);
+3    });
+</code></pre><p>鼠标移上：mouseenter鼠标进入</p>
+<pre><code>1    //鼠标移上元素添加类名
+2    $(&quot;.box&quot;).mouseenter(function(){
+3        $(&quot;.box&quot;).addClass(&apos;demo&apos;);
+4    });
+</code></pre><p>鼠标移出：mouseleave鼠标离开方法</p>
+<pre><code>1    //鼠标移出元素移除类名
+2    $(&quot;.box&quot;).mouseleave(function(){
+3        $(&quot;.box&quot;).removeClass(&apos;demo&apos;);
+4    });
+</code></pre><p>还有一种on的写法：本身也是一个方法，有两个参数，第一个参数是事件类型，第二个参数是事件函数。</p>
+<pre><code>1    //on方法添加事件
+2            $(&quot;input&quot;).on(&quot;click&quot;,function(){
+3                $(&quot;img&quot;).attr(&quot;src&quot;,&quot;images/cat2.jpg&quot;);
+4            });
+</code></pre><h2 id="5、css"><a href="#5、css" class="headerlink" title="5、css()"></a>5、css()</h2><p>作用：调用和更改css 样式。</p>
+<p>css()方法可以传递两个参数：如果只传一个参数，调用属性计算后的样式，如果传递两个参数，就是修改这个样式。</p>
+<pre><code>1    语法：jQuery.css(属性名，属性值);
+</code></pre><p>传递一个参数，表示调用属性值：</p>
+<blockquote>
+<p>得到的值是一个字符串形式的数据，不能直接参与运算。</p>
+</blockquote>
+<pre><code>1    console.log($(&quot;.box&quot;).css(&quot;width&quot;));
+</code></pre><p>传递两个参数，表示赋值：</p>
+<pre><code>1    $(&quot;img&quot;).css(&quot;width&quot;,&quot;200px&quot;);
+</code></pre><p>属性名既可以写驼峰也可以写css写法：</p>
+<pre><code>1    //既可以写驼峰也可以写css写法
+2    // $(&quot;div&quot;).css(&quot;background-color&quot;,&quot;yellowgreen&quot;);
+3    $(&quot;div&quot;).css(&quot;backgroundColor&quot;,&quot;skyblue&quot;);
+</code></pre><p>属性值很灵活，可以直接写数字不带单位，还可以写带单位或不带单位的字符串。</p>
+<pre><code>1    $(&quot;div&quot;).css(&quot;width&quot;,200);
+2    $(&quot;div&quot;).css(&quot;height&quot;,&quot;200px&quot;);
+3    $(&quot;div&quot;).css(&quot;border-width&quot;,&quot;5&quot;);
+</code></pre><p>数值甚至可以写成加等的形式：</p>
+<pre><code>1    $(&quot;div&quot;).click(function(){
+2        $(&quot;div&quot;).css(&quot;width&quot;,&quot;+=20px&quot;);
+3    });
+</code></pre><p>如果我们设置多个属性，将多个属性写在JSON对象。</p>
+<pre><code>1    //同时设置多个属性
+2            $(&quot;div&quot;).css({
+3                &quot;width&quot; : 200,
+4                &quot;height&quot; : 200,
+5                &quot;border-width&quot; : 5
+6            });
+</code></pre><h2 id="6、hide-和show"><a href="#6、hide-和show" class="headerlink" title="6、hide()和show()"></a>6、hide()和show()</h2><p>就是隐藏和显示某一个元素。</p>
+<pre><code>1    $(&quot;.hide&quot;).click(function(){
+2        $(&quot;img&quot;).hide();   隐藏
+3    })
+4    $(&quot;.show&quot;).click(function(){
+5        $(&quot;img&quot;).show();   显示
+6    })
+</code></pre><p>可以传递一个时间参数，控制隐藏和显示的中间时间。</p>
+<pre><code>1    $(&quot;.hide&quot;).click(function(){
+2        $(&quot;img&quot;).hide(1000);
+3    })
+4    $(&quot;.show&quot;).click(function(){
+5        $(&quot;img&quot;).show(1000);
+6    })
+</code></pre><p>隐藏：伴随着透明度从设置透明度到0的变化，还有宽高从设置值到0的动画。</p>
+<p>方法可以在显示和隐藏之间进行切换：toggle()；</p>
+<pre><code>1    $(&quot;.toggle&quot;).click(function(){
+2        $(&quot;img&quot;).toggle(1000);
+3    });
+</code></pre><h2 id="7、slideDown和slideUp"><a href="#7、slideDown和slideUp" class="headerlink" title="7、slideDown和slideUp"></a>7、slideDown和slideUp</h2><p>slideDown()：滑动显示（方向不一定）；</p>
+<p>slideUp()：滑动隐藏；</p>
+<p>本身就有运动过程。默认运动时间400毫秒。</p>
+<pre><code>1    $(&quot;.up&quot;).click(function(){
+2        $(&quot;img&quot;).slideUp();
+3    });
+4    $(&quot;.down&quot;).click(function(){
+5        $(&quot;img&quot;).slideDown();
+6    });
+</code></pre><p>隐藏的前提：必须是display:block;</p>
+<p>显示的前提：必须是display:none;</p>
+<p>中间有自己定义的动画：内部的结构，说明我们以什么方式隐藏和显示。</p>
+<p>切换：slideToggle()。可以自定义运动时间：</p>
+<pre><code>1    $(&quot;.up&quot;).click(function(){
+2                $(&quot;img&quot;).slideUp(1000);
+3            });
+4            $(&quot;.down&quot;).click(function(){
+5                $(&quot;img&quot;).slideDown(1000);
+6            });
+7            $(&quot;.toggle&quot;).click(function(){
+8                $(&quot;img&quot;).slideToggle(1000);
+9            });
+</code></pre><h2 id="8、fadeIn和fadeOut"><a href="#8、fadeIn和fadeOut" class="headerlink" title="8、fadeIn和fadeOut"></a>8、fadeIn和fadeOut</h2><p>表示淡入和淡出：透明度发生的变化。</p>
+<blockquote>
+<p>fadeIn：透明度变大，显示元素，淡入。</p>
+<p>fadeOut：透明度变到0，隐藏元素，淡出。</p>
+</blockquote>
+<p>默认运动时间是400毫秒，可以自定义时间。</p>
+<pre><code>1    $(&quot;.out&quot;).click(function(){
+2                $(&quot;img&quot;).fadeOut(1000);
+3            });
+4            $(&quot;.in&quot;).click(function(){
+5                $(&quot;img&quot;).fadeIn(1000);
+6            });
+7            $(&quot;.toggle&quot;).click(function(){
+8                $(&quot;img&quot;).fadeToggle(1000);
+9            });
+</code></pre><p>淡入淡出到某一个透明度：fadeTo（）。有两个参数，第一个叫做速度参数。第二个透明度的终点。</p>
+<pre><code>1    $(&quot;.to&quot;).click(function(){
+2        $(&quot;img&quot;).fadeTo(&quot;slow&quot;,0.5);
+3    });
+
+1    $(&quot;.out&quot;).click(function(){
+2        $(&quot;img:first&quot;).fadeOut(3000);
+3        $(&quot;img:last&quot;).fadeIn(3000);
+4    });
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;jQuery常用方法&quot;&gt;&lt;a href=&quot;#jQuery常用方法&quot; class=&quot;headerlink&quot; title=&quot;jQuery常用方法&quot;&gt;&lt;/a&gt;jQuery常用方法&lt;/h1&gt;&lt;h2 id=&quot;1、html&quot;&gt;&lt;a href=&quot;#1、html&quot; class=&quot;
+    
+    </summary>
+    
+      <category term="jQuery" scheme="http://yoursite.com/categories/jQuery/"/>
+    
+    
+      <category term="jQuery" scheme="http://yoursite.com/tags/jQuery/"/>
+    
+  </entry>
+  
+</feed>
