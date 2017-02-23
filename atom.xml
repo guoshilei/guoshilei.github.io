@@ -2913,164 +2913,55 @@ arr2是[3,4,5,6,7]
   </entry>
   
   <entry>
-    <title>jQuery常用方法</title>
-    <link href="http://yoursite.com/2016/11/18/title24/"/>
-    <id>http://yoursite.com/2016/11/18/title24/</id>
+    <title>延时器setTimeout讲解</title>
+    <link href="http://yoursite.com/2016/11/18/title23/"/>
+    <id>http://yoursite.com/2016/11/18/title23/</id>
     <published>2016-11-18T09:27:56.000Z</published>
-    <updated>2017-02-20T10:34:41.640Z</updated>
+    <updated>2017-02-20T10:34:21.044Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="jQuery常用方法"><a href="#jQuery常用方法" class="headerlink" title="jQuery常用方法"></a>jQuery常用方法</h1><h2 id="1、html"><a href="#1、html" class="headerlink" title="1、html()"></a>1、html()</h2><p>相当于我们原生js里面的innerHTML方法。给元素内部添加内容。</p>
-<p>参数必须是字符串。</p>
-<pre><code>1    $(&quot;div&quot;).html(&quot;你好，这是一个div&quot;);
-</code></pre><p>手动的给标签内部加其他标签。</p>
-<pre><code>1    $(&quot;div&quot;).html(&quot;&lt;p&gt;&lt;a href=\&quot;#\&quot;&gt;你好&lt;/a&gt;&lt;/p&gt;&quot;);
-</code></pre><p>读取内容：只能读取第一个元素内的内容。</p>
-<pre><code>1    console.log($(&quot;div&quot;).html());
-</code></pre><h2 id="2、addClass-和removeClass"><a href="#2、addClass-和removeClass" class="headerlink" title="2、addClass()和removeClass()"></a>2、addClass()和removeClass()</h2><p>增加类名：addClass</p>
-<p>移除类名：removeClass</p>
-<p>要添加或移除的类名作为参数传入小括号内。</p>
-<pre><code>1    $(&quot;.ad&quot;).click(function(){
-2        $(&quot;.box&quot;).addClass(&quot;demo&quot;);
-3    });
-4    $(&quot;.re&quot;).click(function(){
-5        $(&quot;.box&quot;).removeClass(&quot;demo&quot;);
-6    });
-</code></pre><p>操作过程中，不会影响元素原有的类名或其他类名。</p>
-<h2 id="3、attr"><a href="#3、attr" class="headerlink" title="3、attr()"></a>3、attr()</h2><p>调用或更改html元素的属性和属性值。</p>
-<pre><code>1    //获取某一个属性值
-2    // console.log($(&quot;.ad&quot;).attr(&quot;type&quot;));
-3    //添加属性，传两个参数，第一个属性名，第二个属性值
-4    // $(&quot;.box&quot;).attr(&quot;id&quot;,&quot;demo&quot;);
-</code></pre><p>修改属性值。</p>
-<pre><code>1    $(&quot;input&quot;).click(function(){
-2        $(&quot;img&quot;).attr(&quot;src&quot;,&quot;images/cat2.jpg&quot;);
-3    });
-</code></pre><h2 id="4、常用的事件"><a href="#4、常用的事件" class="headerlink" title="4、常用的事件"></a>4、常用的事件</h2><p>jQuery的事件不需要写on。</p>
-<p>单击事件：click()；</p>
-<pre><code>1    $(&quot;input&quot;).click(function(){
-2        $(&quot;img&quot;).attr(&quot;src&quot;,&quot;images/cat2.jpg&quot;);
-3    });
-</code></pre><p>鼠标移上：mouseenter鼠标进入</p>
-<pre><code>1    //鼠标移上元素添加类名
-2    $(&quot;.box&quot;).mouseenter(function(){
-3        $(&quot;.box&quot;).addClass(&apos;demo&apos;);
-4    });
-</code></pre><p>鼠标移出：mouseleave鼠标离开方法</p>
-<pre><code>1    //鼠标移出元素移除类名
-2    $(&quot;.box&quot;).mouseleave(function(){
-3        $(&quot;.box&quot;).removeClass(&apos;demo&apos;);
-4    });
-</code></pre><p>还有一种on的写法：本身也是一个方法，有两个参数，第一个参数是事件类型，第二个参数是事件函数。</p>
-<pre><code>1    //on方法添加事件
-2            $(&quot;input&quot;).on(&quot;click&quot;,function(){
-3                $(&quot;img&quot;).attr(&quot;src&quot;,&quot;images/cat2.jpg&quot;);
-4            });
-</code></pre><h2 id="5、css"><a href="#5、css" class="headerlink" title="5、css()"></a>5、css()</h2><p>作用：调用和更改css 样式。</p>
-<p>css()方法可以传递两个参数：如果只传一个参数，调用属性计算后的样式，如果传递两个参数，就是修改这个样式。</p>
-<pre><code>1    语法：jQuery.css(属性名，属性值);
-</code></pre><p>传递一个参数，表示调用属性值：</p>
-<blockquote>
-<p>得到的值是一个字符串形式的数据，不能直接参与运算。</p>
-</blockquote>
-<pre><code>1    console.log($(&quot;.box&quot;).css(&quot;width&quot;));
-</code></pre><p>传递两个参数，表示赋值：</p>
-<pre><code>1    $(&quot;img&quot;).css(&quot;width&quot;,&quot;200px&quot;);
-</code></pre><p>属性名既可以写驼峰也可以写css写法：</p>
-<pre><code>1    //既可以写驼峰也可以写css写法
-2    // $(&quot;div&quot;).css(&quot;background-color&quot;,&quot;yellowgreen&quot;);
-3    $(&quot;div&quot;).css(&quot;backgroundColor&quot;,&quot;skyblue&quot;);
-</code></pre><p>属性值很灵活，可以直接写数字不带单位，还可以写带单位或不带单位的字符串。</p>
-<pre><code>1    $(&quot;div&quot;).css(&quot;width&quot;,200);
-2    $(&quot;div&quot;).css(&quot;height&quot;,&quot;200px&quot;);
-3    $(&quot;div&quot;).css(&quot;border-width&quot;,&quot;5&quot;);
-</code></pre><p>数值甚至可以写成加等的形式：</p>
-<pre><code>1    $(&quot;div&quot;).click(function(){
-2        $(&quot;div&quot;).css(&quot;width&quot;,&quot;+=20px&quot;);
-3    });
-</code></pre><p>如果我们设置多个属性，将多个属性写在JSON对象。</p>
-<pre><code>1    //同时设置多个属性
-2            $(&quot;div&quot;).css({
-3                &quot;width&quot; : 200,
-4                &quot;height&quot; : 200,
-5                &quot;border-width&quot; : 5
-6            });
-</code></pre><h2 id="6、hide-和show"><a href="#6、hide-和show" class="headerlink" title="6、hide()和show()"></a>6、hide()和show()</h2><p>就是隐藏和显示某一个元素。</p>
-<pre><code>1    $(&quot;.hide&quot;).click(function(){
-2        $(&quot;img&quot;).hide();   隐藏
-3    })
-4    $(&quot;.show&quot;).click(function(){
-5        $(&quot;img&quot;).show();   显示
-6    })
-</code></pre><p>可以传递一个时间参数，控制隐藏和显示的中间时间。</p>
-<pre><code>1    $(&quot;.hide&quot;).click(function(){
-2        $(&quot;img&quot;).hide(1000);
-3    })
-4    $(&quot;.show&quot;).click(function(){
-5        $(&quot;img&quot;).show(1000);
-6    })
-</code></pre><p>隐藏：伴随着透明度从设置透明度到0的变化，还有宽高从设置值到0的动画。</p>
-<p>方法可以在显示和隐藏之间进行切换：toggle()；</p>
-<pre><code>1    $(&quot;.toggle&quot;).click(function(){
-2        $(&quot;img&quot;).toggle(1000);
-3    });
-</code></pre><h2 id="7、slideDown和slideUp"><a href="#7、slideDown和slideUp" class="headerlink" title="7、slideDown和slideUp"></a>7、slideDown和slideUp</h2><p>slideDown()：滑动显示（方向不一定）；</p>
-<p>slideUp()：滑动隐藏；</p>
-<p>本身就有运动过程。默认运动时间400毫秒。</p>
-<pre><code>1    $(&quot;.up&quot;).click(function(){
-2        $(&quot;img&quot;).slideUp();
-3    });
-4    $(&quot;.down&quot;).click(function(){
-5        $(&quot;img&quot;).slideDown();
-6    });
-</code></pre><p>隐藏的前提：必须是display:block;</p>
-<p>显示的前提：必须是display:none;</p>
-<p>中间有自己定义的动画：内部的结构，说明我们以什么方式隐藏和显示。</p>
-<p>切换：slideToggle()。可以自定义运动时间：</p>
-<pre><code>1    $(&quot;.up&quot;).click(function(){
-2                $(&quot;img&quot;).slideUp(1000);
-3            });
-4            $(&quot;.down&quot;).click(function(){
-5                $(&quot;img&quot;).slideDown(1000);
-6            });
-7            $(&quot;.toggle&quot;).click(function(){
-8                $(&quot;img&quot;).slideToggle(1000);
-9            });
-</code></pre><h2 id="8、fadeIn和fadeOut"><a href="#8、fadeIn和fadeOut" class="headerlink" title="8、fadeIn和fadeOut"></a>8、fadeIn和fadeOut</h2><p>表示淡入和淡出：透明度发生的变化。</p>
-<blockquote>
-<p>fadeIn：透明度变大，显示元素，淡入。</p>
-<p>fadeOut：透明度变到0，隐藏元素，淡出。</p>
-</blockquote>
-<p>默认运动时间是400毫秒，可以自定义时间。</p>
-<pre><code>1    $(&quot;.out&quot;).click(function(){
-2                $(&quot;img&quot;).fadeOut(1000);
-3            });
-4            $(&quot;.in&quot;).click(function(){
-5                $(&quot;img&quot;).fadeIn(1000);
-6            });
-7            $(&quot;.toggle&quot;).click(function(){
-8                $(&quot;img&quot;).fadeToggle(1000);
-9            });
-</code></pre><p>淡入淡出到某一个透明度：fadeTo（）。有两个参数，第一个叫做速度参数。第二个透明度的终点。</p>
-<pre><code>1    $(&quot;.to&quot;).click(function(){
-2        $(&quot;img&quot;).fadeTo(&quot;slow&quot;,0.5);
-3    });
-
-1    $(&quot;.out&quot;).click(function(){
-2        $(&quot;img:first&quot;).fadeOut(3000);
-3        $(&quot;img:last&quot;).fadeIn(3000);
-4    });
+    <content type="html"><![CDATA[<h2 id="1、延时器"><a href="#1、延时器" class="headerlink" title="1、延时器"></a>1、延时器</h2><p>延时器：setTimeout()。在指定时间之后，执行1次函数。</p>
+<p>window方法，可以省略书写。</p>
+<p>比喻定时炸弹：在多少时间之后，炸弹爆炸。</p>
+<p>1    语法：setTimeout(函数，等待时间);</p>
+<pre><code>1    console.log(1);
+2    console.log(2);
+3    console.log(3);
+4    setTimeout(function(){
+5     console.log(&quot;booom shakalaka&quot;);
+6    },1000);
+7    console.log(4)
+</code></pre><p>使用情况：setTimeout，如果需要在一段时间之后才执行某一个函数。只执行一次。<br>setInterval，如果需要每隔一段时间执行函数一次，反复执行。</p>
+<h2 id="2、函数节流"><a href="#2、函数节流" class="headerlink" title="2、函数节流"></a>2、函数节流</h2><p>函数被调用的时候，最好有一个时间间隔，现在函数不具备这个功能。</p>
+<p>事件被频繁触发，事件函数就会频繁调用。</p>
+<p>解决方法：函数节流。用一个变量限制函数后面的语句到底能不能走到。定义一个延时器，将变量的限制解开。</p>
+<pre><code>1    //给函数上一把锁，锁开的时候，执行函数的语句，锁关上之后，不能执行函数
+2            var lock = true ;  //表示锁是开的能够执行事件函数
+3            btn.onclick = function(){
+4                //如果锁开着可以执行后面的语句，如果关闭，直接return返回，不执行后面的代码
+5                if(lock == false){
+6                    return;
+7                }
+8                //给函数上一把锁
+9                lock = false;
+10                //隔一段时间打开锁
+11                setTimeout(function(){
+12                    lock = true;
+13                },2000);
+14                console.log(Math.random());
+15            }
 </code></pre>]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;jQuery常用方法&quot;&gt;&lt;a href=&quot;#jQuery常用方法&quot; class=&quot;headerlink&quot; title=&quot;jQuery常用方法&quot;&gt;&lt;/a&gt;jQuery常用方法&lt;/h1&gt;&lt;h2 id=&quot;1、html&quot;&gt;&lt;a href=&quot;#1、html&quot; class=&quot;
+      &lt;h2 id=&quot;1、延时器&quot;&gt;&lt;a href=&quot;#1、延时器&quot; class=&quot;headerlink&quot; title=&quot;1、延时器&quot;&gt;&lt;/a&gt;1、延时器&lt;/h2&gt;&lt;p&gt;延时器：setTimeout()。在指定时间之后，执行1次函数。&lt;/p&gt;
+&lt;p&gt;window方法，可以省略书写。&lt;/
     
     </summary>
     
-      <category term="jQuery" scheme="http://yoursite.com/categories/jQuery/"/>
+      <category term="setTimeout" scheme="http://yoursite.com/categories/setTimeout/"/>
     
     
-      <category term="jQuery" scheme="http://yoursite.com/tags/jQuery/"/>
+      <category term="js" scheme="http://yoursite.com/tags/js/"/>
     
   </entry>
   
