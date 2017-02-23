@@ -2579,87 +2579,82 @@ arr2是[3,4,5,6,7]
   </entry>
   
   <entry>
-    <title>jQuery节点关系</title>
-    <link href="http://yoursite.com/2016/11/20/title25/"/>
-    <id>http://yoursite.com/2016/11/20/title25/</id>
+    <title>jQuery排序常见方法</title>
+    <link href="http://yoursite.com/2016/11/20/title26/"/>
+    <id>http://yoursite.com/2016/11/20/title26/</id>
     <published>2016-11-20T09:27:56.000Z</published>
-    <updated>2017-02-20T10:34:46.456Z</updated>
+    <updated>2017-02-20T10:34:50.742Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h1><p>jQuery控制元素时，都是批量控制。</p>
-<p>添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。</p>
-<p>jQuery帮我们简化了这个找关系的过程，封装了一系列的方法可以帮我们找到父亲、儿子、兄弟、祖先、孙子等元素。</p>
-<h2 id="1、-this-自己"><a href="#1、-this-自己" class="headerlink" title="1、$(this)自己"></a>1、$(this)自己</h2><p>事件内部有一个$(this)的对象，指向的就是触发事件的这个元素本身。</p>
-<p>就是原生js里的事件函数内的那个this，用$()将this转成jQuery对象，就能调用jQuery的方法。this不要加引号。</p>
-<pre><code>1    // 谁触发事件谁动
-2    $(&quot;p&quot;).click(function(){
-3        $(this).animate({&quot;left&quot;:1000},1000);
-4    });
-</code></pre><h2 id="2、parent-父亲"><a href="#2、parent-父亲" class="headerlink" title="2、parent()父亲"></a>2、parent()父亲</h2><p>寻找元素父级的方法：必须加小括号，找到的也是亲生的父亲。爷爷和叔叔都不能。</p>
-<p>案例：点击一个元素，让他的父亲背景变色。</p>
-<pre><code>1    $(&quot;p&quot;).click(function(){
-2        $(this).parent().css(&quot;background&quot;,&quot;lightblue&quot;);
-3    });
-</code></pre><p>说明：方法返回的是某一个元素的父亲的jQuery对象，继续打点调用jQuery方法。</p>
-<h2 id="3、children-儿子"><a href="#3、children-儿子" class="headerlink" title="3、children()儿子"></a>3、children()儿子</h2><p>寻找子级元素的方法：必须加小括号，选中的是元素的所有儿子级元素。孙子级的元素选不中。</p>
-<p>案例：点击一个元素，让他的子级全部消失。</p>
-<pre><code>1    //让点击元素的子级全部消失
-2            $(&quot;div&quot;).click(function(){
-3                $(this).children().hide(300);
-4            });    
-</code></pre><p>方法可以传递参数：还是一个选择器，指的是我要选择儿子级里面还要满足选择器要求的那些元素。</p>
-<pre><code>1    //要选择儿子级元素中符合选择器要求的部分
-2    $(&quot;div&quot;).click(function(){
-3        $(this).children(&quot;.cur&quot;).hide(300);
-4    });    
-
-4、siblings()兄弟
-</code></pre><p>寻找的是同级的兄弟元素：方法必须加小括号，找到的是亲兄弟元素。</p>
-<p>案例：点击一个元素，让他的兄弟都变色，自身不变色。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).siblings().css(&quot;background&quot;,&quot;red&quot;);
-3    });
-</code></pre><p>可以通过参数进行选择器筛选.</p>
-<pre><code>1    //筛选h2的兄弟元素
-2            $(&quot;div&quot;).children().click(function(){
-3                $(this).siblings(&quot;h2&quot;).css(&quot;background&quot;,&quot;red&quot;);
+    <content type="html"><![CDATA[<h1 id="jQuery排序"><a href="#jQuery排序" class="headerlink" title="jQuery排序"></a>jQuery排序</h1><h2 id="1、eq（）整体排序"><a href="#1、eq（）整体排序" class="headerlink" title="1、eq（）整体排序"></a>1、eq（）整体排序</h2><p>通过$()得到jQuery对象，可以继续通过eq()获得某一个元素。</p>
+<p>下标问题：jQuery对象得到的原生对象会进行一个自己的排列，组成一个队列。eq()方法是从这个队列里去进行排序。与原来页面的结构无关。</p>
+<pre><code>1    //不能用一个下标1全部选中，选中的仅仅是所有被选中的p组成的队列里的第一个
+2            // $(&quot;div p&quot;).eq(1).css(&quot;background&quot;,&quot;red&quot;);
+3            // $(&quot;div p&quot;).eq(5).css(&quot;background&quot;,&quot;red&quot;);
+4            // $(&quot;div p&quot;).eq(9).css(&quot;background&quot;,&quot;red&quot;);
+5            // $(&quot;div p&quot;).eq(13).css(&quot;background&quot;,&quot;red&quot;);
+</code></pre><p>上面的排序：将所有的p选出来之后，进行新的排序，新顺序是eq方法的下标。</p>
+<pre><code>1    $(&quot;div p.cur&quot;).eq(1).css(&quot;background&quot;,&quot;red&quot;);
+</code></pre><p>上面的排序：将所有类名叫做cur的元素全部选取出来，进行排序，新顺序是我们的eq的下标顺序，与原来节点关系的排序没关系。</p>
+<h2 id="2、index-在兄弟关系中的排序"><a href="#2、index-在兄弟关系中的排序" class="headerlink" title="2、index()在兄弟关系中的排序"></a>2、index()在兄弟关系中的排序</h2><p>Index()这个方法获得的是元素在html结构中，在自己的同级元素中的位置，与获得的jQuery新队列没关系。</p>
+<pre><code>1    //给p标签绑定事件，点击输出自己的index（）
+2            $(&quot;div p&quot;).click(function(){
+3                console.log($(this).index());
 4            });
-</code></pre><p>指的是选中的是兄弟元素中的h2标签。</p>
-<h2 id="5、连续打点调用"><a href="#5、连续打点调用" class="headerlink" title="5、连续打点调用"></a>5、连续打点调用</h2><p>案例：点击一个元素，让他自己变红，让他的兄弟编绿，父亲变蓝，父亲的兄弟变紫色，兄弟的儿子变金色。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).css(&quot;background&quot;,&quot;red&quot;) //自己
-3        .siblings().css(&quot;background&quot;,&quot;green&quot;)   //自己的兄弟
-4        .parent().css(&quot;background&quot;,&quot;blue&quot;)//自己和兄弟的父亲
-5        .siblings().css(&quot;background&quot;,&quot;purple&quot;)  //父亲的兄弟
-6        .children().css(&quot;background&quot;,&quot;gold&quot;);  //父亲兄弟的儿子
-7    });
-</code></pre><p>原理：一个jQuery对象打点调用完自己的任何方法，都会return一个对象，就是jQuery对象本身。</p>
-<pre><code>1    $(&quot;p&quot;).html(&quot;哈哈&quot;).css(&quot;background&quot;,&quot;skyblue&quot;);
-</code></pre><h2 id="6、其他节点关系"><a href="#6、其他节点关系" class="headerlink" title="6、其他节点关系"></a>6、其他节点关系</h2><p>find()：找的是元素的后代的一些元素，根据参数的选择器去选择。</p>
-<pre><code>1    $(&quot;div&quot;).find(&quot;span&quot;).css(&quot;background&quot;,&quot;#00f&quot;)
-</code></pre><p>next()：选中的是当前元素的下一个元素，必须是同级的。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).next().css(&quot;background&quot;,&quot;#f00&quot;);
-3    })
-</code></pre><p>nextAll()：选中的是当前元素后面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).nextAll().css(&quot;background&quot;,&quot;#f00&quot;);
-3    })
-</code></pre><p>prev()：选中的是当前元素的上一个元素，必须是同级的。</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).prev().css(&quot;background&quot;,&quot;#f00&quot;);
-3    })
-</code></pre><p>prevAll()：选中的是当前元素前面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟</p>
-<pre><code>1    $(&quot;div&quot;).children().click(function(){
-2        $(this).prevAll().css(&quot;background&quot;,&quot;#f00&quot;);
-3    })
-</code></pre><p>parents()：选择的是包含html标签在内的所有祖先元素。内部可以传参数，选择符合选择器的祖先元素。</p>
-<pre><code>1    $(&quot;p&quot;).parents(&quot;div&quot;).css(&quot;background&quot;,&quot;pink&quot;)
+
+1    //给p标签绑定事件，点击输出自己的index（）
+2    $(&quot;div p.cur&quot;).click(function(){
+3        console.log($(this).index());
+4    });
+</code></pre><p>与新队列无关，与兄弟中的排行有关。</p>
+<h2 id="3、对应和排他"><a href="#3、对应和排他" class="headerlink" title="3、对应和排他"></a>3、对应和排他</h2><p>tab栏效果：给上面的元素添加事件，对应的下面的新闻显示。</p>
+<p>可以通过相同的index（）得到的兄弟之间的排序，找到对应关系。</p>
+<p>排他：将不是与我对应的内容设置成默认，与我对应的元素设置特殊。</p>
+<pre><code>1    $(&quot;.top span&quot;).mouseenter(function(){
+2        //自己的排他
+3        $(this).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;);
+4        //具体信息的排他
+5        $(&quot;.bottom ul&quot;).eq($(this).index()).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;);
+6            });
+</code></pre><p>出现一个问题：就是我们所有的ul元素的一个大排队，我们选中的永远是第一个tab栏的ul。</p>
+<p>解决方法：不要拆开去选择元素，所有的元素都是通过节点关系，从自身出发。</p>
+<pre><code>1    //避免所有的tab栏大排序，所有的代码都是从事件元素自身出发去找关系            $(this).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;).parent().siblings().children().eq($(this).index()).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;);
+</code></pre><h2 id="4、each-遍历jQuery对象"><a href="#4、each-遍历jQuery对象" class="headerlink" title="4、each()遍历jQuery对象"></a>4、each()遍历jQuery对象</h2><p>each()遍历我们jQuery对象里的元素队列。</p>
+<p>有一个参数：function，函数参数，规定了遍历过程中对每一个元素做的工作。</p>
+<pre><code>1    $(“p”).each(function(){
+2     对每一个元素的操作。
+3    });
+</code></pre><p>function函数内部有一个默认的参数：i，指的就是这一次遍历的元素在整体队列里的下标。</p>
+<pre><code>1    $(&quot;div&quot;).each(function(i){
+2        //i就是每次进来遍历的元素的下标
+3        //this指向的就是每次进来的那个元素
+4        $(this).children().eq(1).css(&quot;background&quot;,&quot;red&quot;);
+5    });
+</code></pre><p>如果遇到：每一个元素内怎么样，一定要用each方法。</p>
+<pre><code>1    $(&quot;div&quot;).each(function(i){
+2        //i就是每次进来遍历的元素的下标
+3        //this指向的就是每次进来的那个元素
+4        $(this).children().eq(1).css(&quot;background&quot;,&quot;red&quot;);
+5    });
+</code></pre><p>制作：折叠选项卡的效果</p>
+<pre><code>1    //获取h2元素，每一个添加点击事件
+2            // ＋号和-号切换，兄弟元素展开或收起
+3            $(&quot;.box h2&quot;).each(function(){
+4                var $h2 = $(this).parent().siblings().children(&quot;h2&quot;);
+5                $(this).click(function(){
+6                    //自己的兄弟展开
+7                    var $span = $(this).children(&quot;span&quot;);
+8                    $span.html($span.html() == &quot;+&quot; ? &quot;-&quot; : &quot;+&quot;);
+9                    $(this).siblings().slideToggle(300);
+10                    //其他h2的兄弟隐藏
+11                    $h2.children(&quot;span&quot;).html(&quot;+&quot;);
+12                    $h2.siblings().slideUp(300);
+13                })
+14            })
 </code></pre>]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;节点关系&quot;&gt;&lt;a href=&quot;#节点关系&quot; class=&quot;headerlink&quot; title=&quot;节点关系&quot;&gt;&lt;/a&gt;节点关系&lt;/h1&gt;&lt;p&gt;jQuery控制元素时，都是批量控制。&lt;/p&gt;
-&lt;p&gt;添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。&lt;
+      &lt;h1 id=&quot;jQuery排序&quot;&gt;&lt;a href=&quot;#jQuery排序&quot; class=&quot;headerlink&quot; title=&quot;jQuery排序&quot;&gt;&lt;/a&gt;jQuery排序&lt;/h1&gt;&lt;h2 id=&quot;1、eq（）整体排序&quot;&gt;&lt;a href=&quot;#1、eq（）整体排序&quot; class=&quot;
     
     </summary>
     
@@ -2826,82 +2821,87 @@ arr2是[3,4,5,6,7]
   </entry>
   
   <entry>
-    <title>jQuery排序常见方法</title>
-    <link href="http://yoursite.com/2016/11/20/title26/"/>
-    <id>http://yoursite.com/2016/11/20/title26/</id>
+    <title>jQuery节点关系</title>
+    <link href="http://yoursite.com/2016/11/20/title25/"/>
+    <id>http://yoursite.com/2016/11/20/title25/</id>
     <published>2016-11-20T09:27:56.000Z</published>
-    <updated>2017-02-20T10:34:50.742Z</updated>
+    <updated>2017-02-20T10:34:46.456Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="jQuery排序"><a href="#jQuery排序" class="headerlink" title="jQuery排序"></a>jQuery排序</h1><h2 id="1、eq（）整体排序"><a href="#1、eq（）整体排序" class="headerlink" title="1、eq（）整体排序"></a>1、eq（）整体排序</h2><p>通过$()得到jQuery对象，可以继续通过eq()获得某一个元素。</p>
-<p>下标问题：jQuery对象得到的原生对象会进行一个自己的排列，组成一个队列。eq()方法是从这个队列里去进行排序。与原来页面的结构无关。</p>
-<pre><code>1    //不能用一个下标1全部选中，选中的仅仅是所有被选中的p组成的队列里的第一个
-2            // $(&quot;div p&quot;).eq(1).css(&quot;background&quot;,&quot;red&quot;);
-3            // $(&quot;div p&quot;).eq(5).css(&quot;background&quot;,&quot;red&quot;);
-4            // $(&quot;div p&quot;).eq(9).css(&quot;background&quot;,&quot;red&quot;);
-5            // $(&quot;div p&quot;).eq(13).css(&quot;background&quot;,&quot;red&quot;);
-</code></pre><p>上面的排序：将所有的p选出来之后，进行新的排序，新顺序是eq方法的下标。</p>
-<pre><code>1    $(&quot;div p.cur&quot;).eq(1).css(&quot;background&quot;,&quot;red&quot;);
-</code></pre><p>上面的排序：将所有类名叫做cur的元素全部选取出来，进行排序，新顺序是我们的eq的下标顺序，与原来节点关系的排序没关系。</p>
-<h2 id="2、index-在兄弟关系中的排序"><a href="#2、index-在兄弟关系中的排序" class="headerlink" title="2、index()在兄弟关系中的排序"></a>2、index()在兄弟关系中的排序</h2><p>Index()这个方法获得的是元素在html结构中，在自己的同级元素中的位置，与获得的jQuery新队列没关系。</p>
-<pre><code>1    //给p标签绑定事件，点击输出自己的index（）
-2            $(&quot;div p&quot;).click(function(){
-3                console.log($(this).index());
-4            });
-
-1    //给p标签绑定事件，点击输出自己的index（）
-2    $(&quot;div p.cur&quot;).click(function(){
-3        console.log($(this).index());
+    <content type="html"><![CDATA[<h1 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h1><p>jQuery控制元素时，都是批量控制。</p>
+<p>添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。</p>
+<p>jQuery帮我们简化了这个找关系的过程，封装了一系列的方法可以帮我们找到父亲、儿子、兄弟、祖先、孙子等元素。</p>
+<h2 id="1、-this-自己"><a href="#1、-this-自己" class="headerlink" title="1、$(this)自己"></a>1、$(this)自己</h2><p>事件内部有一个$(this)的对象，指向的就是触发事件的这个元素本身。</p>
+<p>就是原生js里的事件函数内的那个this，用$()将this转成jQuery对象，就能调用jQuery的方法。this不要加引号。</p>
+<pre><code>1    // 谁触发事件谁动
+2    $(&quot;p&quot;).click(function(){
+3        $(this).animate({&quot;left&quot;:1000},1000);
 4    });
-</code></pre><p>与新队列无关，与兄弟中的排行有关。</p>
-<h2 id="3、对应和排他"><a href="#3、对应和排他" class="headerlink" title="3、对应和排他"></a>3、对应和排他</h2><p>tab栏效果：给上面的元素添加事件，对应的下面的新闻显示。</p>
-<p>可以通过相同的index（）得到的兄弟之间的排序，找到对应关系。</p>
-<p>排他：将不是与我对应的内容设置成默认，与我对应的元素设置特殊。</p>
-<pre><code>1    $(&quot;.top span&quot;).mouseenter(function(){
-2        //自己的排他
-3        $(this).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;);
-4        //具体信息的排他
-5        $(&quot;.bottom ul&quot;).eq($(this).index()).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;);
-6            });
-</code></pre><p>出现一个问题：就是我们所有的ul元素的一个大排队，我们选中的永远是第一个tab栏的ul。</p>
-<p>解决方法：不要拆开去选择元素，所有的元素都是通过节点关系，从自身出发。</p>
-<pre><code>1    //避免所有的tab栏大排序，所有的代码都是从事件元素自身出发去找关系            $(this).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;).parent().siblings().children().eq($(this).index()).addClass(&apos;current&apos;).siblings().removeClass(&apos;current&apos;);
-</code></pre><h2 id="4、each-遍历jQuery对象"><a href="#4、each-遍历jQuery对象" class="headerlink" title="4、each()遍历jQuery对象"></a>4、each()遍历jQuery对象</h2><p>each()遍历我们jQuery对象里的元素队列。</p>
-<p>有一个参数：function，函数参数，规定了遍历过程中对每一个元素做的工作。</p>
-<pre><code>1    $(“p”).each(function(){
-2     对每一个元素的操作。
+</code></pre><h2 id="2、parent-父亲"><a href="#2、parent-父亲" class="headerlink" title="2、parent()父亲"></a>2、parent()父亲</h2><p>寻找元素父级的方法：必须加小括号，找到的也是亲生的父亲。爷爷和叔叔都不能。</p>
+<p>案例：点击一个元素，让他的父亲背景变色。</p>
+<pre><code>1    $(&quot;p&quot;).click(function(){
+2        $(this).parent().css(&quot;background&quot;,&quot;lightblue&quot;);
 3    });
-</code></pre><p>function函数内部有一个默认的参数：i，指的就是这一次遍历的元素在整体队列里的下标。</p>
-<pre><code>1    $(&quot;div&quot;).each(function(i){
-2        //i就是每次进来遍历的元素的下标
-3        //this指向的就是每次进来的那个元素
-4        $(this).children().eq(1).css(&quot;background&quot;,&quot;red&quot;);
-5    });
-</code></pre><p>如果遇到：每一个元素内怎么样，一定要用each方法。</p>
-<pre><code>1    $(&quot;div&quot;).each(function(i){
-2        //i就是每次进来遍历的元素的下标
-3        //this指向的就是每次进来的那个元素
-4        $(this).children().eq(1).css(&quot;background&quot;,&quot;red&quot;);
-5    });
-</code></pre><p>制作：折叠选项卡的效果</p>
-<pre><code>1    //获取h2元素，每一个添加点击事件
-2            // ＋号和-号切换，兄弟元素展开或收起
-3            $(&quot;.box h2&quot;).each(function(){
-4                var $h2 = $(this).parent().siblings().children(&quot;h2&quot;);
-5                $(this).click(function(){
-6                    //自己的兄弟展开
-7                    var $span = $(this).children(&quot;span&quot;);
-8                    $span.html($span.html() == &quot;+&quot; ? &quot;-&quot; : &quot;+&quot;);
-9                    $(this).siblings().slideToggle(300);
-10                    //其他h2的兄弟隐藏
-11                    $h2.children(&quot;span&quot;).html(&quot;+&quot;);
-12                    $h2.siblings().slideUp(300);
-13                })
-14            })
+</code></pre><p>说明：方法返回的是某一个元素的父亲的jQuery对象，继续打点调用jQuery方法。</p>
+<h2 id="3、children-儿子"><a href="#3、children-儿子" class="headerlink" title="3、children()儿子"></a>3、children()儿子</h2><p>寻找子级元素的方法：必须加小括号，选中的是元素的所有儿子级元素。孙子级的元素选不中。</p>
+<p>案例：点击一个元素，让他的子级全部消失。</p>
+<pre><code>1    //让点击元素的子级全部消失
+2            $(&quot;div&quot;).click(function(){
+3                $(this).children().hide(300);
+4            });    
+</code></pre><p>方法可以传递参数：还是一个选择器，指的是我要选择儿子级里面还要满足选择器要求的那些元素。</p>
+<pre><code>1    //要选择儿子级元素中符合选择器要求的部分
+2    $(&quot;div&quot;).click(function(){
+3        $(this).children(&quot;.cur&quot;).hide(300);
+4    });    
+
+4、siblings()兄弟
+</code></pre><p>寻找的是同级的兄弟元素：方法必须加小括号，找到的是亲兄弟元素。</p>
+<p>案例：点击一个元素，让他的兄弟都变色，自身不变色。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).siblings().css(&quot;background&quot;,&quot;red&quot;);
+3    });
+</code></pre><p>可以通过参数进行选择器筛选.</p>
+<pre><code>1    //筛选h2的兄弟元素
+2            $(&quot;div&quot;).children().click(function(){
+3                $(this).siblings(&quot;h2&quot;).css(&quot;background&quot;,&quot;red&quot;);
+4            });
+</code></pre><p>指的是选中的是兄弟元素中的h2标签。</p>
+<h2 id="5、连续打点调用"><a href="#5、连续打点调用" class="headerlink" title="5、连续打点调用"></a>5、连续打点调用</h2><p>案例：点击一个元素，让他自己变红，让他的兄弟编绿，父亲变蓝，父亲的兄弟变紫色，兄弟的儿子变金色。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).css(&quot;background&quot;,&quot;red&quot;) //自己
+3        .siblings().css(&quot;background&quot;,&quot;green&quot;)   //自己的兄弟
+4        .parent().css(&quot;background&quot;,&quot;blue&quot;)//自己和兄弟的父亲
+5        .siblings().css(&quot;background&quot;,&quot;purple&quot;)  //父亲的兄弟
+6        .children().css(&quot;background&quot;,&quot;gold&quot;);  //父亲兄弟的儿子
+7    });
+</code></pre><p>原理：一个jQuery对象打点调用完自己的任何方法，都会return一个对象，就是jQuery对象本身。</p>
+<pre><code>1    $(&quot;p&quot;).html(&quot;哈哈&quot;).css(&quot;background&quot;,&quot;skyblue&quot;);
+</code></pre><h2 id="6、其他节点关系"><a href="#6、其他节点关系" class="headerlink" title="6、其他节点关系"></a>6、其他节点关系</h2><p>find()：找的是元素的后代的一些元素，根据参数的选择器去选择。</p>
+<pre><code>1    $(&quot;div&quot;).find(&quot;span&quot;).css(&quot;background&quot;,&quot;#00f&quot;)
+</code></pre><p>next()：选中的是当前元素的下一个元素，必须是同级的。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).next().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>nextAll()：选中的是当前元素后面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).nextAll().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>prev()：选中的是当前元素的上一个元素，必须是同级的。</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).prev().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>prevAll()：选中的是当前元素前面的所有兄弟元素。内部可以传参数，选择符合选择器的后面的兄弟</p>
+<pre><code>1    $(&quot;div&quot;).children().click(function(){
+2        $(this).prevAll().css(&quot;background&quot;,&quot;#f00&quot;);
+3    })
+</code></pre><p>parents()：选择的是包含html标签在内的所有祖先元素。内部可以传参数，选择符合选择器的祖先元素。</p>
+<pre><code>1    $(&quot;p&quot;).parents(&quot;div&quot;).css(&quot;background&quot;,&quot;pink&quot;)
 </code></pre>]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;jQuery排序&quot;&gt;&lt;a href=&quot;#jQuery排序&quot; class=&quot;headerlink&quot; title=&quot;jQuery排序&quot;&gt;&lt;/a&gt;jQuery排序&lt;/h1&gt;&lt;h2 id=&quot;1、eq（）整体排序&quot;&gt;&lt;a href=&quot;#1、eq（）整体排序&quot; class=&quot;
+      &lt;h1 id=&quot;节点关系&quot;&gt;&lt;a href=&quot;#节点关系&quot; class=&quot;headerlink&quot; title=&quot;节点关系&quot;&gt;&lt;/a&gt;节点关系&lt;/h1&gt;&lt;p&gt;jQuery控制元素时，都是批量控制。&lt;/p&gt;
+&lt;p&gt;添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。&lt;
     
     </summary>
     
@@ -2909,59 +2909,6 @@ arr2是[3,4,5,6,7]
     
     
       <category term="jQuery" scheme="http://yoursite.com/tags/jQuery/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>延时器setTimeout讲解</title>
-    <link href="http://yoursite.com/2016/11/18/title23/"/>
-    <id>http://yoursite.com/2016/11/18/title23/</id>
-    <published>2016-11-18T09:27:56.000Z</published>
-    <updated>2017-02-20T10:34:21.044Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1、延时器"><a href="#1、延时器" class="headerlink" title="1、延时器"></a>1、延时器</h2><p>延时器：setTimeout()。在指定时间之后，执行1次函数。</p>
-<p>window方法，可以省略书写。</p>
-<p>比喻定时炸弹：在多少时间之后，炸弹爆炸。</p>
-<p>1    语法：setTimeout(函数，等待时间);</p>
-<pre><code>1    console.log(1);
-2    console.log(2);
-3    console.log(3);
-4    setTimeout(function(){
-5     console.log(&quot;booom shakalaka&quot;);
-6    },1000);
-7    console.log(4)
-</code></pre><p>使用情况：setTimeout，如果需要在一段时间之后才执行某一个函数。只执行一次。<br>setInterval，如果需要每隔一段时间执行函数一次，反复执行。</p>
-<h2 id="2、函数节流"><a href="#2、函数节流" class="headerlink" title="2、函数节流"></a>2、函数节流</h2><p>函数被调用的时候，最好有一个时间间隔，现在函数不具备这个功能。</p>
-<p>事件被频繁触发，事件函数就会频繁调用。</p>
-<p>解决方法：函数节流。用一个变量限制函数后面的语句到底能不能走到。定义一个延时器，将变量的限制解开。</p>
-<pre><code>1    //给函数上一把锁，锁开的时候，执行函数的语句，锁关上之后，不能执行函数
-2            var lock = true ;  //表示锁是开的能够执行事件函数
-3            btn.onclick = function(){
-4                //如果锁开着可以执行后面的语句，如果关闭，直接return返回，不执行后面的代码
-5                if(lock == false){
-6                    return;
-7                }
-8                //给函数上一把锁
-9                lock = false;
-10                //隔一段时间打开锁
-11                setTimeout(function(){
-12                    lock = true;
-13                },2000);
-14                console.log(Math.random());
-15            }
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1、延时器&quot;&gt;&lt;a href=&quot;#1、延时器&quot; class=&quot;headerlink&quot; title=&quot;1、延时器&quot;&gt;&lt;/a&gt;1、延时器&lt;/h2&gt;&lt;p&gt;延时器：setTimeout()。在指定时间之后，执行1次函数。&lt;/p&gt;
-&lt;p&gt;window方法，可以省略书写。&lt;/
-    
-    </summary>
-    
-      <category term="setTimeout" scheme="http://yoursite.com/categories/setTimeout/"/>
-    
-    
-      <category term="js" scheme="http://yoursite.com/tags/js/"/>
     
   </entry>
   
@@ -3189,6 +3136,59 @@ arr2是[3,4,5,6,7]
     </summary>
     
       <category term="callpply" scheme="http://yoursite.com/categories/callpply/"/>
+    
+    
+      <category term="js" scheme="http://yoursite.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>延时器setTimeout讲解</title>
+    <link href="http://yoursite.com/2016/11/18/title23/"/>
+    <id>http://yoursite.com/2016/11/18/title23/</id>
+    <published>2016-11-18T09:27:56.000Z</published>
+    <updated>2017-02-20T10:34:21.044Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、延时器"><a href="#1、延时器" class="headerlink" title="1、延时器"></a>1、延时器</h2><p>延时器：setTimeout()。在指定时间之后，执行1次函数。</p>
+<p>window方法，可以省略书写。</p>
+<p>比喻定时炸弹：在多少时间之后，炸弹爆炸。</p>
+<p>1    语法：setTimeout(函数，等待时间);</p>
+<pre><code>1    console.log(1);
+2    console.log(2);
+3    console.log(3);
+4    setTimeout(function(){
+5     console.log(&quot;booom shakalaka&quot;);
+6    },1000);
+7    console.log(4)
+</code></pre><p>使用情况：setTimeout，如果需要在一段时间之后才执行某一个函数。只执行一次。<br>setInterval，如果需要每隔一段时间执行函数一次，反复执行。</p>
+<h2 id="2、函数节流"><a href="#2、函数节流" class="headerlink" title="2、函数节流"></a>2、函数节流</h2><p>函数被调用的时候，最好有一个时间间隔，现在函数不具备这个功能。</p>
+<p>事件被频繁触发，事件函数就会频繁调用。</p>
+<p>解决方法：函数节流。用一个变量限制函数后面的语句到底能不能走到。定义一个延时器，将变量的限制解开。</p>
+<pre><code>1    //给函数上一把锁，锁开的时候，执行函数的语句，锁关上之后，不能执行函数
+2            var lock = true ;  //表示锁是开的能够执行事件函数
+3            btn.onclick = function(){
+4                //如果锁开着可以执行后面的语句，如果关闭，直接return返回，不执行后面的代码
+5                if(lock == false){
+6                    return;
+7                }
+8                //给函数上一把锁
+9                lock = false;
+10                //隔一段时间打开锁
+11                setTimeout(function(){
+12                    lock = true;
+13                },2000);
+14                console.log(Math.random());
+15            }
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、延时器&quot;&gt;&lt;a href=&quot;#1、延时器&quot; class=&quot;headerlink&quot; title=&quot;1、延时器&quot;&gt;&lt;/a&gt;1、延时器&lt;/h2&gt;&lt;p&gt;延时器：setTimeout()。在指定时间之后，执行1次函数。&lt;/p&gt;
+&lt;p&gt;window方法，可以省略书写。&lt;/
+    
+    </summary>
+    
+      <category term="setTimeout" scheme="http://yoursite.com/categories/setTimeout/"/>
     
     
       <category term="js" scheme="http://yoursite.com/tags/js/"/>
@@ -5508,127 +5508,6 @@ word
   </entry>
   
   <entry>
-    <title>if语句</title>
-    <link href="http://yoursite.com/2016/10/10/title5/"/>
-    <id>http://yoursite.com/2016/10/10/title5/</id>
-    <published>2016-10-10T09:27:56.000Z</published>
-    <updated>2017-02-20T10:30:08.471Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1、if语句"><a href="#1、if语句" class="headerlink" title="1、if语句"></a>1、if语句</h2><p>if是如果的意思。else，否则。</p>
-<pre><code>1    语法：
-2    if(condition){
-3            statement1   //结构体，多行代码，写在一对大括号内部
-4        }else{
-5            statement2
-6     }
-</code></pre><p>结构体要执行就都执行，要不执行，就都不执行。</p>
-<p>condition：条件表达式，强制给我们转成布尔值。</p>
-<p>含义：如果条件condition为真，执行第一个结构体。如果为假，执行第二个结构体。</p>
-<pre><code>1    if(条件){
-2    条件为真，执行的结构体；
-3    }else{
-4    条件为假，执行的结构体；
-    }
-</code></pre><p>if语句可以没有else，条件成立执行结构体，不成立直接退出程序</p>
-<pre><code>1    if(a &lt; 60){
-2        alert(&quot;抱歉没及格，努力吧&quot;);3    }
-</code></pre><p>如果执行的结构体只有单行语句，可以省略大括号</p>
-<pre><code>1    if(a &gt;= 60)
-2        alert(&quot;恭喜，及格了&quot;);
-3    else
-4    alert(&quot;很遗憾，没及格，继续努力&quot;);
-</code></pre><p>也能写在if语句的同一行，仅限单行结构体。</p>
-<pre><code>1    if(a &gt;= 60) alert(&quot;恭喜，及格了&quot;);
-2    else alert(&quot;很遗憾，没及格，继续努力&quot;);
-</code></pre><p>这两种写法不会报错，但是为了避免出一些不必要的问题，尽量写大括号。<br>大括号后面不需要写分号，不会出错。</p>
-<p>if语句殊途同归，不管执行哪个程序，退出后都继续执行后面的语句</p>
-<pre><code>1    if(a &gt;= 60){
-2                alert(&quot;恭喜，及格了&quot;);
-3            }else{
-4                alert(&quot;很遗憾，没及格，继续努力&quot;);
-5            }
-6            alert(&quot;好好准备下一次考试&quot;);
-</code></pre><h2 id="2、多条件分支语句"><a href="#2、多条件分支语句" class="headerlink" title="2、多条件分支语句"></a>2、多条件分支语句</h2><p>条件并不是只有一个，每一个条件对应一个结构体。</p>
-<p>if……else if …… else if…… else if…… else …… 如果……否则如果……否则如果……否则……</p>
-<pre><code>1    if(条件1){
-2        满足条件1执行的结构体
-3    }else if(条件2){
-4        条件1不满足，满足条件2时执行的结构体
-5    }else if(条件3){
-6        条件1/2都不满足，满足条件3时执行的结构体
-7    }else if(条件4){
-8        条件1/2/3都不满足，满足条件4时执行的结构体
-9    }else{
-10        以上条件都不满足，执行的结构体11    }
-</code></pre><p>跳楼现象：程序会选择一个分支执行（跳楼），如果执行了这个分支，表示前面分支的条件都没有满足。</p>
-<p>案例：详细划分成绩评价，优秀，良好，及格，不及格。</p>
-<pre><code>1    if(a &gt;= 90){
-2        alert(&quot;优秀&quot;);
-3    }else if(a &gt;= 70){  //如果走到这一步，隐含了a&lt;90
-4        alert(&quot;良好&quot;);        //执行完之后，直接跳楼，不会执行后面的条件分之
-5    }else if(a &gt;= 60){
-6        alert(&quot;及格&quot;);  //如果走到这一步，隐含了a&lt;70
-7    }else{
-8        alert(&quot;不及格&quot;);9    }
-</code></pre><blockquote>
-<p>大坑</p>
-</blockquote>
-<pre><code>1    var b = 1;
-2            if(b &lt;= 3){  //只会选择这个条件内部的结构体，执行后直接跳楼
-3                b += 4;
-4            }else if(b == 5){
-5                b += 3
-6            }else if(b == 8 ){
-7                b += 4
-8            }else{
-9                b += 10;
-10            }
-11            console.log(b);
-</code></pre><h2 id="3、if语句嵌套"><a href="#3、if语句嵌套" class="headerlink" title="3、if语句嵌套"></a>3、if语句嵌套</h2><p>制作一个结构的时候，有两个限制条件，可以使用if语句的嵌套。</p>
-<p>if语句可以嵌套if语句使用，最终执行符合条件成立的结构体</p>
-<pre><code>1    if(sex == &quot;男&quot; &amp;&amp; age &gt;= 22){
-2                alert(&quot;可以领证了&quot;);
-3            }else if(sex == &quot;女&quot; &amp;&amp; age &gt;= 20){
-4                alert(&quot;可以领证了&quot;);
-5            }else{
-6                alert(&quot;你还小，等等吧&quot;);
-7            }
-</code></pre><p> 以上程序也可以达到效果：结构划分不清晰，条件比较复杂。</p>
-<pre><code>1    //if语句嵌套方法，每一层if语句只判断一个条件，内部再去进行另一个条件的判断。
-2            //第一层，只判断性别
-3            if(sex == &quot;男&quot;){
-4                //第二次，判断年龄
-5                if(age &gt;= 22){
-6                    alert(&quot;可以领证了&quot;);
-7                }else{
-8                    alert(&quot;你还小，等等吧&quot;);
-9                }
-10            }else{
-11                //第二次，判断年龄
-12                if(age &gt;= 20){
-13                    alert(&quot;可以领证了&quot;);
-14                }else{
-15                    alert(&quot;你还小，等等吧&quot;);
-16                }
-17            }
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1、if语句&quot;&gt;&lt;a href=&quot;#1、if语句&quot; class=&quot;headerlink&quot; title=&quot;1、if语句&quot;&gt;&lt;/a&gt;1、if语句&lt;/h2&gt;&lt;p&gt;if是如果的意思。else，否则。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;1    语法：
-2    if(cond
-    
-    </summary>
-    
-      <category term="条件分支语句" scheme="http://yoursite.com/categories/%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5/"/>
-    
-    
-      <category term="if" scheme="http://yoursite.com/tags/if/"/>
-    
-  </entry>
-  
-  <entry>
     <title>JS条件分支语句</title>
     <link href="http://yoursite.com/2016/10/10/title6/"/>
     <id>http://yoursite.com/2016/10/10/title6/</id>
@@ -5786,6 +5665,127 @@ word
     
     
       <category term="switch" scheme="http://yoursite.com/tags/switch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>if语句</title>
+    <link href="http://yoursite.com/2016/10/10/title5/"/>
+    <id>http://yoursite.com/2016/10/10/title5/</id>
+    <published>2016-10-10T09:27:56.000Z</published>
+    <updated>2017-02-20T10:30:08.471Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、if语句"><a href="#1、if语句" class="headerlink" title="1、if语句"></a>1、if语句</h2><p>if是如果的意思。else，否则。</p>
+<pre><code>1    语法：
+2    if(condition){
+3            statement1   //结构体，多行代码，写在一对大括号内部
+4        }else{
+5            statement2
+6     }
+</code></pre><p>结构体要执行就都执行，要不执行，就都不执行。</p>
+<p>condition：条件表达式，强制给我们转成布尔值。</p>
+<p>含义：如果条件condition为真，执行第一个结构体。如果为假，执行第二个结构体。</p>
+<pre><code>1    if(条件){
+2    条件为真，执行的结构体；
+3    }else{
+4    条件为假，执行的结构体；
+    }
+</code></pre><p>if语句可以没有else，条件成立执行结构体，不成立直接退出程序</p>
+<pre><code>1    if(a &lt; 60){
+2        alert(&quot;抱歉没及格，努力吧&quot;);3    }
+</code></pre><p>如果执行的结构体只有单行语句，可以省略大括号</p>
+<pre><code>1    if(a &gt;= 60)
+2        alert(&quot;恭喜，及格了&quot;);
+3    else
+4    alert(&quot;很遗憾，没及格，继续努力&quot;);
+</code></pre><p>也能写在if语句的同一行，仅限单行结构体。</p>
+<pre><code>1    if(a &gt;= 60) alert(&quot;恭喜，及格了&quot;);
+2    else alert(&quot;很遗憾，没及格，继续努力&quot;);
+</code></pre><p>这两种写法不会报错，但是为了避免出一些不必要的问题，尽量写大括号。<br>大括号后面不需要写分号，不会出错。</p>
+<p>if语句殊途同归，不管执行哪个程序，退出后都继续执行后面的语句</p>
+<pre><code>1    if(a &gt;= 60){
+2                alert(&quot;恭喜，及格了&quot;);
+3            }else{
+4                alert(&quot;很遗憾，没及格，继续努力&quot;);
+5            }
+6            alert(&quot;好好准备下一次考试&quot;);
+</code></pre><h2 id="2、多条件分支语句"><a href="#2、多条件分支语句" class="headerlink" title="2、多条件分支语句"></a>2、多条件分支语句</h2><p>条件并不是只有一个，每一个条件对应一个结构体。</p>
+<p>if……else if …… else if…… else if…… else …… 如果……否则如果……否则如果……否则……</p>
+<pre><code>1    if(条件1){
+2        满足条件1执行的结构体
+3    }else if(条件2){
+4        条件1不满足，满足条件2时执行的结构体
+5    }else if(条件3){
+6        条件1/2都不满足，满足条件3时执行的结构体
+7    }else if(条件4){
+8        条件1/2/3都不满足，满足条件4时执行的结构体
+9    }else{
+10        以上条件都不满足，执行的结构体11    }
+</code></pre><p>跳楼现象：程序会选择一个分支执行（跳楼），如果执行了这个分支，表示前面分支的条件都没有满足。</p>
+<p>案例：详细划分成绩评价，优秀，良好，及格，不及格。</p>
+<pre><code>1    if(a &gt;= 90){
+2        alert(&quot;优秀&quot;);
+3    }else if(a &gt;= 70){  //如果走到这一步，隐含了a&lt;90
+4        alert(&quot;良好&quot;);        //执行完之后，直接跳楼，不会执行后面的条件分之
+5    }else if(a &gt;= 60){
+6        alert(&quot;及格&quot;);  //如果走到这一步，隐含了a&lt;70
+7    }else{
+8        alert(&quot;不及格&quot;);9    }
+</code></pre><blockquote>
+<p>大坑</p>
+</blockquote>
+<pre><code>1    var b = 1;
+2            if(b &lt;= 3){  //只会选择这个条件内部的结构体，执行后直接跳楼
+3                b += 4;
+4            }else if(b == 5){
+5                b += 3
+6            }else if(b == 8 ){
+7                b += 4
+8            }else{
+9                b += 10;
+10            }
+11            console.log(b);
+</code></pre><h2 id="3、if语句嵌套"><a href="#3、if语句嵌套" class="headerlink" title="3、if语句嵌套"></a>3、if语句嵌套</h2><p>制作一个结构的时候，有两个限制条件，可以使用if语句的嵌套。</p>
+<p>if语句可以嵌套if语句使用，最终执行符合条件成立的结构体</p>
+<pre><code>1    if(sex == &quot;男&quot; &amp;&amp; age &gt;= 22){
+2                alert(&quot;可以领证了&quot;);
+3            }else if(sex == &quot;女&quot; &amp;&amp; age &gt;= 20){
+4                alert(&quot;可以领证了&quot;);
+5            }else{
+6                alert(&quot;你还小，等等吧&quot;);
+7            }
+</code></pre><p> 以上程序也可以达到效果：结构划分不清晰，条件比较复杂。</p>
+<pre><code>1    //if语句嵌套方法，每一层if语句只判断一个条件，内部再去进行另一个条件的判断。
+2            //第一层，只判断性别
+3            if(sex == &quot;男&quot;){
+4                //第二次，判断年龄
+5                if(age &gt;= 22){
+6                    alert(&quot;可以领证了&quot;);
+7                }else{
+8                    alert(&quot;你还小，等等吧&quot;);
+9                }
+10            }else{
+11                //第二次，判断年龄
+12                if(age &gt;= 20){
+13                    alert(&quot;可以领证了&quot;);
+14                }else{
+15                    alert(&quot;你还小，等等吧&quot;);
+16                }
+17            }
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、if语句&quot;&gt;&lt;a href=&quot;#1、if语句&quot; class=&quot;headerlink&quot; title=&quot;1、if语句&quot;&gt;&lt;/a&gt;1、if语句&lt;/h2&gt;&lt;p&gt;if是如果的意思。else，否则。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1    语法：
+2    if(cond
+    
+    </summary>
+    
+      <category term="条件分支语句" scheme="http://yoursite.com/categories/%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5/"/>
+    
+    
+      <category term="if" scheme="http://yoursite.com/tags/if/"/>
     
   </entry>
   
