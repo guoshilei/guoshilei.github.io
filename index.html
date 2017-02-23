@@ -253,6 +253,26 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            menu.commonweal
+          </a>
+        </li>
+      
 
       
     </ul>
@@ -1507,7 +1527,7 @@ if(window.XMLHttpRequest){
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/30/title36/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/30/title37/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Layne">
@@ -1532,8 +1552,8 @@ if(window.XMLHttpRequest){
             
               
                 
-                <a class="post-title-link" href="/2016/11/30/title36/" itemprop="url">
-                  移动端JS事件
+                <a class="post-title-link" href="/2016/11/30/title37/" itemprop="url">
+                  移动端缓冲ease事件
                 </a>
               
             
@@ -1590,8 +1610,8 @@ if(window.XMLHttpRequest){
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/30/title36/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/30/title36/" itemprop="commentCount"></span>
+                <a href="/2016/11/30/title37/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/30/title37/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1599,7 +1619,7 @@ if(window.XMLHttpRequest){
 
           
           
-             <span id="/2016/11/30/title36/" class="leancloud_visitors" data-flag-title="移动端JS事件">
+             <span id="/2016/11/30/title37/" class="leancloud_visitors" data-flag-title="移动端缓冲ease事件">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1630,17 +1650,21 @@ if(window.XMLHttpRequest){
       
         
           
-          ##1、触摸事件 ##移动端JS事件，重要就是触摸事件。触摸事件和鼠标事件完全不一样，因为鼠标不可能离开屏幕，鼠标在屏幕上可以点击可以不点击；但是手指可以离开屏幕，手指一旦碰到屏幕，就被视为点击了。所以，JS设计了一套完整的触摸事件系列，适应移动端web开发。
+          1、缓冲easeCSS中的transition第三个参数就是缓冲描述：
+transition:all 1s linear 0s;  
+transition:all 1s ease 0s;
+JS也有，但是要自己推理：
+让div用100帧，从left100变化到left800。匀速的话，非常好计算：
+总变化量就是700，所以每帧的变化量应该是7。
+帧编号t    距起点的增量tc/d    绝对位置b + tc/d
 
-touchstart 开始触摸
-touchmove 手指移动
-touchend 结束触摸
-touchstart 在手指触摸的一瞬间发生，如果有多个手指触摸，每个手指触摸的时候都会发生。
-touchend 在手指离开屏幕的一瞬间发生，如果
+
+假设帧编号为t（本例中t自增），t就是time的意思
+起点成为b（本例中b为10
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/30/title36/#more" rel="contents">
+            <a class="btn" href="/2016/11/30/title37/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1767,7 +1791,7 @@ touchend 在手指离开屏幕的一瞬间发生，如果
 
         
         
-          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
             <div class="links-of-blogroll-title">
               <i class="fa  fa-fw fa-globe"></i>
               Links
