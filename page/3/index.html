@@ -254,12 +254,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-introduction">
-          <a href="/introduction" rel="section">
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
             
-            menu.introduction
+            menu.commonweal
           </a>
         </li>
       
@@ -329,7 +329,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/20/title25/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/20/title27/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -354,8 +354,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/20/title25/" itemprop="url">
-                  jQuery节点关系
+                <a class="post-title-link" href="/2016/11/20/title27/" itemprop="url">
+                  animate常见知识
                 </a>
               
             
@@ -412,8 +412,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/20/title25/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/20/title25/" itemprop="commentCount"></span>
+                <a href="/2016/11/20/title27/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/20/title27/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -421,7 +421,7 @@
 
           
           
-             <span id="/2016/11/20/title25/" class="leancloud_visitors" data-flag-title="jQuery节点关系">
+             <span id="/2016/11/20/title27/" class="leancloud_visitors" data-flag-title="animate常见知识">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -452,20 +452,21 @@
       
         
           
-          节点关系jQuery控制元素时，都是批量控制。
-添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。
-jQuery帮我们简化了这个找关系的过程，封装了一系列的方法可以帮我们找到父亲、儿子、兄弟、祖先、孙子等元素。
-1、$(this)自己事件内部有一个$(this)的对象，指向的就是触发事件的这个元素本身。
-就是原生js里的事件函数内的那个this，用$()将this转成jQuery对象，就能调用jQuery的方法。this不要加引号。
-1    // 谁触发事件谁动
-2    $(&quot;p&quot;).click(function(){
-3        $(this).animate({&quot;left&quot;:1000},1000);
-4    });
-2
+          1、概述animate是动画的意思。是jQuery自己的一个运动方法。非常好用的方法。
+原生js动画必须依靠setInterval，根据步长和间隔时间来操作运动。
+animate动画方法内部给我们用setInterval已经封装好了。不用自己去计算步长。
+方法通过两个参数决定运动的结束位置和总时间。
+语法：
+1    .animate(结束位置JSON，运动总时间)
+第一个参数必须是JSON对象：即便只有一个属性变化也需要写在JSON。
+第二个参数是总时间：经过多长时间运动停止，习惯给一个变量during。
+原来JS的代码：
+1    var demo = document.getElementById(&quot;demo&quot;);
+2            var now = 10
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/20/title25/#more" rel="contents">
+            <a class="btn" href="/2016/11/20/title27/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -683,7 +684,7 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/20/title27/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/20/title25/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -708,8 +709,8 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
             
               
                 
-                <a class="post-title-link" href="/2016/11/20/title27/" itemprop="url">
-                  animate常见知识
+                <a class="post-title-link" href="/2016/11/20/title25/" itemprop="url">
+                  jQuery节点关系
                 </a>
               
             
@@ -766,8 +767,8 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/20/title27/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/20/title27/" itemprop="commentCount"></span>
+                <a href="/2016/11/20/title25/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/20/title25/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -775,7 +776,7 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
 
           
           
-             <span id="/2016/11/20/title27/" class="leancloud_visitors" data-flag-title="animate常见知识">
+             <span id="/2016/11/20/title25/" class="leancloud_visitors" data-flag-title="jQuery节点关系">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -806,21 +807,20 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
       
         
           
-          1、概述animate是动画的意思。是jQuery自己的一个运动方法。非常好用的方法。
-原生js动画必须依靠setInterval，根据步长和间隔时间来操作运动。
-animate动画方法内部给我们用setInterval已经封装好了。不用自己去计算步长。
-方法通过两个参数决定运动的结束位置和总时间。
-语法：
-1    .animate(结束位置JSON，运动总时间)
-第一个参数必须是JSON对象：即便只有一个属性变化也需要写在JSON。
-第二个参数是总时间：经过多长时间运动停止，习惯给一个变量during。
-原来JS的代码：
-1    var demo = document.getElementById(&quot;demo&quot;);
-2            var now = 10
+          节点关系jQuery控制元素时，都是批量控制。
+添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。
+jQuery帮我们简化了这个找关系的过程，封装了一系列的方法可以帮我们找到父亲、儿子、兄弟、祖先、孙子等元素。
+1、$(this)自己事件内部有一个$(this)的对象，指向的就是触发事件的这个元素本身。
+就是原生js里的事件函数内的那个this，用$()将this转成jQuery对象，就能调用jQuery的方法。this不要加引号。
+1    // 谁触发事件谁动
+2    $(&quot;p&quot;).click(function(){
+3        $(this).animate({&quot;left&quot;:1000},1000);
+4    });
+2
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/20/title27/#more" rel="contents">
+            <a class="btn" href="/2016/11/20/title25/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
