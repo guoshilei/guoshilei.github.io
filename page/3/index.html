@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="en">
+<html class="theme-next mist use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -105,7 +105,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Mist',
     sidebar: {"position":"right","display":"post"},
     fancybox: true,
     motion: true,
@@ -329,7 +329,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/20/title26/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/08/title17/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -354,8 +354,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/20/title26/" itemprop="url">
-                  jQuery排序常见方法
+                <a class="post-title-link" href="/2016/11/08/title17/" itemprop="url">
+                  获取尺寸和位置的方法
                 </a>
               
             
@@ -371,8 +371,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-20T17:27:56+08:00">
-                2016-11-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-08T17:27:56+08:00">
+                2016-11-08
               </time>
             
 
@@ -394,8 +394,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/jQuery/" itemprop="url" rel="index">
-                    <span itemprop="name">jQuery</span>
+                  <a href="/categories/offsetLeft/" itemprop="url" rel="index">
+                    <span itemprop="name">offsetLeft</span>
                   </a>
                 </span>
 
@@ -412,8 +412,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/20/title26/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/20/title26/" itemprop="commentCount"></span>
+                <a href="/2016/11/08/title17/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/08/title17/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -421,7 +421,7 @@
 
           
           
-             <span id="/2016/11/20/title26/" class="leancloud_visitors" data-flag-title="jQuery排序常见方法">
+             <span id="/2016/11/08/title17/" class="leancloud_visitors" data-flag-title="获取尺寸和位置的方法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -452,16 +452,24 @@
       
         
           
-          jQuery排序1、eq（）整体排序通过$()得到jQuery对象，可以继续通过eq()获得某一个元素。
-下标问题：jQuery对象得到的原生对象会进行一个自己的排列，组成一个队列。eq()方法是从这个队列里去进行排序。与原来页面的结构无关。
-1    //不能用一个下标1全部选中，选中的仅仅是所有被选中的p组成的队列里的第一个
-2            // $(&quot;div p&quot;).eq(1).css(&quot;background&quot;,&quot;red&quot;);
-3            // $(&quot;div p&quot;).eq(5).css(&quot;background&quot;,&quot;red&quot;);
-4       
+          前面封装的函数得到的值都是字符串，使用的时候，一部分需要转成数字取计算。JS提供了几个常用的快捷尺寸，得到的就是数字类型的数据。
+
+offsetLeft
+offsetTop
+offsetWidth
+offsetHeight
+clientWidth
+clientHeight
+
+1、offsetLeft和offsetTop严重的兼容性问题。以offsetLeft为例。offset具有偏移量的含义。元素天生具有一个属性，认识一个叫做offsetParent的元素，偏移参考元素。
+调用方法：打点调用offsetLeft。
+兼容IE9以上及高级浏览器
+1    &lt;div class=&quot;box1&quot;&gt;
+2            &lt;div class=&quot;box
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/20/title26/#more" rel="contents">
+            <a class="btn" href="/2016/11/08/title17/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -504,7 +512,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/20/title27/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/31/title14/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -529,8 +537,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/20/title27/" itemprop="url">
-                  animate常见知识
+                <a class="post-title-link" href="/2016/10/31/title14/" itemprop="url">
+                  DOM操作方法
                 </a>
               
             
@@ -546,8 +554,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-20T17:27:56+08:00">
-                2016-11-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-31T17:27:56+08:00">
+                2016-10-31
               </time>
             
 
@@ -569,8 +577,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/jQuery/" itemprop="url" rel="index">
-                    <span itemprop="name">jQuery</span>
+                  <a href="/categories/Dom/" itemprop="url" rel="index">
+                    <span itemprop="name">Dom</span>
                   </a>
                 </span>
 
@@ -587,8 +595,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/20/title27/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/20/title27/" itemprop="commentCount"></span>
+                <a href="/2016/10/31/title14/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/31/title14/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -596,7 +604,7 @@
 
           
           
-             <span id="/2016/11/20/title27/" class="leancloud_visitors" data-flag-title="animate常见知识">
+             <span id="/2016/10/31/title14/" class="leancloud_visitors" data-flag-title="DOM操作方法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -627,21 +635,16 @@
       
         
           
-          1、概述animate是动画的意思。是jQuery自己的一个运动方法。非常好用的方法。
-原生js动画必须依靠setInterval，根据步长和间隔时间来操作运动。
-animate动画方法内部给我们用setInterval已经封装好了。不用自己去计算步长。
-方法通过两个参数决定运动的结束位置和总时间。
-语法：
-1    .animate(结束位置JSON，运动总时间)
-第一个参数必须是JSON对象：即便只有一个属性变化也需要写在JSON。
-第二个参数是总时间：经过多长时间运动停止，习惯给一个变量during。
-原来JS的代码：
-1    var demo = document.getElementById(&quot;demo&quot;);
-2            var now = 10
+          1、DOM体验DOM（Document Object Model，文档对象模型）描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。这使得JavaScript操作HTML，不是在操作字符串，而是在操作节点，极大地降低了编程难度。编写例子整体感知一下这个事儿。
+1    //获得元素
+2            var oDiv = document.getElementById(&quot;box&quot;);
+3            var oKaola = document.getElementById(&quot;kaola&quot;);
+4            //添加点击事件，盒子变色，图片变图
+5            oDiv.onclick = fun
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/20/title27/#more" rel="contents">
+            <a class="btn" href="/2016/10/31/title14/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -684,7 +687,7 @@ animate动画方法内部给我们用setInterval已经封装好了。不用自�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/20/title25/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/29/title13/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -709,8 +712,8 @@ animate动画方法内部给我们用setInterval已经封装好了。不用自�
             
               
                 
-                <a class="post-title-link" href="/2016/11/20/title25/" itemprop="url">
-                  jQuery节点关系
+                <a class="post-title-link" href="/2016/10/29/title13/" itemprop="url">
+                  arguments对象
                 </a>
               
             
@@ -726,8 +729,8 @@ animate动画方法内部给我们用setInterval已经封装好了。不用自�
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-20T17:27:56+08:00">
-                2016-11-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-29T17:27:56+08:00">
+                2016-10-29
               </time>
             
 
@@ -749,8 +752,8 @@ animate动画方法内部给我们用setInterval已经封装好了。不用自�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/jQuery/" itemprop="url" rel="index">
-                    <span itemprop="name">jQuery</span>
+                  <a href="/categories/arguments/" itemprop="url" rel="index">
+                    <span itemprop="name">arguments</span>
                   </a>
                 </span>
 
@@ -767,8 +770,8 @@ animate动画方法内部给我们用setInterval已经封装好了。不用自�
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/20/title25/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/20/title25/" itemprop="commentCount"></span>
+                <a href="/2016/10/29/title13/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/29/title13/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -776,7 +779,7 @@ animate动画方法内部给我们用setInterval已经封装好了。不用自�
 
           
           
-             <span id="/2016/11/20/title25/" class="leancloud_visitors" data-flag-title="jQuery节点关系">
+             <span id="/2016/10/29/title13/" class="leancloud_visitors" data-flag-title="arguments对象">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -807,20 +810,19 @@ animate动画方法内部给我们用setInterval已经封装好了。不用自�
       
         
           
-          节点关系jQuery控制元素时，都是批量控制。
-添加事件，元素本身运动、或者其他元素运动，都想跟事件元素找一些关系。
-jQuery帮我们简化了这个找关系的过程，封装了一系列的方法可以帮我们找到父亲、儿子、兄弟、祖先、孙子等元素。
-1、$(this)自己事件内部有一个$(this)的对象，指向的就是触发事件的这个元素本身。
-就是原生js里的事件函数内的那个this，用$()将this转成jQuery对象，就能调用jQuery的方法。this不要加引号。
-1    // 谁触发事件谁动
-2    $(&quot;p&quot;).click(function(){
-3        $(this).animate({&quot;left&quot;:1000},1000);
-4    });
-2
+          1、arguments对象在其他语言里，一个函数定义两次，每次有不同的形式参数，代表的就是两个不同的函数，叫做函数的重载（overloaded）。
+1    function fun(a,b){
+2                console.log(1);
+3            }
+4            function fun(a,b,c){
+5                console.log(2);
+6            }
+以上在其他语言里，作为两个不同的函数执行，如果实际参数有2个，调用第一个函数，如果实际参数有三个，调用第二个函数。
+JS语言没有函数重载的现象。一个标识符不能给两个函数，如果给了两个函数，第二个会覆盖前面的。不论参数是多少个，都会去执行最后一个
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/20/title25/#more" rel="contents">
+            <a class="btn" href="/2016/10/29/title13/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -863,7 +865,7 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/18/title22/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/26/title12/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -888,8 +890,8 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
             
               
                 
-                <a class="post-title-link" href="/2016/11/18/title22/" itemprop="url">
-                  call和apply
+                <a class="post-title-link" href="/2016/10/26/title12/" itemprop="url">
+                  正则的术语和操作符
                 </a>
               
             
@@ -905,8 +907,8 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-18T17:27:56+08:00">
-                2016-11-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-26T17:27:56+08:00">
+                2016-10-26
               </time>
             
 
@@ -928,8 +930,8 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/callpply/" itemprop="url" rel="index">
-                    <span itemprop="name">callpply</span>
+                  <a href="/categories/正则/" itemprop="url" rel="index">
+                    <span itemprop="name">正则</span>
                   </a>
                 </span>
 
@@ -946,8 +948,8 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/18/title22/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/18/title22/" itemprop="commentCount"></span>
+                <a href="/2016/10/26/title12/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/26/title12/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -955,7 +957,7 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
 
           
           
-             <span id="/2016/11/18/title22/" class="leancloud_visitors" data-flag-title="call和apply">
+             <span id="/2016/10/26/title12/" class="leancloud_visitors" data-flag-title="正则的术语和操作符">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -986,20 +988,19 @@ jQuery帮我们简化了这个找关系的过程，封装了一系列的方法�
       
         
           
-          call和apply了解普通函数内部有没有this关键，指向是谁。
-1    var box = document.getElementById(&quot;box1&quot;);
-2            animate(box,{&quot;left&quot;:300},1000,function(){
-3                console.log(this);
-4            });
-5            function move(){
-6                console.log(this);
-7            }
-普通函数（事件函数除外）内部的this默认指向window对象。
-call方法和apply方法能够帮我们制定函数内部t
+          由一些普通字符和一些特殊字符（又叫元字符–metacharacters）组成。普通字符包括大小写的字母和数字，而元字符则具有特殊的含义。
+特殊字符：
+（） [ ] { } \ ^ $ | ? * + .
+就想匹配特殊字符，将特殊字符进行转义。用到转义符号\。
+(    [    .
+1、精确匹配精确匹配指的是我们要去匹配某一个固定值或者常量，匹配abc，正则表达式里必须用精确的术语进行匹配。
+正则表达式：/abc/,表示我们要匹配的是三个字符，分别是a，b，c，必须是顺序在一起，顺序不能颠倒。
+2、预定义特殊字符：\t    /\t/    制表符      eg: console.log(/\t/.test(&apos;    &apos;)) 
+\n    /\n    回车符     
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/18/title22/#more" rel="contents">
+            <a class="btn" href="/2016/10/26/title12/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1042,7 +1043,7 @@ call方法和apply方法能够帮我们制定函数内部t
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/18/title23/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/23/title11/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -1067,8 +1068,8 @@ call方法和apply方法能够帮我们制定函数内部t
             
               
                 
-                <a class="post-title-link" href="/2016/11/18/title23/" itemprop="url">
-                  延时器setTimeout讲解
+                <a class="post-title-link" href="/2016/10/23/title11/" itemprop="url">
+                  字符串属性和方法
                 </a>
               
             
@@ -1084,8 +1085,8 @@ call方法和apply方法能够帮我们制定函数内部t
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-18T17:27:56+08:00">
-                2016-11-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-23T17:27:56+08:00">
+                2016-10-23
               </time>
             
 
@@ -1107,8 +1108,8 @@ call方法和apply方法能够帮我们制定函数内部t
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/setTimeout/" itemprop="url" rel="index">
-                    <span itemprop="name">setTimeout</span>
+                  <a href="/categories/字符串/" itemprop="url" rel="index">
+                    <span itemprop="name">字符串</span>
                   </a>
                 </span>
 
@@ -1125,8 +1126,8 @@ call方法和apply方法能够帮我们制定函数内部t
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/18/title23/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/18/title23/" itemprop="commentCount"></span>
+                <a href="/2016/10/23/title11/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/23/title11/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1134,7 +1135,7 @@ call方法和apply方法能够帮我们制定函数内部t
 
           
           
-             <span id="/2016/11/18/title23/" class="leancloud_visitors" data-flag-title="延时器setTimeout讲解">
+             <span id="/2016/10/23/title11/" class="leancloud_visitors" data-flag-title="字符串属性和方法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1165,22 +1166,21 @@ call方法和apply方法能够帮我们制定函数内部t
       
         
           
-          1、延时器延时器：setTimeout()。在指定时间之后，执行1次函数。
-window方法，可以省略书写。
-比喻定时炸弹：在多少时间之后，炸弹爆炸。
-1    语法：setTimeout(函数，等待时间);
-1    console.log(1);
-2    console.log(2);
-3    console.log(3);
-4    setTimeout(function(){
-5     console.log(&quot;booom shakalaka&quot;);
-6    },1000);
-7    console.log(4)
-使用情况：setTimeout，如果需要在一段时间之后才执行某一个函数。只执行一次。setInterval，如果需要每隔一段时间执行函数一次，反
+          1、length属性length 属性可返回字符串中的字符数目。
+49    //数组可以存一组数据        
+50            var str = &quot;今天要多讲一会儿了hahaha，你能怎 样？&quot;;
+51            console.log(str.length);
+2、方法charAt() 方法可返回指定位置的字符。
+index:字符索引值，从0开始。
+36    语法：str.charAt(index);
+
+52    var str = &quot;今天要多讲一会儿了hahaha，你能怎 样？&quot;;
+53    console.log(str.charAt(3));
+concat() 方法用于连接两个或多个字符串。原字符串不会被改
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/18/title23/#more" rel="contents">
+            <a class="btn" href="/2016/10/23/title11/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1223,7 +1223,7 @@ window方法，可以省略书写。
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/18/title24/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/22/title10/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -1248,8 +1248,8 @@ window方法，可以省略书写。
             
               
                 
-                <a class="post-title-link" href="/2016/11/18/title24/" itemprop="url">
-                  jQuery常用方法
+                <a class="post-title-link" href="/2016/10/22/title10/" itemprop="url">
+                  数组基本知识
                 </a>
               
             
@@ -1265,8 +1265,8 @@ window方法，可以省略书写。
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-18T17:27:56+08:00">
-                2016-11-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-22T17:27:56+08:00">
+                2016-10-22
               </time>
             
 
@@ -1288,8 +1288,8 @@ window方法，可以省略书写。
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/jQuery/" itemprop="url" rel="index">
-                    <span itemprop="name">jQuery</span>
+                  <a href="/categories/arr/" itemprop="url" rel="index">
+                    <span itemprop="name">arr</span>
                   </a>
                 </span>
 
@@ -1306,8 +1306,8 @@ window方法，可以省略书写。
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/18/title24/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/18/title24/" itemprop="commentCount"></span>
+                <a href="/2016/10/22/title10/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/22/title10/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1315,7 +1315,7 @@ window方法，可以省略书写。
 
           
           
-             <span id="/2016/11/18/title24/" class="leancloud_visitors" data-flag-title="jQuery常用方法">
+             <span id="/2016/10/22/title10/" class="leancloud_visitors" data-flag-title="数组基本知识">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1346,19 +1346,19 @@ window方法，可以省略书写。
       
         
           
-          jQuery常用方法1、html()相当于我们原生js里面的innerHTML方法。给元素内部添加内容。
-参数必须是字符串。
-1    $(&quot;div&quot;).html(&quot;你好，这是一个div&quot;);
-手动的给标签内部加其他标签。
-1    $(&quot;div&quot;).html(&quot;&lt;p&gt;&lt;a href=\&quot;#\&quot;&gt;你好&lt;/a&gt;&lt;/p&gt;&quot;);
-读取内容：只能读取第一个元素内的内容。
-1    console.log($(&quot;div&quot;).html());
-2、addClass()和removeClass()增加类名：addClass
-移除类名：rem
+          1、数组的概述数组：是一组有序的数据集合。存放的不是一个单独的数据，而是一组数据。
+创建一个数组，最简单的方法是使用数组字面量。
+数组字面量：[],中括号表示内部存放的是一个数组。
+[]里面可以放多个数据，每个数据之间用逗号隔开，最后一个数据后面不用加逗号。
+1    //数组可以存一组数据        
+2    var arr = [1,2,3,4,5];
+一个数组内可以存不同数据类型的数据。实际工作还是存同一种的情况居多。
+1    //数组内并不只存储一种类型的数据，能存各种数据类型，甚至存数组
+2    var arr2 = [1,&quot;haha&quot;,undefined,true,null,function fun(){console.log(a)},[3,4,5]
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/18/title24/#more" rel="contents">
+            <a class="btn" href="/2016/10/22/title10/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1401,7 +1401,7 @@ window方法，可以省略书写。
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/16/title21/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/17/title8/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -1426,8 +1426,8 @@ window方法，可以省略书写。
             
               
                 
-                <a class="post-title-link" href="/2016/11/16/title21/" itemprop="url">
-                  异步和回调函数
+                <a class="post-title-link" href="/2016/10/17/title8/" itemprop="url">
+                  函数的使用
                 </a>
               
             
@@ -1443,8 +1443,8 @@ window方法，可以省略书写。
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-16T17:27:56+08:00">
-                2016-11-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-17T17:27:56+08:00">
+                2016-10-17
               </time>
             
 
@@ -1466,8 +1466,8 @@ window方法，可以省略书写。
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/回调函数/" itemprop="url" rel="index">
-                    <span itemprop="name">回调函数</span>
+                  <a href="/categories/函数/" itemprop="url" rel="index">
+                    <span itemprop="name">函数</span>
                   </a>
                 </span>
 
@@ -1484,8 +1484,8 @@ window方法，可以省略书写。
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/16/title21/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/16/title21/" itemprop="commentCount"></span>
+                <a href="/2016/10/17/title8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/17/title8/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1493,7 +1493,7 @@ window方法，可以省略书写。
 
           
           
-             <span id="/2016/11/16/title21/" class="leancloud_visitors" data-flag-title="异步和回调函数">
+             <span id="/2016/10/17/title8/" class="leancloud_visitors" data-flag-title="函数的使用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1524,20 +1524,22 @@ window方法，可以省略书写。
       
         
           
-          1、异步异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。
-js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。
-同步：
-1    console.log(1);    
-2            console.log(2);    
-3            console.log(3);    
-4            console.log(4);
-5            //for循环，必须跳出循环才能走后面的语句
-6            for(var i = 0 ; i &lt;= 100000 ; i++){
-7  
+          函数就是功能。函数可以封装一段代码，整体会具备一个功能，可以人为的定义自己的功能。函数执行时候，所有的这一段封装的代码都会立即执行，实现这个功能。
+1    //定义函数
+2            function fun(){
+3                console.log(1);
+4                console.log(2);
+5                console.log(3);
+6                console.log(4);
+7                console.log(5);
+8            }
+9            //使用函数
+10            fun();
+11            
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/16/title21/#more" rel="contents">
+            <a class="btn" href="/2016/10/17/title8/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1580,7 +1582,7 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/14/title20/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/13/title7/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="郭石磊">
@@ -1605,8 +1607,8 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
             
               
                 
-                <a class="post-title-link" href="/2016/11/14/title20/" itemprop="url">
-                  JS封装简单运动框架
+                <a class="post-title-link" href="/2016/10/13/title7/" itemprop="url">
+                  JS循环语句
                 </a>
               
             
@@ -1622,8 +1624,8 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-14T17:27:56+08:00">
-                2016-11-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-13T17:27:56+08:00">
+                2016-10-13
               </time>
             
 
@@ -1645,8 +1647,8 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JS/" itemprop="url" rel="index">
-                    <span itemprop="name">JS</span>
+                  <a href="/categories/循环语句/" itemprop="url" rel="index">
+                    <span itemprop="name">循环语句</span>
                   </a>
                 </span>
 
@@ -1663,8 +1665,8 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/14/title20/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/title20/" itemprop="commentCount"></span>
+                <a href="/2016/10/13/title7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/13/title7/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1672,7 +1674,7 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
 
           
           
-             <span id="/2016/11/14/title20/" class="leancloud_visitors" data-flag-title="JS封装简单运动框架">
+             <span id="/2016/10/13/title7/" class="leancloud_visitors" data-flag-title="JS循环语句">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1703,30 +1705,17 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
       
         
           
-          ##1 封装简单运动框架 ##
-两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。
-可以随意定义left的步长，可以计算次数，同样可以计算宽度的步长
-1 △left = 20；
-
-2 次数 = （400 - 0） / 20 = 20
-
-3 △width = (300 - 100) / 20 = 10
-傻瓜版程序：给固定的值进行运动，耦合性太强。
-1 //两个属性要变动：left从0变到400，width从100变到300，间隔时间50毫秒。
-
-2//  全局信号量
-
-3var nowleft = box.offsetLeft;
-
-4var nowwidth = box.offsetWidth;
-
-5var interval = 50;
-
-6var tim
+          1、循环语句循环语句是一系列反复执行直到符合特定条件的命令。
+循环语句实际是对某一段代码进行循环执行，在规定的一个判断条件表达式为假的时候，跳出循环，停止重复执行。
+JavaScript 支持 for, do while, while这些循环语句。另外，你可以在循环语句中使用break和continue 语句 。
+1、for循环语句for循环语句是一种前测试循环语句。在执行下一次需要重复的代码之前，我需要先测试一下条件表达式到底是真还是假。如果是真，可以执行，如果是假，就不在循环，跳出for循环。for循环内部的循环语句执行时有先决条件。
+1    //体验一下考拉体重飙升的过程
+2            for(var i = 7 ; i &lt;= 178 ; i+=3){
+3     
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/14/title20/#more" rel="contents">
+            <a class="btn" href="/2016/10/13/title7/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1764,7 +1753,7 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1809,7 +1798,7 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1818,7 +1807,7 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1827,7 +1816,7 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -2065,7 +2054,7 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
 <div class="theme-info">
   Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
+    NexT.Mist
   </a>
 </div>
 
@@ -2137,13 +2126,6 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
 
   
 
