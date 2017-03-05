@@ -111,7 +111,7 @@ xhr.send(null);
 <meta property="og:image" content="http://wx3.sinaimg.cn/mw690/a579329cly1fcx2se74w1j20dh01ljra.jpg">
 <meta property="og:image" content="http://wx3.sinaimg.cn/mw690/a579329cly1fcx2sedfy8j208001j3yd.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/mw690/a579329cly1fcx2seks0wj20sa0gx3z0.jpg">
-<meta property="og:updated_time" content="2017-03-04T00:00:21.798Z">
+<meta property="og:updated_time" content="2017-03-05T14:43:01.735Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ajax中的GET请求和POST请求">
 <meta name="twitter:description" content="1、GET请求GET请求参数在URL中，所以参数非常好携带。GET请求没有上行报文体，所以send里面是null。
@@ -461,8 +461,7 @@ xhr.send(null);
 <pre><code>xhr.open(&quot;get&quot;,&quot;check.php?username=考拉&amp;age=12&quot;,true);
 xhr.send(null);
 </code></pre><p>研究两个事情：字符转码的问题、用JSON来转为query string。</p>
-<p>我们观察一个事情，此时在地址栏中输入你好：</p>
-<p><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx2sd5ktnj20ac04r746.jpg" alt=""><br>复制出来就是：</p>
+<p>我们观察一个事情，此时在地址栏中输入你好：<br> <a id="more"></a><br><img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx2sd5ktnj20ac04r746.jpg" alt=""><br>复制出来就是：</p>
 <p><a href="http://127.0.0.1/test.txt?%E4%BD%A0%E5%A5%BD" target="_blank" rel="external">http://127.0.0.1/test.txt?%E4%BD%A0%E5%A5%BD</a></p>
 <p>也就是说中文汉字就是：%AA%AA%AA</p>
 <p>其中AA是一个两位16进制数字。</p>

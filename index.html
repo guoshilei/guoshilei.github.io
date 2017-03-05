@@ -441,31 +441,15 @@
 
       
         
-          
-          适合人群
-
-喜欢写Blog的人
-有一定的编程基础
-爱折腾的人
-熟练使用版本控制Git
-了解使用Github
-熟悉基本的MarkDown语法
-环境准备
-
-安装Git
-下载 msysgit 并执行即可完成安装。
-安装Node.js
-在 Windows 环境下安装 Node.js 非常简单，仅须下载安装文件并执行即可完成安装。
-安装hexo
-利用 npm 命令即可安装。（在任意位置点击鼠标右键，选择Git bash）
-npm install -g hexo
-问题
-
-npm ERR! registry error parsing json 错误可能需要设置npm代理,执行命令
-  npm config set registry http://registry.cnpmjs.org
-
-hexo:com
-          ...
+          <p><strong>适合人群</strong></p>
+<ul>
+<li>喜欢写Blog的人</li>
+<li>有一定的编程基础</li>
+<li>爱折腾的人</li>
+<li>熟练使用版本控制Git</li>
+<li>了解使用Github</li>
+<li>熟悉基本的MarkDown语法</li>
+<li><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2016/09/23/title11/#more" rel="contents">
@@ -633,28 +617,12 @@ hexo:com
 
       
         
-          
-          1 概述PHP和HTML的关系就是LESS和CSS的关系。
-PHP是超文本预处理器
-&lt;h1&gt;好高兴啊，我买了一个iPhone&lt;?php echo 3+4; ?&gt;&lt;/h1&gt;
-编译为：
-&lt;h1&gt;好高兴啊，我买了一个iPhone7&lt;/h1&gt;
-LESS也是CSS预处理器：
-@a : 100px;
-div{
-  width:@a;
-}
-编译为：
-div{
-  width:100px;
-}
-用的时候还是用CSS！浏览器不能直接渲染PHP、不能直接渲染Less，必须转为HTML、CSS之后才能渲染。但是写的时候PHP就是比HTML厉害，Less就是比CSS厉害。
-2 浏览器编译试着写一个a.less文件：
-@a : 200px;
-
-div{
-  
-          ...
+          <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>PHP和HTML的关系就是LESS和CSS的关系。</p>
+<p>PHP是超文本预处理器</p>
+<pre><code>&lt;h1&gt;好高兴啊，我买了一个iPhone&lt;?php echo 3+4; ?&gt;&lt;/h1&gt;
+</code></pre><p>编译为：</p>
+<pre><code>&lt;h1&gt;好高兴啊，我买了一个iPhone7&lt;/h1&gt;
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2016/07/27/title32/#more" rel="contents">
@@ -822,18 +790,11 @@ div{
 
       
         
-          
-          1、GET请求GET请求参数在URL中，所以参数非常好携带。GET请求没有上行报文体，所以send里面是null。
-xhr.open(&quot;get&quot;,&quot;check.php?username=考拉&amp;age=12&quot;,true);
+          <h2 id="1、GET请求"><a href="#1、GET请求" class="headerlink" title="1、GET请求"></a>1、GET请求</h2><p>GET请求参数在URL中，所以参数非常好携带。GET请求没有上行报文体，所以send里面是null。</p>
+<pre><code>xhr.open(&quot;get&quot;,&quot;check.php?username=考拉&amp;age=12&quot;,true);
 xhr.send(null);
-研究两个事情：字符转码的问题、用JSON来转为query string。
-我们观察一个事情，此时在地址栏中输入你好：
-复制出来就是：
-http://127.0.0.1/test.txt?%E4%BD%A0%E5%A5%BD
-也就是说中文汉字就是：%AA%AA%AA
-其中AA是一个两位16进制数字。
-这个叫做URI转码（Uniform Resource Identifier，统一资源标识符），UR
-          ...
+</code></pre><p>研究两个事情：字符转码的问题、用JSON来转为query string。</p>
+<p>我们观察一个事情，此时在地址栏中输入你好：<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/12/09/title41/#more" rel="contents">
@@ -1001,18 +962,9 @@ http://127.0.0.1/test.txt?%E4%BD%A0%E5%A5%BD
 
       
         
-          
-          1、异步异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。
-js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。
-同步：
-1    console.log(1);    
-2            console.log(2);    
-3            console.log(3);    
-4            console.log(4);
-5            //for循环，必须跳出循环才能走后面的语句
-6            for(var i = 0 ; i &lt;= 100000 ; i++){
-7  
-          ...
+          <h2 id="1、异步"><a href="#1、异步" class="headerlink" title="1、异步"></a>1、异步</h2><p>异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。</p>
+<p>js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。</p>
+<p>同步：<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/12/06/title21/#more" rel="contents">
@@ -1180,18 +1132,15 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
 
       
         
-          
-          call和apply了解普通函数内部有没有this关键，指向是谁。
-1    var box = document.getElementById(&quot;box1&quot;);
+          <h2 id="call和apply"><a href="#call和apply" class="headerlink" title="call和apply"></a>call和apply</h2><p>了解普通函数内部有没有this关键，指向是谁。</p>
+<pre><code>1    var box = document.getElementById(&quot;box1&quot;);
 2            animate(box,{&quot;left&quot;:300},1000,function(){
 3                console.log(this);
 4            });
 5            function move(){
 6                console.log(this);
 7            }
-普通函数（事件函数除外）内部的this默认指向window对象。
-call方法和apply方法能够帮我们制定函数内部t
-          ...
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/11/01/title22/#more" rel="contents">
@@ -1531,20 +1480,12 @@ call方法和apply方法能够帮我们制定函数内部t
 
       
         
-          
-          1 百分比布局手机web页面都没有版心，都是撑满的，这是因为：
-
-手机本身就小，你再留白边，寸土寸金的地方都浪费了；
-APP一般都是撑满的，大家手机上网的时候，也希望撑满。                
-
-此时就会给制作带来难度，因为尺寸不能写px单位了，比如版心设置为360px，此时iPhone6plus的414视口会看见白色边：      
-2 百分比布局基础用百分比设置宽度、高度（绝大多数高度可以写为px）、padding、margin的布局方式，叫做流式布局，页面有弹性，所以也叫弹性布局。
-&lt;body&gt;
-    &lt;div&gt;&lt;/div&gt;  → div是body的亲儿子，60%指的是窗口宽度的60%
-&lt;/body&gt;
-
-&lt;body&g
-          ...
+          <h2 id="1-百分比布局"><a href="#1-百分比布局" class="headerlink" title="1 百分比布局"></a>1 百分比布局</h2><p>手机web页面都没有版心，都是撑满的，这是因为：</p>
+<blockquote>
+<p>手机本身就小，你再留白边，寸土寸金的地方都浪费了；</p>
+<p>APP一般都是撑满的，大家手机上网的时候，也希望撑满。<br>     <img src="http://wx4.sinaimg.cn/mw690/a579329cly1fcx0c1n65zj20so0bi7dt.jpg" alt="">           </p>
+</blockquote>
+<p>此时就会给制作带来难度，因为尺寸不能写px单位了，比如版心设置为360px，此时iPhone6plus的414视口会看见白色边：<br> <img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx0c20shdj20bq0dfaa4.jpg" alt=""><br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/09/28/title35/#more" rel="contents">
@@ -1712,16 +1653,13 @@ APP一般都是撑满的，大家手机上网的时候，也希望撑满。
 
       
         
-          
-          1、Canvas概述
- Canvas和Flash的思路完全不一样，Flash是上屏幕之后还是对象，编程语言叫做Action Script也是ECMAScript范畴。Canvas上屏幕之后像素化了，再也不能得到这个对象了，所以要想让这个元素运动，必须擦除整个屏幕、重绘这个元素。Canvas更流畅，手机端也嗷嗷流畅。
-
-canvas是一个双标签，里面的内容是不支持canvas浏览器显示的内容：
-&lt;canvas width=&quot;800&quot; height=&quot;600&quot;&gt;对不起，你的浏览器不支持画布，请升级浏览器！&lt;/canvas&gt;
+          <h2 id="1、Canvas概述"><a href="#1、Canvas概述" class="headerlink" title="1、Canvas概述"></a>1、Canvas概述</h2><blockquote>
+<p> Canvas和Flash的思路完全不一样，Flash是上屏幕之后还是对象，编程语言叫做Action Script也是ECMAScript范畴。Canvas上屏幕之后像素化了，再也不能得到这个对象了，所以要想让这个元素运动，必须擦除整个屏幕、重绘这个元素。Canvas更流畅，手机端也嗷嗷流畅。</p>
+</blockquote>
+<p>canvas是一个双标签，里面的内容是不支持canvas浏览器显示的内容：</p>
+<pre><code>&lt;canvas width=&quot;800&quot; height=&quot;600&quot;&gt;对不起，你的浏览器不支持画布，请升级浏览器！&lt;/canvas&gt;
 宽度、高度写在标签里面，如果写在css中，就变形、扭曲了。
-编程：
-&lt;script type=&quot
-          ...
+</code></pre><p>编程：<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/09/24/title29/#more" rel="contents">

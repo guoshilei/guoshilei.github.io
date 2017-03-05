@@ -116,7 +116,7 @@ setcookie函数就是设置co">
 <meta property="og:image" content="http://wx1.sinaimg.cn/mw690/a579329cly1fcx3vebpv4j20tv09pwf7.jpg">
 <meta property="og:image" content="http://wx3.sinaimg.cn/mw690/a579329cly1fcx3vknzt6j20lk067q3g.jpg">
 <meta property="og:image" content="http://wx1.sinaimg.cn/mw690/a579329cly1fcx3vktblej20nz065mxn.jpg">
-<meta property="og:updated_time" content="2017-03-03T23:48:33.614Z">
+<meta property="og:updated_time" content="2017-03-05T14:43:11.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cookie和Session">
 <meta name="twitter:description" content="1、Cookie就是一个Response头部的一个K-V对儿。
@@ -472,7 +472,8 @@ setcookie函数就是设置co">
 <pre><code>&lt;?php
     setcookie(&quot;xingming&quot;,&quot;kaola&quot;,time()+3600);
 ?&gt;
-</code></pre><p>第一次访问页面的时候，我们关心的是Response Headers：</p>
+</code></pre><a id="more"></a>
+<p>第一次访问页面的时候，我们关心的是Response Headers：</p>
 <p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx3vcvg58j20fc04njrm.jpg" alt=""><br>里面有一个Set-Cookie，值为</p>
 <pre><code>xingming=kaola; expires=Fri, 27-Jan-2017 12:38:36 GMT
 </code></pre><p>表示Cookie的值，和过期时间。</p>

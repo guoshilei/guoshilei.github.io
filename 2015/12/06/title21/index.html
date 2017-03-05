@@ -91,29 +91,20 @@
 
 <meta name="description" content="1、异步异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。
 js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。
-同步：
-1    console.log(1);    
-2            console.log(2);    
-3">
+同步：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="异步和回调函数">
 <meta property="og:url" content="http://yoursite.com/2015/12/06/title21/index.html">
 <meta property="og:site_name" content="Layne'blog">
 <meta property="og:description" content="1、异步异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。
 js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。
-同步：
-1    console.log(1);    
-2            console.log(2);    
-3">
-<meta property="og:updated_time" content="2017-03-03T23:59:34.944Z">
+同步：">
+<meta property="og:updated_time" content="2017-03-05T14:41:50.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="异步和回调函数">
 <meta name="twitter:description" content="1、异步异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。
 js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。
-同步：
-1    console.log(1);    
-2            console.log(2);    
-3">
+同步：">
 
 
 
@@ -453,18 +444,8 @@ js如果没有特殊语句：都是单线程，必须等到前面语句执行完
       
         <h2 id="1、异步"><a href="#1、异步" class="headerlink" title="1、异步"></a>1、异步</h2><p>异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。</p>
 <p>js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。</p>
-<p>同步：</p>
-<pre><code>1    console.log(1);    
-2            console.log(2);    
-3            console.log(3);    
-4            console.log(4);
-5            //for循环，必须跳出循环才能走后面的语句
-6            for(var i = 0 ; i &lt;= 100000 ; i++){
-7                console.log(1);
-8            }    
-9    //后面的语句必须等到前面执行完才嫩执行，否则，只能排队等待。
-10            console.log(5);    
-</code></pre><blockquote>
+<p>同步：<br><a id="more"></a><br>    1    console.log(1);<br>    2            console.log(2);<br>    3            console.log(3);<br>    4            console.log(4);<br>    5            //for循环，必须跳出循环才能走后面的语句<br>    6            for(var i = 0 ; i &lt;= 100000 ; i++){<br>    7                console.log(1);<br>    8            }<br>    9    //后面的语句必须等到前面执行完才嫩执行，否则，只能排队等待。<br>    10            console.log(5);    </p>
+<blockquote>
 <p>同步：工作中，完成一个demo，拿给项目经理去看，你就在旁边站着等，经理看完之后，告诉你这个可以了，继续下一个工作。</p>
 <p>异步：工作中，完成一个demo，拿给项目经理去看，在经理看的过程，你回工位做下一个demo，经理同时也在检查你的原demo，他做完了之后告诉你，你这个可以了，继续工作。</p>
 </blockquote>

@@ -103,7 +103,7 @@
 2    console.log(a);
 3    a = 12;
 函数声明提升：函数可以先调用，后定义。解析器在程序最开始，将全局范围内定义的函数声明提升到代码最前面">
-<meta property="og:updated_time" content="2017-03-03T23:58:20.499Z">
+<meta property="og:updated_time" content="2017-03-05T14:41:22.756Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数声明提升">
 <meta name="twitter:description" content="1、函数声明提升变量可以先使用后定义。js的解析器在运行的时候，会将所有的全局变量提升到最开始的位置，如果使用的时候可以找到这个变量定义。变量声明提升只提升定义，不提升赋值。初始值默认是undefined。
@@ -452,14 +452,8 @@
 <pre><code>1    var a;
 2    console.log(a);
 3    a = 12;
-</code></pre><p>函数声明提升：函数可以先调用，后定义。解析器在程序最开始，将全局范围内定义的函数声明提升到代码最前面，声明的时候提升的就是那个变量名指针，总能够根据函数名找到这个函数的圆型。</p>
-<pre><code>1    //先调用
-2            fun();
-3            //后定义
-4            function fun(){
-5                console.log(1);
-6            }
-</code></pre><p>函数声明头提升是强制性的：无视if语句以及for循环。</p>
+</code></pre><p>函数声明提升：函数可以先调用，后定义。解析器在程序最开始，将全局范围内定义的函数声明提升到代码最前面，声明的时候提升的就是那个变量名指针，总能够根据函数名找到这个函数的圆型。<br><a id="more"></a><br>    1    //先调用<br>    2            fun();<br>    3            //后定义<br>    4            function fun(){<br>    5                console.log(1);<br>    6            }</p>
+<p>函数声明头提升是强制性的：无视if语句以及for循环。</p>
 <p>函数的另外一种定义方式：函数表达式的定义，不会进行函数声明提升，它进行的是变量的声明提升。变量声明提升只提升定义 ，不提升函数赋值，里面存的undefined，给调用函数方法，出现引用类型错误。</p>
 <pre><code>1    fun1();
 2            var fun1 = function(){

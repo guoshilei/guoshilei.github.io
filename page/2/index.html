@@ -441,22 +441,11 @@
 
       
         
-          
-          智能手机发展确实很迅速，像今年，我的大部分工作就都在移动端网页上。
-再往前些年，看到的手机版/移动版网页，限制于浏览器与手机性能，2g网络速度等
-网页设计无非是蓝、黑、白，界面单调，并且要尽可能的设计简单。
-现在情况就大不相同了，软件上webkit内核浏览器大行其道，硬件突飞猛进，网速来说，4g正炒得火热。
-下面就和大家分享一下我的一些移动端网页设计经验与心得。
-
-
-　　1、分辨率
-
-这应该是移动端网页最关心的问题了，因为移动设备五花八门，各种分辨率都有。要想在这些设备上都能有良好的浏览体验，得花一番功夫。
-
-使用viewport：这已经是移动端网页的必备了，它可以设定页面的宽度，是否允许缩放等等。
-
-&lt;meta name=&quot;viewport&quot; content=&q
-          ...
+          <p>智能手机发展确实很迅速，像今年，我的大部分工作就都在移动端网页上。</p>
+<p>再往前些年，看到的手机版/移动版网页，限制于浏览器与手机性能，2g网络速度等</p>
+<p>网页设计无非是蓝、黑、白，界面单调，并且要尽可能的设计简单。</p>
+<p>现在情况就大不相同了，软件上webkit内核浏览器大行其道，硬件突飞猛进，网速来说，4g正炒得火热。</p>
+<p>下面就和大家分享一下我的一些移动端网页设计经验与心得。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/09/19/title3/#more" rel="contents">
@@ -624,20 +613,11 @@
 
       
         
-          
-          一、橙色
-
-使用了高亮度橙色的站点通常都会给人一种晴朗新鲜的感觉，而通过将黄色、黄绿色等类似颜色与成色搭配使用，通常都能得到非常好的效果。同时，中等色调的橙色类似于泥土的颜色，所以也经常用来创造自然的氛围。
-橙色是可以通过变换色调营造出不同氛围的典型颜色，它既能表现出青春的活力也能够实现沉稳老练的效果，所以橙色在网页配色中的使用范围是非常广泛的。
-Color Point:
-橙色通常会给人一种朝气活泼的感觉，它通常可以是原本抑郁的心情豁然开朗。
-在东方文化中，橙色象征着爱情和幸福。充满活力的橙色会给人健康的感觉，且有人说橙色可以提高厌食症患者的食欲。有些国家的僧侣主要穿着橙色的僧侣服，他们解释说橙色代表着谦逊。
-
-二、黄绿色
-
-黄绿色时而能够表现出自然的感觉，时而能够表现出未来虚幻的感觉。
-原
-          ...
+          <p><strong>一、橙色</strong></p>
+<p><img src="http://om6wuxen6.bkt.clouddn.com/images/51.jpg" alt=""></p>
+<p>使用了高亮度橙色的站点通常都会给人一种晴朗新鲜的感觉，而通过将黄色、黄绿色等类似颜色与成色搭配使用，通常都能得到非常好的效果。同时，中等色调的橙色类似于泥土的颜色，所以也经常用来创造自然的氛围。</p>
+<p>橙色是可以通过变换色调营造出不同氛围的典型颜色，它既能表现出青春的活力也能够实现沉稳老练的效果，所以橙色在网页配色中的使用范围是非常广泛的。</p>
+<p>Color Point:<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/07/09/title2/#more" rel="contents">
@@ -805,17 +785,14 @@ Color Point:
 
       
         
-          
-          1、arguments对象在其他语言里，一个函数定义两次，每次有不同的形式参数，代表的就是两个不同的函数，叫做函数的重载（overloaded）。
-1    function fun(a,b){
+          <h2 id="1、arguments对象"><a href="#1、arguments对象" class="headerlink" title="1、arguments对象"></a>1、arguments对象</h2><p>在其他语言里，一个函数定义两次，每次有不同的形式参数，代表的就是两个不同的函数，叫做函数的重载（overloaded）。</p>
+<pre><code>1    function fun(a,b){
 2                console.log(1);
 3            }
 4            function fun(a,b,c){
 5                console.log(2);
 6            }
-以上在其他语言里，作为两个不同的函数执行，如果实际参数有2个，调用第一个函数，如果实际参数有三个，调用第二个函数。
-JS语言没有函数重载的现象。一个标识符不能给两个函数，如果给了两个函数，第二个会覆盖前面的。不论参数是多少个，都会去执行最后一个
-          ...
+</code></pre><p>以上在其他语言里，作为两个不同的函数执行，如果实际参数有2个，调用第一个函数，如果实际参数有三个，调用第二个函数。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/06/17/title13/#more" rel="contents">
@@ -983,17 +960,10 @@ JS语言没有函数重载的现象。一个标识符不能给两个函数，如
 
       
         
-          
-          jQuery常用方法1、html()相当于我们原生js里面的innerHTML方法。给元素内部添加内容。
-参数必须是字符串。
-1    $(&quot;div&quot;).html(&quot;你好，这是一个div&quot;);
-手动的给标签内部加其他标签。
-1    $(&quot;div&quot;).html(&quot;&lt;p&gt;&lt;a href=\&quot;#\&quot;&gt;你好&lt;/a&gt;&lt;/p&gt;&quot;);
-读取内容：只能读取第一个元素内的内容。
-1    console.log($(&quot;div&quot;).html());
-2、addClass()和removeClass()增加类名：addClass
-移除类名：rem
-          ...
+          <h1 id="jQuery常用方法"><a href="#jQuery常用方法" class="headerlink" title="jQuery常用方法"></a>jQuery常用方法</h1><h2 id="1、html"><a href="#1、html" class="headerlink" title="1、html()"></a>1、html()</h2><p>相当于我们原生js里面的innerHTML方法。给元素内部添加内容。</p>
+<p>参数必须是字符串。</p>
+<pre><code>1    $(&quot;div&quot;).html(&quot;你好，这是一个div&quot;);
+</code></pre><p>手动的给标签内部加其他标签。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/04/18/title24/#more" rel="contents">
@@ -1334,22 +1304,16 @@ JS语言没有函数重载的现象。一个标识符不能给两个函数，如
 
       
         
-          
-          
-一、 网站程序中采用DIV+CSS这种模式，不用Table
-
-目前DIV+CSS是主流的编程语言，这与其体积小加载快的优点是密不可分的。主流的网站和CMS采用的也都是这种模式。因此建议大家也采用这种模式来编程，而不要采用原始的Table结构。Table结构不但管理不方便，网页体积也会变大，降低网站的加载速度。
-　　
-
-二、 采用Gzip技术对网页进行压缩
-
-采用Gzip技术对网页进行压缩是减少网页体积的一个很好的方式.一般情况下这是需要你的网站空间支持的，像我用的A5的合租主机，压缩率可以达到80%。网页体积小了，自然加载速度就快了。
-　　
-
-三、 减少CSS文件数量和体积
-
-在采用DIV+CSS过程中，CSS文件是非常重要的。如果在编写过程中有多个CSS文件，建议将多个CSS文件进行合并
-          ...
+          <blockquote>
+<p><strong>一、 网站程序中采用DIV+CSS这种模式，不用Table</strong></p>
+</blockquote>
+<p>目前DIV+CSS是主流的编程语言，这与其体积小加载快的优点是密不可分的。主流的网站和CMS采用的也都是这种模式。因此建议大家也采用这种模式来编程，而不要采用原始的Table结构。Table结构不但管理不方便，网页体积也会变大，降低网站的加载速度。</p>
+<p>　　</p>
+<blockquote>
+<p><strong>二、 采用Gzip技术对网页进行压缩</strong></p>
+</blockquote>
+<p>采用Gzip技术对网页进行压缩是减少网页体积的一个很好的方式.一般情况下这是需要你的网站空间支持的，像我用的A5的合租主机，压缩率可以达到80%。网页体积小了，自然加载速度就快了。</p>
+<p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/03/12/title4/#more" rel="contents">
@@ -1523,13 +1487,12 @@ JS语言没有函数重载的现象。一个标识符不能给两个函数，如
 
 方法1：border-left-color用字符串的split方法变为数组：[“border”,”left”,”color”]，然后遍历这个数组第1项开始的每项，把首字母toUpperCase()变为大写然后与剩余字母连接，然后join到一起，就是borderLeftColor。
 
-// 短横变驼峰函数
-function change(str){
-    //拆为数组
-    var strArr = str.split(&quot;-&quot;);
-
-    //遍历数组
-    for(var i = 1 ; i &lt; strArr.length ; i++
+    // 短横变驼峰函数
+    function change(str){
+        //拆为数组
+        var strArr = str.split(&quot;-&quot;);
+&lt;!-- more --&gt;         
+        //遍历数
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1698,18 +1661,12 @@ function change(str){
 
       
         
-          
-          概述
-数组：存储的是一组数据，可以操作每一项内容，有自己的局限性，通过具体下标才能获得某一项。
-数据多的时候，数组的使用效率变低。
-JSON对象可以解决这个问题。也可以存多个数据，每个数据都有自己的名字。可以通过数据的名字得到数据的值。
-JSON叫做JavaScript Object Notation， JavaScript对象表示法。
-JSON对象创建的最简单的方式，就是字面量，一对大括号{}。
-语法：{}内部包括多个数据，每个数据之间用逗号隔开，最后一个数据后不能写逗号。每一项数据都包含属性名和属性值，属性名必须用引号包括，属性值根据数据类型单独设置，键值对写法”k”:v。
-1    语法：{“k”: v, “k”: v}
-创建一个最简单的JSON对象。
-1    var json = 
-          ...
+          <p>概述</p>
+<p>数组：存储的是一组数据，可以操作每一项内容，有自己的局限性，通过具体下标才能获得某一项。</p>
+<p>数据多的时候，数组的使用效率变低。</p>
+<p>JSON对象可以解决这个问题。也可以存多个数据，每个数据都有自己的名字。可以通过数据的名字得到数据的值。</p>
+<p>JSON叫做JavaScript Object Notation， JavaScript对象表示法。</p>
+<p>JSON对象创建的最简单的方式，就是字面量，一对大括号{}。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/01/12/title19/#more" rel="contents">

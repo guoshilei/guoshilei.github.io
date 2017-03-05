@@ -115,7 +115,7 @@ canvas是一个双标签，里面的内容是不支持canvas浏览器显示的�
 <meta property="og:image" content="http://wx3.sinaimg.cn/mw690/a579329cly1fcx1h54rtrj20oi0g8abu.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/mw690/a579329cly1fcx1h5l8fbj211t0kfgzx.jpg">
 <meta property="og:image" content="http://wx3.sinaimg.cn/mw690/a579329cly1fcx1h5verjj20oy0gpn3y.jpg">
-<meta property="og:updated_time" content="2017-03-03T23:52:33.917Z">
+<meta property="og:updated_time" content="2017-03-05T14:42:09.112Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Canvas基本用法">
 <meta name="twitter:description" content="1、Canvas概述
@@ -467,17 +467,8 @@ canvas是一个双标签，里面的内容是不支持canvas浏览器显示的�
 <p>canvas是一个双标签，里面的内容是不支持canvas浏览器显示的内容：</p>
 <pre><code>&lt;canvas width=&quot;800&quot; height=&quot;600&quot;&gt;对不起，你的浏览器不支持画布，请升级浏览器！&lt;/canvas&gt;
 宽度、高度写在标签里面，如果写在css中，就变形、扭曲了。
-</code></pre><p>编程：</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
-   //得到画布标签
-   var myCanvas = document.querySelector(&quot;#myCanvas&quot;);
-   //上下文，就相当于打开Photoshop之后让你新建画布
-   var ctx = myCanvas.getContext(&quot;2d&quot;);
-   //今后的操作都是这个画布的事情，都是ctx的事情，和myCanvas没有关系了。
-   ctx.fillStyle = &quot;lightseagreen&quot;;
-   ctx.fillRect(100,100,300,200);
-&lt;/script&gt;
-</code></pre><p>坐标系：</p>
+</code></pre><p>编程：<br><a id="more"></a><br>    <script type="text/javascript"><br>       //得到画布标签<br>       var myCanvas = document.querySelector(“#myCanvas”);<br>       //上下文，就相当于打开Photoshop之后让你新建画布<br>       var ctx = myCanvas.getContext(“2d”);<br>       //今后的操作都是这个画布的事情，都是ctx的事情，和myCanvas没有关系了。<br>       ctx.fillStyle = “lightseagreen”;<br>       ctx.fillRect(100,100,300,200);<br>    </script></p>
+<p>坐标系：</p>
 <p> <img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx1bbhka6j211y0kiwfj.jpg" alt=""></p>
 <blockquote>
 <pre><code>API：

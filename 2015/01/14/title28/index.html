@@ -101,7 +101,7 @@
 此时有两种方法：
 
 方法1：border-left-color用字符串的split方法变为数组：[“border”,”left”,”color”]，然后遍历这个数组第1项开始的每项，把首字母toUpperCase()变为大写然后与剩余字母连接，然后join到一起，就是borderLeftCol">
-<meta property="og:updated_time" content="2017-03-03T23:59:48.553Z">
+<meta property="og:updated_time" content="2017-03-05T14:42:05.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见字符串算法">
 <meta name="twitter:description" content="常见字符串算法1、短横变驼峰把单词border-left-color变为borderLeftColor。
@@ -450,20 +450,20 @@
 <blockquote>
 <p>方法1：border-left-color用字符串的split方法变为数组：[“border”,”left”,”color”]，然后遍历这个数组第1项开始的每项，把首字母toUpperCase()变为大写然后与剩余字母连接，然后join到一起，就是borderLeftColor。</p>
 </blockquote>
-<pre><code>// 短横变驼峰函数
-function change(str){
-    //拆为数组
-    var strArr = str.split(&quot;-&quot;);
-
-    //遍历数组
-    for(var i = 1 ; i &lt; strArr.length ; i++){
-        var chars = strArr[i];
-        //将数组的这一项的字符串变为首字母变为大写，与剩余字母做拼接
-        strArr[i] = chars[0].toUpperCase() + chars.slice(1);
+<pre><code>    // 短横变驼峰函数
+    function change(str){
+        //拆为数组
+        var strArr = str.split(&quot;-&quot;);
+&lt;!-- more --&gt;         
+        //遍历数组
+        for(var i = 1 ; i &lt; strArr.length ; i++){
+            var chars = strArr[i];
+            //将数组的这一项的字符串变为首字母变为大写，与剩余字母做拼接
+            strArr[i] = chars[0].toUpperCase() + chars.slice(1);
+        }
+        //拼接
+        return strArr.join(&quot;&quot;);
     }
-    //拼接
-    return strArr.join(&quot;&quot;);
-}
 </code></pre><blockquote>
 <p>方法2：正则表达式。border-left-color用正则表达式去replace替换，替换什么？替换所有(-字母)变为大写字母。</p>
 </blockquote>
