@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Layne&#39;blog</title>
+  <subtitle>Web world is wonderful!</subtitle>
+  <link href="/atom.xml" rel="self"/>
   
+  <link href="http://yoursite.com/"/>
+  <updated>2017-03-05T14:41:25.615Z</updated>
+  <id>http://yoursite.com/</id>
   
+  <author>
+    <name>郭石磊</name>
+    <email>294268937@qq.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>教你如何搭建github技术博客</title>
+    <link href="http://yoursite.com/2016/09/23/title11/"/>
+    <id>http://yoursite.com/2016/09/23/title11/</id>
+    <published>2016-09-23T09:27:56.000Z</published>
+    <updated>2017-03-05T14:41:25.615Z</updated>
     
-    <entry>
-      <title><![CDATA[教你如何搭建github技术博客]]></title>
-      <url>http://yoursite.com/2016/09/23/title11/</url>
-      <content type="html"><![CDATA[<p><strong>适合人群</strong></p>
+    <content type="html"><![CDATA[<p><strong>适合人群</strong></p>
 <ul>
 <li>喜欢写Blog的人</li>
 <li>有一定的编程基础</li>
@@ -193,26 +209,36 @@ hexo deploy
 <p>总结</p>
 <p>之前用的jekell写的，手把手教你建github技术博客by jekyll，也是折腾了几天才做成自己满意的，昨天决定换成hexo，也是花了一天半时间，为了追求更好，必须折腾！</p>
 ]]></content>
-      
-        <categories>
-            
-            <category> github </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> github </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[8种方法加快你的网站访问速度]]></title>
-      <url>http://yoursite.com/2016/03/12/title4/</url>
-      <content type="html"><![CDATA[<blockquote>
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;适合人群&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;喜欢写Blog的人&lt;/li&gt;
+&lt;li&gt;有一定的编程基础&lt;/li&gt;
+&lt;li&gt;爱折腾的人&lt;/li&gt;
+&lt;li&gt;熟练使用版本控制Git&lt;/li&gt;
+&lt;li&gt;了解使用Github&lt;/li&gt;
+&lt;li&gt;熟悉基本的MarkDown语法&lt;/li&gt;
+&lt;li&gt;&lt;h2 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h2&gt;
+    
+    </summary>
+    
+      <category term="github" scheme="http://yoursite.com/categories/github/"/>
+    
+    
+      <category term="github" scheme="http://yoursite.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>8种方法加快你的网站访问速度</title>
+    <link href="http://yoursite.com/2016/03/12/title4/"/>
+    <id>http://yoursite.com/2016/03/12/title4/</id>
+    <published>2016-03-12T09:27:56.000Z</published>
+    <updated>2017-03-13T03:27:05.104Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
 <p><strong>一、 网站程序中采用DIV+CSS这种模式，不用Table</strong></p>
 </blockquote>
 <p>目前DIV+CSS是主流的编程语言，这与其体积小加载快的优点是密不可分的。主流的网站和CMS采用的也都是这种模式。因此建议大家也采用这种模式来编程，而不要采用原始的Table结构。Table结构不但管理不方便，网页体积也会变大，降低网站的加载速度。</p>
@@ -252,26 +278,37 @@ hexo deploy
 </blockquote>
 <p>众所周知，ASP、PHP、JSP等顺序完成了网页信息的静态交互，运转起来确实十分方便，由于它们的数据交互性好，能很方便地存取、更改数据库的内容，但是这类顺序也有本人的缺陷，那就是它必需由效劳器先生成HTML页面，然后在“传送”给用户，多了一个步骤，必定会影响到网站的拜访速度，所以笔者建议，在新站开端的时分，在对本人网站的重要调查期内还是采用静态的HTML页面比拟保险。</p>
 ]]></content>
-      
-        <categories>
-            
-            <category> Javascript </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Javascript </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[函数声明提升]]></title>
-      <url>http://yoursite.com/2016/01/11/title9/</url>
-      <content type="html"><![CDATA[<h2 id="1、函数声明提升"><a href="#1、函数声明提升" class="headerlink" title="1、函数声明提升"></a>1、函数声明提升</h2><p>变量可以先使用后定义。js的解析器在运行的时候，会将所有的全局变量提升到最开始的位置，如果使用的时候可以找到这个变量定义。变量声明提升只提升定义，不提升赋值。初始值默认是undefined。</p>
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;一、 网站程序中采用DIV+CSS这种模式，不用Table&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;目前DIV+CSS是主流的编程语言，这与其体积小加载快的优点是密不可分的。主流的网站和CMS采用的也都是这种模式。因此建议大家也采用这种模式来编程，而不要采用原始的Table结构。Table结构不但管理不方便，网页体积也会变大，降低网站的加载速度。&lt;/p&gt;
+&lt;p&gt;　　&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;二、 采用Gzip技术对网页进行压缩&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;采用Gzip技术对网页进行压缩是减少网页体积的一个很好的方式.一般情况下这是需要你的网站空间支持的，像我用的A5的合租主机，压缩率可以达到80%。网页体积小了，自然加载速度就快了。&lt;/p&gt;
+&lt;p&gt;
+    
+    </summary>
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>函数声明提升</title>
+    <link href="http://yoursite.com/2016/01/11/title9/"/>
+    <id>http://yoursite.com/2016/01/11/title9/</id>
+    <published>2016-01-11T09:27:56.000Z</published>
+    <updated>2017-03-13T03:26:57.747Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、函数声明提升"><a href="#1、函数声明提升" class="headerlink" title="1、函数声明提升"></a>1、函数声明提升</h2><p>变量可以先使用后定义。js的解析器在运行的时候，会将所有的全局变量提升到最开始的位置，如果使用的时候可以找到这个变量定义。变量声明提升只提升定义，不提升赋值。初始值默认是undefined。</p>
 <pre><code>1    var a;
 2    console.log(a);
 3    a = 12;
@@ -486,26 +523,32 @@ hexo deploy
 12            console.log(inn());
 13            console.log(inn2());  //新的函数，闭包是全新的
 </code></pre>]]></content>
-      
-        <categories>
-            
-            <category> 函数 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> js </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[Ajax中的GET请求和POST请求]]></title>
-      <url>http://yoursite.com/2015/12/09/title41/</url>
-      <content type="html"><![CDATA[<h2 id="1、GET请求"><a href="#1、GET请求" class="headerlink" title="1、GET请求"></a>1、GET请求</h2><p>GET请求参数在URL中，所以参数非常好携带。GET请求没有上行报文体，所以send里面是null。</p>
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、函数声明提升&quot;&gt;&lt;a href=&quot;#1、函数声明提升&quot; class=&quot;headerlink&quot; title=&quot;1、函数声明提升&quot;&gt;&lt;/a&gt;1、函数声明提升&lt;/h2&gt;&lt;p&gt;变量可以先使用后定义。js的解析器在运行的时候，会将所有的全局变量提升到最开始的位置，如果使用的时候可以找到这个变量定义。变量声明提升只提升定义，不提升赋值。初始值默认是undefined。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1    var a;
+2    console.log(a);
+3    a = 12;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;函数声明提升：函数可以先调用，后定义。解析器在程序最开始，将全局范围内定义的函数声明提升到代码最前面，声明的时候提升的就是那个变量名指针，总能够根据函数名找到这个函数的圆型。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="函数" scheme="http://yoursite.com/categories/%E5%87%BD%E6%95%B0/"/>
+    
+    
+      <category term="js" scheme="http://yoursite.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ajax中的GET请求和POST请求</title>
+    <link href="http://yoursite.com/2015/12/09/title41/"/>
+    <id>http://yoursite.com/2015/12/09/title41/</id>
+    <published>2015-12-09T09:27:56.000Z</published>
+    <updated>2017-03-05T14:43:01.735Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、GET请求"><a href="#1、GET请求" class="headerlink" title="1、GET请求"></a>1、GET请求</h2><p>GET请求参数在URL中，所以参数非常好携带。GET请求没有上行报文体，所以send里面是null。</p>
 <pre><code>xhr.open(&quot;get&quot;,&quot;check.php?username=考拉&amp;age=12&quot;,true);
 xhr.send(null);
 </code></pre><p>研究两个事情：字符转码的问题、用JSON来转为query string。</p>
@@ -633,26 +676,32 @@ console.log(typeof dataobj);
     });
 &lt;/script&gt;
 </code></pre>]]></content>
-      
-        <categories>
-            
-            <category> Ajax </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Ajax </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[异步和回调函数]]></title>
-      <url>http://yoursite.com/2015/12/06/title21/</url>
-      <content type="html"><![CDATA[<h2 id="1、异步"><a href="#1、异步" class="headerlink" title="1、异步"></a>1、异步</h2><p>异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。</p>
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、GET请求&quot;&gt;&lt;a href=&quot;#1、GET请求&quot; class=&quot;headerlink&quot; title=&quot;1、GET请求&quot;&gt;&lt;/a&gt;1、GET请求&lt;/h2&gt;&lt;p&gt;GET请求参数在URL中，所以参数非常好携带。GET请求没有上行报文体，所以send里面是null。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;xhr.open(&amp;quot;get&amp;quot;,&amp;quot;check.php?username=考拉&amp;amp;age=12&amp;quot;,true);
+xhr.send(null);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;研究两个事情：字符转码的问题、用JSON来转为query string。&lt;/p&gt;
+&lt;p&gt;我们观察一个事情，此时在地址栏中输入你好：&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Ajax" scheme="http://yoursite.com/categories/Ajax/"/>
+    
+    
+      <category term="Ajax" scheme="http://yoursite.com/tags/Ajax/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>异步和回调函数</title>
+    <link href="http://yoursite.com/2015/12/06/title21/"/>
+    <id>http://yoursite.com/2015/12/06/title21/</id>
+    <published>2015-12-06T09:27:56.000Z</published>
+    <updated>2017-03-05T14:41:50.309Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、异步"><a href="#1、异步" class="headerlink" title="1、异步"></a>1、异步</h2><p>异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。</p>
 <p>js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。</p>
 <p>同步：<br><a id="more"></a><br>    1    console.log(1);<br>    2            console.log(2);<br>    3            console.log(3);<br>    4            console.log(4);<br>    5            //for循环，必须跳出循环才能走后面的语句<br>    6            for(var i = 0 ; i &lt;= 100000 ; i++){<br>    7                console.log(1);<br>    8            }<br>    9    //后面的语句必须等到前面执行完才嫩执行，否则，只能排队等待。<br>    10            console.log(5);    </p>
 <blockquote>
@@ -711,26 +760,30 @@ console.log(typeof dataobj);
 6                });
 7            });
 </code></pre>]]></content>
-      
-        <categories>
-            
-            <category> 回调函数 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> js </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[call和apply]]></title>
-      <url>http://yoursite.com/2015/11/01/title22/</url>
-      <content type="html"><![CDATA[<h2 id="call和apply"><a href="#call和apply" class="headerlink" title="call和apply"></a>call和apply</h2><p>了解普通函数内部有没有this关键，指向是谁。</p>
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、异步&quot;&gt;&lt;a href=&quot;#1、异步&quot; class=&quot;headerlink&quot; title=&quot;1、异步&quot;&gt;&lt;/a&gt;1、异步&lt;/h2&gt;&lt;p&gt;异步（Asynchronous），是计算机多线程的异步处理。与同步处理相对，异步处理不用阻塞当前线程来等待处理完成，而是允许后续操作，直至其它线程将处理完成，并回调通知此线程。&lt;/p&gt;
+&lt;p&gt;js如果没有特殊语句：都是单线程，必须等到前面语句执行完之后，才能执行下面的语句。&lt;/p&gt;
+&lt;p&gt;同步：&lt;br&gt;
+    
+    </summary>
+    
+      <category term="回调函数" scheme="http://yoursite.com/categories/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/"/>
+    
+    
+      <category term="js" scheme="http://yoursite.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>call和apply</title>
+    <link href="http://yoursite.com/2015/11/01/title22/"/>
+    <id>http://yoursite.com/2015/11/01/title22/</id>
+    <published>2015-11-01T09:27:56.000Z</published>
+    <updated>2017-03-05T14:41:53.393Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="call和apply"><a href="#call和apply" class="headerlink" title="call和apply"></a>call和apply</h2><p>了解普通函数内部有没有this关键，指向是谁。</p>
 <pre><code>1    var box = document.getElementById(&quot;box1&quot;);
 2            animate(box,{&quot;left&quot;:300},1000,function(){
 3                console.log(this);
@@ -777,48 +830,61 @@ console.log(typeof dataobj);
 18                });
 19            }
 </code></pre>]]></content>
-      
-        <categories>
-            
-            <category> callpply </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> js </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[HTTP状态码含义大全]]></title>
-      <url>http://yoursite.com/2015/10/26/title12/</url>
-      <content type="html"><![CDATA[<p>大家都知道404是木有找到东西，301是定义转向，但又有几个人知道206或者307呢？本文就给大家列出了各种HTTP状态码的含义，适合长期收藏。</p>
+    <summary type="html">
+    
+      &lt;h2 id=&quot;call和apply&quot;&gt;&lt;a href=&quot;#call和apply&quot; class=&quot;headerlink&quot; title=&quot;call和apply&quot;&gt;&lt;/a&gt;call和apply&lt;/h2&gt;&lt;p&gt;了解普通函数内部有没有this关键，指向是谁。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1    var box = document.getElementById(&amp;quot;box1&amp;quot;);
+2            animate(box,{&amp;quot;left&amp;quot;:300},1000,function(){
+3                console.log(this);
+4            });
+5            function move(){
+6                console.log(this);
+7            }
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="callpply" scheme="http://yoursite.com/categories/callpply/"/>
+    
+    
+      <category term="js" scheme="http://yoursite.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP状态码含义大全</title>
+    <link href="http://yoursite.com/2015/10/26/title12/"/>
+    <id>http://yoursite.com/2015/10/26/title12/</id>
+    <published>2015-10-26T09:27:56.000Z</published>
+    <updated>2017-03-03T23:11:58.530Z</updated>
+    
+    <content type="html"><![CDATA[<p>大家都知道404是木有找到东西，301是定义转向，但又有几个人知道206或者307呢？本文就给大家列出了各种HTTP状态码的含义，适合长期收藏。</p>
 <p><img src="http://om6wuxen6.bkt.clouddn.com/images/HTTP.png" alt=""></p>
 ]]></content>
-      
-        <categories>
-            
-            <category> HTTP </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> HTTP </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[移动端网页开发经验与心得]]></title>
-      <url>http://yoursite.com/2015/09/19/title3/</url>
-      <content type="html"><![CDATA[<p>智能手机发展确实很迅速，像今年，我的大部分工作就都在移动端网页上。</p>
+    <summary type="html">
+    
+      &lt;p&gt;大家都知道404是木有找到东西，301是定义转向，但又有几个人知道206或者307呢？本文就给大家列出了各种HTTP状态码的含义，适合长期收藏。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://om6wuxen6.bkt.clouddn.com/images/HTTP.pn
+    
+    </summary>
+    
+      <category term="HTTP" scheme="http://yoursite.com/categories/HTTP/"/>
+    
+    
+      <category term="HTTP" scheme="http://yoursite.com/tags/HTTP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>移动端网页开发经验与心得</title>
+    <link href="http://yoursite.com/2015/09/19/title3/"/>
+    <id>http://yoursite.com/2015/09/19/title3/</id>
+    <published>2015-09-19T09:27:56.000Z</published>
+    <updated>2017-03-05T14:41:00.481Z</updated>
+    
+    <content type="html"><![CDATA[<p>智能手机发展确实很迅速，像今年，我的大部分工作就都在移动端网页上。</p>
 <p>再往前些年，看到的手机版/移动版网页，限制于浏览器与手机性能，2g网络速度等</p>
 <p>网页设计无非是蓝、黑、白，界面单调，并且要尽可能的设计简单。</p>
 <p>现在情况就大不相同了，软件上webkit内核浏览器大行其道，硬件突飞猛进，网速来说，4g正炒得火热。</p>
@@ -876,26 +942,32 @@ FALLBACK
 <p>尽可能使用css样式来代替图片，由于移动端浏览器对css3的支持，使得以前很多图片可以用样式来代替</p>
 </blockquote>
 ]]></content>
-      
-        <categories>
-            
-            <category> 移动端 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 移动端 </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[谈设计师配色技巧]]></title>
-      <url>http://yoursite.com/2015/07/09/title2/</url>
-      <content type="html"><![CDATA[<p><strong>一、橙色</strong></p>
+    <summary type="html">
+    
+      &lt;p&gt;智能手机发展确实很迅速，像今年，我的大部分工作就都在移动端网页上。&lt;/p&gt;
+&lt;p&gt;再往前些年，看到的手机版/移动版网页，限制于浏览器与手机性能，2g网络速度等&lt;/p&gt;
+&lt;p&gt;网页设计无非是蓝、黑、白，界面单调，并且要尽可能的设计简单。&lt;/p&gt;
+&lt;p&gt;现在情况就大不相同了，软件上webkit内核浏览器大行其道，硬件突飞猛进，网速来说，4g正炒得火热。&lt;/p&gt;
+&lt;p&gt;下面就和大家分享一下我的一些移动端网页设计经验与心得。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="移动端" scheme="http://yoursite.com/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+    
+    
+      <category term="移动端" scheme="http://yoursite.com/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>谈设计师配色技巧</title>
+    <link href="http://yoursite.com/2015/07/09/title2/"/>
+    <id>http://yoursite.com/2015/07/09/title2/</id>
+    <published>2015-07-09T09:27:56.000Z</published>
+    <updated>2017-03-05T14:40:56.708Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>一、橙色</strong></p>
 <p><img src="http://om6wuxen6.bkt.clouddn.com/images/51.jpg" alt=""></p>
 <p>使用了高亮度橙色的站点通常都会给人一种晴朗新鲜的感觉，而通过将黄色、黄绿色等类似颜色与成色搭配使用，通常都能得到非常好的效果。同时，中等色调的橙色类似于泥土的颜色，所以也经常用来创造自然的氛围。</p>
 <p>橙色是可以通过变换色调营造出不同氛围的典型颜色，它既能表现出青春的活力也能够实现沉稳老练的效果，所以橙色在网页配色中的使用范围是非常广泛的。</p>
@@ -988,26 +1060,32 @@ FALLBACK
 <p>黑色也有很强大的感染力，它能够表现出特有的高贵，且黑色还经常用于表现死亡和神秘。</p>
 <p>因为黑色和白色的搭配有一种特殊的严肃感，所以还经常用于如结婚典礼等庄重的场合</p>
 ]]></content>
-      
-        <categories>
-            
-            <category> 交互设计 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 交互设计 </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[常见字符串算法]]></title>
-      <url>http://yoursite.com/2015/01/14/title28/</url>
-      <content type="html"><![CDATA[<h1 id="常见字符串算法"><a href="#常见字符串算法" class="headerlink" title="常见字符串算法"></a>常见字符串算法</h1><h2 id="1、短横变驼峰"><a href="#1、短横变驼峰" class="headerlink" title="1、短横变驼峰"></a>1、短横变驼峰</h2><p>把单词border-left-color变为borderLeftColor。</p>
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;一、橙色&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://om6wuxen6.bkt.clouddn.com/images/51.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;使用了高亮度橙色的站点通常都会给人一种晴朗新鲜的感觉，而通过将黄色、黄绿色等类似颜色与成色搭配使用，通常都能得到非常好的效果。同时，中等色调的橙色类似于泥土的颜色，所以也经常用来创造自然的氛围。&lt;/p&gt;
+&lt;p&gt;橙色是可以通过变换色调营造出不同氛围的典型颜色，它既能表现出青春的活力也能够实现沉稳老练的效果，所以橙色在网页配色中的使用范围是非常广泛的。&lt;/p&gt;
+&lt;p&gt;Color Point:&lt;br&gt;
+    
+    </summary>
+    
+      <category term="交互设计" scheme="http://yoursite.com/categories/%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1/"/>
+    
+    
+      <category term="交互设计" scheme="http://yoursite.com/tags/%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常见字符串算法</title>
+    <link href="http://yoursite.com/2015/01/14/title28/"/>
+    <id>http://yoursite.com/2015/01/14/title28/</id>
+    <published>2015-01-14T09:27:56.000Z</published>
+    <updated>2017-03-05T14:42:05.529Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="常见字符串算法"><a href="#常见字符串算法" class="headerlink" title="常见字符串算法"></a>常见字符串算法</h1><h2 id="1、短横变驼峰"><a href="#1、短横变驼峰" class="headerlink" title="1、短横变驼峰"></a>1、短横变驼峰</h2><p>把单词border-left-color变为borderLeftColor。</p>
 <p>此时有两种方法：</p>
 <blockquote>
 <p>方法1：border-left-color用字符串的split方法变为数组：[“border”,”left”,”color”]，然后遍历这个数组第1项开始的每项，把首字母toUpperCase()变为大写然后与剩余字母连接，然后join到一起，就是borderLeftColor。</p>
@@ -1131,26 +1209,28 @@ str = str.replace(/\B(?=(\d{3})+$)/g,&quot;★&quot;);
 console.log(str);
 </code></pre><p>这就是答案，只需要把★改为逗号即可。</p>
 ]]></content>
-      
-        <categories>
-            
-            <category> 字符串 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> js </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[JSON对象使用方法]]></title>
-      <url>http://yoursite.com/2015/01/12/title19/</url>
-      <content type="html"><![CDATA[<p>概述</p>
+    <summary type="html">
+    
+      &lt;h1 id=&quot;常见字符串算法&quot;&gt;&lt;a href=&quot;#常见字符串算法&quot; class=&quot;headerlink&quot; title=&quot;常见字符串算法&quot;&gt;&lt;/a&gt;常见字符串算法&lt;/h1&gt;&lt;h2 id=&quot;1、短横变驼峰&quot;&gt;&lt;a href=&quot;#1、短横变驼峰&quot; class=&quot;headerlink
+    
+    </summary>
+    
+      <category term="字符串" scheme="http://yoursite.com/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    
+      <category term="js" scheme="http://yoursite.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JSON对象使用方法</title>
+    <link href="http://yoursite.com/2015/01/12/title19/"/>
+    <id>http://yoursite.com/2015/01/12/title19/</id>
+    <published>2015-01-12T09:27:56.000Z</published>
+    <updated>2017-03-05T14:41:39.155Z</updated>
+    
+    <content type="html"><![CDATA[<p>概述</p>
 <p>数组：存储的是一组数据，可以操作每一项内容，有自己的局限性，通过具体下标才能获得某一项。</p>
 <p>数据多的时候，数组的使用效率变低。</p>
 <p>JSON对象可以解决这个问题。也可以存多个数据，每个数据都有自己的名字。可以通过数据的名字得到数据的值。</p>
@@ -1222,51 +1302,64 @@ console.log(str);
 6            //循环完之后得到一个新的JSON
 7            console.log(newJson);
 </code></pre>]]></content>
-      
-        <categories>
-            
-            <category> JSON </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> JSON </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[【精】web前端工程师必备技能汇总]]></title>
-      <url>http://yoursite.com/2014/12/19/title1/</url>
-      <content type="html"><![CDATA[<blockquote>
+    <summary type="html">
+    
+      &lt;p&gt;概述&lt;/p&gt;
+&lt;p&gt;数组：存储的是一组数据，可以操作每一项内容，有自己的局限性，通过具体下标才能获得某一项。&lt;/p&gt;
+&lt;p&gt;数据多的时候，数组的使用效率变低。&lt;/p&gt;
+&lt;p&gt;JSON对象可以解决这个问题。也可以存多个数据，每个数据都有自己的名字。可以通过数据的名字得到数据的值。&lt;/p&gt;
+&lt;p&gt;JSON叫做JavaScript Object Notation， JavaScript对象表示法。&lt;/p&gt;
+&lt;p&gt;JSON对象创建的最简单的方式，就是字面量，一对大括号{}。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="JSON" scheme="http://yoursite.com/categories/JSON/"/>
+    
+    
+      <category term="JSON" scheme="http://yoursite.com/tags/JSON/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【精】web前端工程师必备技能汇总</title>
+    <link href="http://yoursite.com/2014/12/19/title1/"/>
+    <id>http://yoursite.com/2014/12/19/title1/</id>
+    <published>2014-12-19T09:27:56.000Z</published>
+    <updated>2017-03-03T07:59:42.094Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
 <p><strong>项目起源</strong></p>
 </blockquote>
 <p>web前端知识结构图。</p>
 <p><img src="http://om6wuxen6.bkt.clouddn.com/images/20140411103936654522.jpg" alt=""></p>
 ]]></content>
-      
-        <categories>
-            
-            <category> web </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> web </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[Cookie和Session]]></title>
-      <url>http://yoursite.com/2014/12/13/title44/</url>
-      <content type="html"><![CDATA[<h2 id="1、Cookie"><a href="#1、Cookie" class="headerlink" title="1、Cookie"></a>1、Cookie</h2><p>就是一个Response头部的一个K-V对儿。</p>
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;项目起源&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;web前端知识结构图。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://om6wuxen6.bkt.clouddn.com/images/201404111039
+    
+    </summary>
+    
+      <category term="web" scheme="http://yoursite.com/categories/web/"/>
+    
+    
+      <category term="web" scheme="http://yoursite.com/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Cookie和Session</title>
+    <link href="http://yoursite.com/2014/12/13/title44/"/>
+    <id>http://yoursite.com/2014/12/13/title44/</id>
+    <published>2014-12-13T09:27:56.000Z</published>
+    <updated>2017-03-05T14:43:11.017Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、Cookie"><a href="#1、Cookie" class="headerlink" title="1、Cookie"></a>1、Cookie</h2><p>就是一个Response头部的一个K-V对儿。</p>
 <blockquote>
 <p>当服务器下发了一个Set-Cookie，今后每次request浏览器都会带着相同的cookie上去。</p>
 </blockquote>
@@ -1352,26 +1445,37 @@ if(infoobj.nianling){
 </code></pre><p><img src="http://wx3.sinaimg.cn/mw690/a579329cly1fcx3vknzt6j20lk067q3g.jpg" alt=""><br>今后我的每一次访问，都会带着这个码上去。这个吗对于浏览器来说，没有任何意义！但是服务器就是通过这个码来知道你是你的。</p>
 <p><img src="http://wx1.sinaimg.cn/mw690/a579329cly1fcx3vktblej20nz065mxn.jpg" alt=""></p>
 ]]></content>
-      
-        <categories>
-            
-            <category> Cookie和Session </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Cookie\Session </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[DOM操作方法]]></title>
-      <url>http://yoursite.com/2014/12/01/title14/</url>
-      <content type="html"><![CDATA[<h2 id="1、DOM体验"><a href="#1、DOM体验" class="headerlink" title="1、DOM体验"></a>1、DOM体验</h2><p>DOM（Document Object Model，文档对象模型）描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。这使得JavaScript操作HTML，不是在操作字符串，而是在操作节点，极大地降低了编程难度。编写例子整体感知一下这个事儿。</p>
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、Cookie&quot;&gt;&lt;a href=&quot;#1、Cookie&quot; class=&quot;headerlink&quot; title=&quot;1、Cookie&quot;&gt;&lt;/a&gt;1、Cookie&lt;/h2&gt;&lt;p&gt;就是一个Response头部的一个K-V对儿。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当服务器下发了一个Set-Cookie，今后每次request浏览器都会带着相同的cookie上去。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;HTTP是无连接的，当你第一次访问一个服务器的时候，第二次再来到这个服务器（可能就10s之后），服务器此时的HTTP和第一次毫无关系的。对于服务器来说，HTTP是两次，两次之间没有持久保持连续。&lt;/p&gt;
+&lt;p&gt;setcookie函数就是设置cookie的，有三个参数：k、v、过期时间&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    setcookie(&amp;quot;xingming&amp;quot;,&amp;quot;kaola&amp;quot;,time()+3600);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Cookie和Session" scheme="http://yoursite.com/categories/Cookie%E5%92%8CSession/"/>
+    
+    
+      <category term="Cookie\Session" scheme="http://yoursite.com/tags/Cookie-Session/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DOM操作方法</title>
+    <link href="http://yoursite.com/2014/12/01/title14/"/>
+    <id>http://yoursite.com/2014/12/01/title14/</id>
+    <published>2014-12-01T09:27:56.000Z</published>
+    <updated>2017-03-05T14:41:34.826Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、DOM体验"><a href="#1、DOM体验" class="headerlink" title="1、DOM体验"></a>1、DOM体验</h2><p>DOM（Document Object Model，文档对象模型）描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。这使得JavaScript操作HTML，不是在操作字符串，而是在操作节点，极大地降低了编程难度。编写例子整体感知一下这个事儿。</p>
 <pre><code>1    //获得元素
 2            var oDiv = document.getElementById(&quot;box&quot;);
 3            var oKaola = document.getElementById(&quot;kaola&quot;);
@@ -1594,26 +1698,37 @@ document.getElementsByTagName()
 </code></pre><p>window浏览器对象，alert就是window对象里面的一个方法。window可以省略。</p>
 <pre><code>window.alert(&quot;yes&quot;);
 </code></pre>]]></content>
-      
-        <categories>
-            
-            <category> Dom </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Dom </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[2014年中国IE6浏览器状况]]></title>
-      <url>http://yoursite.com/2014/11/20/title25/</url>
-      <content type="html"><![CDATA[<p>IE6在4月9日停止更新了，与数日前XP退役引起的唏嘘与争论不同，IE6走得很悄然。我想，这是因为在许多人的电脑里，它早已被搁置了多年，取代它的有Chrome、Opera、Safari、搜狗和360等诸多后辈，老大哥寿终正寝，是历史的必然。</p>
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、DOM体验&quot;&gt;&lt;a href=&quot;#1、DOM体验&quot; class=&quot;headerlink&quot; title=&quot;1、DOM体验&quot;&gt;&lt;/a&gt;1、DOM体验&lt;/h2&gt;&lt;p&gt;DOM（Document Object Model，文档对象模型）描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。这使得JavaScript操作HTML，不是在操作字符串，而是在操作节点，极大地降低了编程难度。编写例子整体感知一下这个事儿。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1    //获得元素
+2            var oDiv = document.getElementById(&amp;quot;box&amp;quot;);
+3            var oKaola = document.getElementById(&amp;quot;kaola&amp;quot;);
+4            //添加点击事件，盒子变色，图片变图
+5            oDiv.onclick = function(){
+6                oDiv.style.backgroundColor = &amp;quot;yellowgreen&amp;quot;;
+7                oKaola.src = &amp;quot;images/kaola2.jpeg&amp;quot;;
+8            }
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Dom" scheme="http://yoursite.com/categories/Dom/"/>
+    
+    
+      <category term="Dom" scheme="http://yoursite.com/tags/Dom/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2014年中国IE6浏览器状况</title>
+    <link href="http://yoursite.com/2014/11/20/title25/"/>
+    <id>http://yoursite.com/2014/11/20/title25/</id>
+    <published>2014-11-20T09:27:56.000Z</published>
+    <updated>2017-03-05T14:42:01.088Z</updated>
+    
+    <content type="html"><![CDATA[<p>IE6在4月9日停止更新了，与数日前XP退役引起的唏嘘与争论不同，IE6走得很悄然。我想，这是因为在许多人的电脑里，它早已被搁置了多年，取代它的有Chrome、Opera、Safari、搜狗和360等诸多后辈，老大哥寿终正寝，是历史的必然。</p>
 <p>可是，IE6真的被完全取代了吗，抱着谨慎的态度，我查询了一些资料：</p>
 <p>根据NetApplications的数据显示，就在IE6停止更新的4月9日，它在全球的市场占有率是4.4%。对于一款在美国本土的市场占有率只有0.2%的浏览器来说，退休或许是唯一的归宿。但是，令人惊奇的是，IE6在中国的市场占有率竟然是22.2%，这意味着，在其4.4%的全球市场份额中，仅中国大陆就占据了3.4%的份额。</p>
 <p>再来看看CNZZ的数据，数据显示在中国4月8日PC端浏览器的使用率中，IE以39.05%遥遥领先，其中IE6贡献了其中的10.19%。</p>
@@ -1624,26 +1739,33 @@ document.getElementsByTagName()
 <p>多年前，有这样一份关于使用浏览器与IQ高低的调查，当年的结论是，IE浏览器用户的IQ全线偏低，2011年IE6用户的平均智商只有83，IE9的用户也不过90而已。Opera以128的平均智商遥遥领先。</p>
 <p>一个慵懒庞大的体系占据着40%的市场份额，这是严重违背互联网精神的事情。今日得到UC浏览器要发布桌面浏览器的消息，其目的是想将PC端和移动端打通;360几日前开始从百度的hao123导航抢用户，也说明PC端浏览器的用户争夺还在持续着。在中国市场，十多款浏览器竞争着IE家族之外的60%的市场份额，战斗已经持续多年，空间已经颇为狭小。</p>
 ]]></content>
-      
-        <categories>
-            
-            <category> IE6 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> IE6 </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[css position的正确用法]]></title>
-      <url>http://yoursite.com/2014/10/27/title/</url>
-      <content type="html"><![CDATA[<p>本文向大家描述一下DIV CSS布局中的position属性的用法，position属性主要有四种属性值，任何元素的默认position的属性值均是static,静态。这节课主要讲讲relative（相对）以及absolute（绝对）。</p>
+    <summary type="html">
+    
+      &lt;p&gt;IE6在4月9日停止更新了，与数日前XP退役引起的唏嘘与争论不同，IE6走得很悄然。我想，这是因为在许多人的电脑里，它早已被搁置了多年，取代它的有Chrome、Opera、Safari、搜狗和360等诸多后辈，老大哥寿终正寝，是历史的必然。&lt;/p&gt;
+&lt;p&gt;可是，IE6真的被完全取代了吗，抱着谨慎的态度，我查询了一些资料：&lt;/p&gt;
+&lt;p&gt;根据NetApplications的数据显示，就在IE6停止更新的4月9日，它在全球的市场占有率是4.4%。对于一款在美国本土的市场占有率只有0.2%的浏览器来说，退休或许是唯一的归宿。但是，令人惊奇的是，IE6在中国的市场占有率竟然是22.2%，这意味着，在其4.4%的全球市场份额中，仅中国大陆就占据了3.4%的份额。&lt;/p&gt;
+&lt;p&gt;再来看看CNZZ的数据，数据显示在中国4月8日PC端浏览器的使用率中，IE以39.05%遥遥领先，其中IE6贡献了其中的10.19%。&lt;/p&gt;
+&lt;p&gt;一句话总结：IE6没死，至少在中国，它活得好好的。&lt;/p&gt;
+&lt;p&gt;一个在全世界范围内行将就木的产品，唯独在中国生机勃勃。这不禁让我们产生一个问题：是什么人还在使用IE6?&lt;br&gt;
+    
+    </summary>
+    
+      <category term="IE6" scheme="http://yoursite.com/categories/IE6/"/>
+    
+    
+      <category term="IE6" scheme="http://yoursite.com/tags/IE6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>css position的正确用法</title>
+    <link href="http://yoursite.com/2014/10/27/title/"/>
+    <id>http://yoursite.com/2014/10/27/title/</id>
+    <published>2014-10-27T09:27:56.000Z</published>
+    <updated>2017-03-05T14:40:12.550Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文向大家描述一下DIV CSS布局中的position属性的用法，position属性主要有四种属性值，任何元素的默认position的属性值均是static,静态。这节课主要讲讲relative（相对）以及absolute（绝对）。</p>
 <blockquote>
 <p><strong>【如何学习DIV+CSS布局之position属性】</strong></p>
 </blockquote>
@@ -1680,22 +1802,24 @@ document.getElementsByTagName()
 </blockquote>
 <p>如果用position来布局页面，父级元素的position属性必须为relative，而定位于父级内部某个位置的元素，最好用absolute，因为它不受父级元素的padding的属性影响，当然你也可以用position，不过到时候计算的时候不要忘记padding的值。</p>
 ]]></content>
-      
-        <categories>
-            
-            <category> css </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> css </tag>
-            
-        </tags>
-        
-    </entry>
     
+    <summary type="html">
+    
+      &lt;p&gt;本文向大家描述一下DIV CSS布局中的position属性的用法，position属性主要有四种属性值，任何元素的默认position的属性值均是static,静态。这节课主要讲讲relative（相对）以及absolute（绝对）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;【如何学习DIV+CSS布局之position属性】&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果用position属性来布局页面，父级元素的position属性必须为relative，而定位于父级内部某个位置的元素，最好用absolute。定位(position)布局页面说容易非常容易，只需要记住这节课最后一句话就可以了，说困难，那是相当的难理解，需要一定的耐心，不过还好，KwooJan给大家总结的已经很通俗易懂了。&lt;/p&gt;
+&lt;p&gt;如果下面的文字实在是无法理解透，那就记住这节课最后总结的一句话“如果用position来布局页面，父级元素的position属性必须为relative，而定位于父级内部某个位置的元素，最好用absolute，因为它不受父级元素的padding的属性影响，当然你也可以用position，不过到时候计算的时候不要忘记padding的值。”&lt;/p&gt;
+&lt;p&gt;任何元素的默认position的属性值均是static,静态。这节课主要讲讲relative（相对）以及absolute（绝对）。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="css" scheme="http://yoursite.com/categories/css/"/>
+    
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+  </entry>
   
-  
-</search>
+</feed>
